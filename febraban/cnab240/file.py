@@ -30,6 +30,6 @@ class File:
         self.trailer.setUserBank(user.bank)
 
     def output(self, fileName):
-        file = FileTools.create(name=fileName, path="/../../")
+        file = FileTools.create(name=fileName, path="/../")
         file.write(self.toString())
         file.close()

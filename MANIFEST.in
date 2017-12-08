@@ -1,0 +1,2 @@
+recursive-include febraban/cnab240 *.py
+prune febraban/cnab240/tests

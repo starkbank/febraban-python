@@ -1,4 +1,3 @@
-
 import re
 from ...characterType import alphaNumeric, numeric
 
