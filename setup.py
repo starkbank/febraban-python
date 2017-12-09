@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name='febraban',
     packages=['febraban'],
-    version='0.1.1',
+    version='0.1.2',
     description='A library to generate files that conform to the FEBRABAN formats',
     author='Hummingbird Product Studio',
     author_email='deromir.neves@hummingbird.com.br',
