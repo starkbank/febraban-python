@@ -8,6 +8,6 @@ setup(
     author='Hummingbird Product Studio',
     author_email='deromir.neves@hummingbird.com.br',
     url='https://github.com/HummingbirdStudio/febraban.git',
-    download_url='https://github.com/HummingbirdStudio/febraban/archive/v0.1.1.tar.gz',
+    download_url='https://github.com/HummingbirdStudio/febraban/archive/v0.1.2.tar.gz',
     keywords=['febraban', 'cnab', 'transfer', 'billing', 'bank']
 )
