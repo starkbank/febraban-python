@@ -1,14 +1,23 @@
-from distutils.core import setup
+import os
+from setuptools import setup, find_packages
 
-version = "0.1.3"
+with open(os.path.join(os.path.dirname(__file__), "README.md")) as readme:
+    README = readme.read()
+
+#Allow setup.py to be run from any path
+os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
+
+version = "0.1.5"
 setup(
     name='febraban',
-    packages=['febraban'],
+    packages=find_packages(),
+    include_package_data=True,
     version=version,
     description='A library to generate files that conform to the FEBRABAN formats',
+    long_description=README,
+    license="MIT License",
     author='Hummingbird Product Studio',
     author_email='deromir.neves@hummingbird.com.br',
     url='https://github.com/HummingbirdStudio/febraban.git',
-    download_url='https://github.com/HummingbirdStudio/febraban/archive/v%s.tar.gz' % version,
-    keywords=['febraban', 'cnab', 'transfer', 'billing', 'bank']
+    keywords=['febraban', 'cnab', 'transfer', 'billing', 'bank', 'cnab240', 'febraban240']
 )
