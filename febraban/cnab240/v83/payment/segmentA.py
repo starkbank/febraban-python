@@ -243,3 +243,6 @@ class SegmentA(Row):
 
     def setInfo(self, reason):
         self.elements[28].setValue(reason)                # Motivo da transferencia
+
+    def setIdentifier(self, identifier):
+        self.elements[14].setValue(identifier)            # Identifier da empresa na transação

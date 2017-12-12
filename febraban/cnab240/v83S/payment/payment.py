@@ -1,17 +1,17 @@
+from .header import Header
+from .segmentA import SegmentA
+from .trailer import Trailer
 
 
-class Payment:
+class PaymentV83:
 
-    def __init__(self, header, segmentA, trailer):
-        self.header = header
-        self.segmentA = segmentA
-        self.trailer = trailer
-
-    def updateTrailer(self):
-        self.trailer.update(segment=self.segmentA)
+    def __init__(self):
+        self.header = Header()
+        self.segmentA = SegmentA()
+        self.trailer = Trailer()
 
     def toString(self):
-        return "%s\r\n%s\r\n%s" % (self.header.toString(), self.segmentA.toString(), self.trailer.toString())
+        return self.header.content + "\r\n" + self.segmentA.content+ "\r\n" + self.trailer.content
 
     def setSender(self, user):
         self.header.setSender(user)
@@ -26,6 +26,7 @@ class Payment:
 
     def setAmountInCents(self, value):
         self.segmentA.setAmountInCents(value)
+        self.trailer.setAmountInCents(value)
 
     def setPositionInLot(self, index):
         self.header.setPositionInLot(index)
