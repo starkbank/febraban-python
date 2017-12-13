@@ -159,7 +159,7 @@ class SegmentQ(Row):
         self.elements[9].setValue(user.name)                                    # Nome do Pagador
 
     def setPayerAddress(self, address):
-        self.elements[11].setValue("%s %s" % (address.streetName, address.number))
+        self.elements[11].setValue("%s %s %s" % (address.streetName, address.number, address.complement))
         self.elements[12].setValue(address.district)
         self.elements[13].setValue(address.zipcode)
         self.elements[14].setValue(address.city)

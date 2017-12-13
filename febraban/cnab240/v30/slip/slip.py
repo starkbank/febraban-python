@@ -39,8 +39,8 @@ class SlipV30:
     def setAmountInCents(self, value):
         self.segmentP.setAmountInCents(value)
 
-    def setExperationDate(self, date):
-        self.segmentP.setExperationDate(date)
+    def setExpirationDate(self, date):
+        self.segmentP.setExpirationDate(date)
 
     def setIssueDate(self, date):
         self.header.setIssueDate(date)

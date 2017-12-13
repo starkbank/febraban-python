@@ -18,6 +18,7 @@ myself = User(
     address=UserAddress(
         streetName="AV PAULISTA",
         number="1000",
+        complement="CJ 601",
         city="SAO PAULO",
         state="SP",
         zipcode="01310000"
@@ -45,7 +46,7 @@ slip.setSender(myself)
 slip.setAmountInCents("2000")
 slip.setPayer(payer)
 slip.setIssueDate("12102017")
-slip.setExperationDate("21112017")
+slip.setExpirationDate("21112017")
 slip.setBankIdentifier(
     identifier="1",
     branch=myself.bank.branchCode,
