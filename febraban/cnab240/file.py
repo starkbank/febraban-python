@@ -29,7 +29,7 @@ class File:
         self.header.setUserBank(user.bank)
         self.trailer.setUserBank(user.bank)
 
-    def output(self, fileName):
-        file = FileTools.create(name=fileName, path="/../")
+    def output(self, fileName, path="/../"):
+        file = FileTools.create(name=fileName, path=path)
         file.write(self.toString())
         file.close()

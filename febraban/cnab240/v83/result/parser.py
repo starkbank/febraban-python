@@ -2,17 +2,18 @@ from .occurrences import occurrences
 
 
 class PaymentResponseStatus:
-    Success = "Success"
-    Failed = "Failed"
-    Scheduled = "Scheduled"
-    Unknown = "Unknown"
+    success = "success"
+    failed = "failed"
+    scheduled = "scheduled"
+    unknown = "unknown"
 
 
 class PaymentResponse:
 
-    def __init__(self, identifier, occurrences):
+    def __init__(self, identifier, occurrences, content):
         self.identifier = identifier
         self.occurrences = occurrences
+        self.content = content
 
     def occurrencesText(self):
         return [occurrences[occurrenceId] for occurrenceId in self.occurrences]
@@ -23,12 +24,15 @@ class PaymentResponse:
 
     def status(self):
         if "00" in self.occurrences:
-            return PaymentResponseStatus.Success
+            return PaymentResponseStatus.success
         if "RJ" in self.occurrences:
-            return PaymentResponseStatus.Failed
+            return PaymentResponseStatus.failed
         if "BD" in self.occurrences:
-            return PaymentResponseStatus.Scheduled
-        return PaymentResponseStatus.Unknown
+            return PaymentResponseStatus.scheduled
+        return PaymentResponseStatus.unknown
+
+    def contentText(self):
+        return "".join(self.content)
 
 
 class PaymentParser:
@@ -39,19 +43,35 @@ class PaymentParser:
         return cls.__parseLines(lines)
 
     @classmethod
-    def parseText(cls, text):
-        lines = text.split("\r\n")[:-1]
+    def parseText(cls, text, lineBreaker="\r\n"):
+        lines = text.split(lineBreaker)[:-1]
         return cls.__parseLines(lines)
 
     @classmethod
     def __parseLines(cls, lines):
         result = []
+        content = []
+        identifier = None
+        occurrences = None
         for line in lines:
-            if line[7] == "3":
+            if line[7] in ["0","9"]:
+                continue
+            elif line[7] == "1":
+                content = [line]
+                identifier = None
+                occurrences = None
+            elif line[7] == "3":
+                content.append(line)
+                identifier = cls.__getIdentifier(line)
+                occurrences = cls.__getOccurrences(line)
+            elif line[7] == "5":
+                content.append(line)
                 result.append(PaymentResponse(
-                    identifier=cls.__getIdentifier(line),
-                    occurrences=cls.__getOccurrences(line)
+                    identifier=identifier,
+                    occurrences=occurrences,
+                    content=content
                 ))
+
         return result
 
     @classmethod

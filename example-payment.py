@@ -48,7 +48,8 @@ payment.setInfo(
     method="41", #TED - Outra titularidade
     reason="10"  #Crédito em Conta Corrente
 )
+payment.setIdentifier("ID1234567890")
 
 file.add(lot=payment)
 
-file.output(fileName="output-payment.REM")
+file.output(fileName="output.REM", path="/../../")
