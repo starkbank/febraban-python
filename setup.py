@@ -7,7 +7,8 @@ with open(os.path.join(os.path.dirname(__file__), "README.md")) as readme:
 #Allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
-version = "0.1.7"
+version = "0.1.8"
+
 setup(
     name='febraban',
     packages=find_packages(),
