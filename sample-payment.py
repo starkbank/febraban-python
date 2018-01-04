@@ -6,7 +6,7 @@ from febraban.cnab240.v83.file.file import FileV83
 from febraban.cnab240.v83.payment.payment import PaymentV83
 
 
-myself = User(
+sender = User(
     name="YOUR COMPANY NAME HERE",
     identifier="12345678901234",
     bank=UserBank(
@@ -36,10 +36,10 @@ receiver = User(
 )
 
 file = FileV83()
-file.setUser(myself)
+file.setUser(sender)
 
 payment = PaymentV83()
-payment.setSender(myself)
+payment.setSender(sender)
 payment.setReceiver(receiver)
 payment.setAmountInCents("12000")
 payment.setScheduleDate("12102017")
