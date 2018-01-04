@@ -189,7 +189,7 @@ class SlipTest(unittest.TestCase):
         firstSlip.setAmountInCents("")
         firstSlip.setPayer(secondUser)
         firstSlip.setIssueDate("")
-        firstSlip.setExperationDate("")
+        firstSlip.setExpirationDate("")
         firstSlip.setBankIdentifier(identifier="", branch=firstUser.bank.branchCode,
                                     accountNumber=firstUser.bank.accountNumber, wallet="")
         secondSlip = SlipV30()
@@ -197,7 +197,7 @@ class SlipTest(unittest.TestCase):
         secondSlip.setAmountInCents("")
         secondSlip.setPayer(secondUser)
         secondSlip.setIssueDate("")
-        secondSlip.setExperationDate("")
+        secondSlip.setExpirationDate("")
         secondSlip.setBankIdentifier(identifier="", branch=firstUser.bank.branchCode,
                                      accountNumber=firstUser.bank.accountNumber, wallet="")
 

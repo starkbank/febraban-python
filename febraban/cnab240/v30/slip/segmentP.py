@@ -299,7 +299,7 @@ class SegmentP(Row):
     def setAmountInCents(self, amount):
         self.elements[22].setValue(amount)                # Valor do Boleto
 
-    def setExperationDate(self, date):
+    def setExpirationDate(self, date):
         self.elements[21].setValue(date)                  # Data de vencimento do boleto
 
     def setIssueDate(self, date):
