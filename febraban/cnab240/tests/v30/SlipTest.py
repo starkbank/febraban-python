@@ -1,16 +1,15 @@
-import unittest
+from unittest.case import TestCase
+from febraban.cnab240.characterType import numeric, alphaNumeric
+from febraban.cnab240.v30.slip.header import Header
+from febraban.cnab240.v30.slip.segmentP import SegmentP
+from febraban.cnab240.v30.slip.segmentQ import SegmentQ
+from febraban.cnab240.v30.slip.trailer import Trailer
+from febraban.cnab240.v30.slip.slip import SlipV30
+from febraban.cnab240.v30.file.file import FileV30
+from febraban.cnab240.user import User, UserAddress, UserBank
 
-from cnab240.characterType import numeric, alphaNumeric
-from cnab240.v30.slip.header import Header
-from cnab240.v30.slip.segmentP import SegmentP
-from cnab240.v30.slip.segmentQ import SegmentQ
-from cnab240.v30.slip.trailer import Trailer
-from cnab240.v30.slip.slip import SlipV30
-from cnab240.v30.file.file import FileV30
-from cnab240.user import User, UserAddress, UserBank
 
-
-class SlipTest(unittest.TestCase):
+class SlipTest(TestCase):
 
     def testHeaderLengh(self):
         string = Header().toString()
@@ -179,10 +178,19 @@ class SlipTest(unittest.TestCase):
         self.assertEquals(rightPositions, currentPositions)
 
     def testMultipleSlipPayments(self):
-        firstUser = User(name="", identifier="", bank=UserBank("", "", "", "", ""),
-                         address=UserAddress("", "", "", "", ""))
-        secondUser = User(name="", identifier="", bank=UserBank("", "", "", "", ""),
-                         address=UserAddress("", "", "", "", ""))
+        firstUser = User(
+            name="",
+            identifier="",
+            bank=UserBank("", "", "", "", ""),
+            address=UserAddress("", "", "", "", "")
+        )
+
+        secondUser = User(
+            name="",
+            identifier="",
+            bank=UserBank("", "", "", "", ""),
+            address=UserAddress("", "", "", "", "")
+        )
 
         firstSlip = SlipV30()
         firstSlip.setSender(firstUser)
@@ -190,16 +198,25 @@ class SlipTest(unittest.TestCase):
         firstSlip.setPayer(secondUser)
         firstSlip.setIssueDate("")
         firstSlip.setExpirationDate("")
-        firstSlip.setBankIdentifier(identifier="", branch=firstUser.bank.branchCode,
-                                    accountNumber=firstUser.bank.accountNumber, wallet="")
+        firstSlip.setBankIdentifier(
+            identifier="",
+            branch=firstUser.bank.branchCode,
+            accountNumber=firstUser.bank.accountNumber,
+            wallet=""
+        )
+
         secondSlip = SlipV30()
         secondSlip.setSender(firstUser)
         secondSlip.setAmountInCents("")
         secondSlip.setPayer(secondUser)
         secondSlip.setIssueDate("")
         secondSlip.setExpirationDate("")
-        secondSlip.setBankIdentifier(identifier="", branch=firstUser.bank.branchCode,
-                                     accountNumber=firstUser.bank.accountNumber, wallet="")
+        secondSlip.setBankIdentifier(
+            identifier="",
+            branch=firstUser.bank.branchCode,
+            accountNumber=firstUser.bank.accountNumber,
+            wallet=""
+        )
 
         file = FileV30()
         file.setUser(firstUser)
@@ -209,6 +226,3 @@ class SlipTest(unittest.TestCase):
         lines = file.toString().split("\r\n")
         self.assertEquals(int(lines[4][23:29]), 1)
         self.assertEquals(int(lines[8][23:29]), 2)
-
-if __name__ == '__main__':
-    unittest.main()

@@ -62,8 +62,8 @@ class PaymentParser:
                 occurrences = None
             elif line[7] == "3":
                 content.append(line)
-                identifier = cls.__getIdentifier(line)
-                occurrences = cls.__getOccurrences(line)
+                identifier = cls._getIdentifier(line)
+                occurrences = cls._getOccurrences(line)
             elif line[7] == "5":
                 content.append(line)
                 result.append(PaymentResponse(
@@ -75,14 +75,14 @@ class PaymentParser:
         return result
 
     @classmethod
-    def __getOccurrences(cls, line):
+    def _getOccurrences(cls, line):
         occurrencesString = line[230:240].replace(" ", "")
-        return cls.__splitString(occurrencesString)
+        return cls._splitString(occurrencesString)
 
     @classmethod
-    def __splitString(cls, string):
+    def _splitString(cls, string):
         return [string[i:i+2] for i in range(0, len(string), 2)]
 
     @classmethod
-    def __getIdentifier(self, line):
+    def _getIdentifier(self, line):
         return line[73:93].replace(" ", "")

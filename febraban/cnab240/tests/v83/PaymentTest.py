@@ -1,13 +1,11 @@
-
-import unittest
-
-from cnab240.row import numeric, alphaNumeric
-from cnab240.v83.payment.header import Header
-from cnab240.v83.payment.segmentA import SegmentA
-from cnab240.v83.payment.trailer import Trailer
+from unittest.case import TestCase
+from febraban.cnab240.row import numeric, alphaNumeric
+from febraban.cnab240.v83.payment.header import Header
+from febraban.cnab240.v83.payment.segmentA import SegmentA
+from febraban.cnab240.v83.payment.trailer import Trailer
 
 
-class PaymentTest(unittest.TestCase):
+class PaymentTest(TestCase):
 
     def testHeaderLengh(self):
         string = Header().toString()
@@ -126,6 +124,3 @@ class PaymentTest(unittest.TestCase):
             (10,  alphaNumeric)
         ]
         self.assertEquals(rightPositions, currentPositions)
-
-if __name__ == '__main__':
-    unittest.main()

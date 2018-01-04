@@ -1,9 +1,8 @@
-import unittest
+from unittest.case import TestCase
+from febraban.cnab240.row import RowElement, numeric, alphaNumeric
 
-from cnab240.row import RowElement, numeric, alphaNumeric
 
-
-class RowTest(unittest.TestCase):
+class RowTest(TestCase):
 
     def testShortNumericValue(self):
         item = RowElement(
@@ -56,7 +55,3 @@ class RowTest(unittest.TestCase):
             charactersType=numeric,
         )
         self.assertRaises(ValueError, item.setValue, "124a#5")
-
-
-if __name__ == '__main__':
-    unittest.main()

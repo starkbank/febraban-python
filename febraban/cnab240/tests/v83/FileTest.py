@@ -1,11 +1,10 @@
-import unittest
+from unittest.case import TestCase
+from febraban.cnab240.row import numeric, alphaNumeric
+from febraban.cnab240.v83.file.header import Header
+from febraban.cnab240.v83.file.trailer import Trailer
 
-from cnab240.row import numeric, alphaNumeric
-from cnab240.v83.file.header import Header
-from cnab240.v83.file.trailer import Trailer
 
-
-class FileTest(unittest.TestCase):
+class FileTest(TestCase):
 
     def testHeaderLengh(self):
         string = Header().toString()
@@ -66,7 +65,3 @@ class FileTest(unittest.TestCase):
             (211, alphaNumeric)
         ]
         self.assertEquals(rightPositions, currentPositions)
-
-
-if __name__ == '__main__':
-    unittest.main()

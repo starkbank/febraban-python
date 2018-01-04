@@ -1,8 +1,7 @@
-
-import unittest
-from cnab240.user import User, UserBank
-from cnab240.v83S.file.header import Header
-from cnab240.v83S.file.trailer import Trailer
+from unittest.case import TestCase
+from febraban.cnab240.user import User, UserBank
+from febraban.cnab240.v83S.file.header import Header
+from febraban.cnab240.v83S.file.trailer import Trailer
 
 
 user = User(
@@ -17,8 +16,7 @@ bank = UserBank(
     accountVerifier="8"
 )
 
-
-class FileTest(unittest.TestCase):
+class FileTest(TestCase):
 
     def testHeaderLengh(self):
         string = Header().content
@@ -50,10 +48,6 @@ class FileTest(unittest.TestCase):
     def testTrailerSets(self):
         trailer = Trailer()
         trailer.setSenderBank(bank)
-        trailer.setNumberOfLotsAndRegisters([1,2,3])
+        trailer.setNumberOfLotsAndRegisters(num=len([1,2,3]))
         response = "34199999         000003000011                                                                                                                                                                                                                   "
         self.assertEquals(trailer.content, response)
-
-
-if __name__ == '__main__':
-    unittest.main()

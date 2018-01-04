@@ -1,9 +1,8 @@
-
-import unittest
-from cnab240.user import User, UserBank, UserAddress
-from cnab240.v83S.payment.header import Header
-from cnab240.v83S.payment.segmentA import SegmentA
-from cnab240.v83S.payment.trailer import Trailer
+from unittest.case import TestCase
+from febraban.cnab240.user import User, UserBank, UserAddress
+from febraban.cnab240.v83S.payment.header import Header
+from febraban.cnab240.v83S.payment.segmentA import SegmentA
+from febraban.cnab240.v83S.payment.trailer import Trailer
 
 
 user = User(
@@ -27,7 +26,7 @@ address = UserAddress(
 )
 
 
-class PaymentTest(unittest.TestCase):
+class PaymentTest(TestCase):
 
     def testHeaderLengh(self):
         string = Header().content
@@ -77,7 +76,7 @@ class PaymentTest(unittest.TestCase):
         segment.setInfo("99")
         response = "3410003300001A00000034101234 000001234567 8JOHN SMITH                                        10122017REA000000000000000000000000044400                    00000000000000000000000                    0000000001234567890199                     "
         self.assertEquals(segment.content, response)
-    #
+
     def testTrailerSets(self):
         trailer = Trailer()
         trailer.setAmountInCents(44400)
@@ -85,6 +84,3 @@ class PaymentTest(unittest.TestCase):
         trailer.setPositionInLot(5)
         response = "34100055         000003000000000000044400000000000000000000                                                                                                                                                                                     "
         self.assertEquals(trailer.content, response)
-
-if __name__ == '__main__':
-    unittest.main()
