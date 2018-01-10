@@ -1,4 +1,5 @@
 from unittest.case import TestCase
+from datetime import datetime
 from febraban.cnab240.characterType import numeric, alphaNumeric
 from febraban.cnab240.v30.slip.header import Header
 from febraban.cnab240.v30.slip.segmentP import SegmentP
@@ -192,12 +193,14 @@ class SlipTest(TestCase):
             address=UserAddress("", "", "", "", "")
         )
 
+        date = datetime.now()
+
         firstSlip = SlipV30()
         firstSlip.setSender(firstUser)
         firstSlip.setAmountInCents("")
         firstSlip.setPayer(secondUser)
-        firstSlip.setIssueDate("")
-        firstSlip.setExpirationDate("")
+        firstSlip.setIssueDate(datetime=date)
+        firstSlip.setExpirationDate(datetime=date)
         firstSlip.setBankIdentifier(
             identifier="",
             branch=firstUser.bank.branchCode,
@@ -209,8 +212,8 @@ class SlipTest(TestCase):
         secondSlip.setSender(firstUser)
         secondSlip.setAmountInCents("")
         secondSlip.setPayer(secondUser)
-        secondSlip.setIssueDate("")
-        secondSlip.setExpirationDate("")
+        secondSlip.setIssueDate(datetime=date)
+        secondSlip.setExpirationDate(datetime=date)
         secondSlip.setBankIdentifier(
             identifier="",
             branch=firstUser.bank.branchCode,
