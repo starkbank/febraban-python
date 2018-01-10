@@ -2,6 +2,7 @@ from .occurrences import occurrences
 
 
 class PaymentResponseStatus:
+
     success = "success"
     failed = "failed"
     scheduled = "scheduled"

@@ -1,4 +1,3 @@
-
 from ...file import File
 from .header import Header
 from .trailer import Trailer

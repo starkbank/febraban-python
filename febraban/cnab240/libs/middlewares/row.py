@@ -1,4 +1,3 @@
-
 import re
 from ...characterType import alphaNumeric, numeric
 
@@ -25,6 +24,7 @@ def validateValue(func):
            raise ValueError("You add a non %s value" % self.charactersType)
        return func(self, value)
    return wrapper
+
 
 def validateFormatter(func):
    def wrapper(self, string, charactersType, numberOfCharacters, defaultCharacter):

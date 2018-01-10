@@ -1,4 +1,4 @@
-from .libs import FileTools
+from .libs.fileTools import FileTools
 
 
 class File:

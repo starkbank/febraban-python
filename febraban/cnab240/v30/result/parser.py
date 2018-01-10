@@ -2,11 +2,12 @@ from .occurrences import occurrences
 
 
 class SlipResponseStatus:
-    Registered = "Registered"
-    Paid = "Paid"
-    Overdue = "Overdue"
-    Failed = "Failed"
-    Unknown = "Unknown"
+
+    registered = "registered"
+    paid = "paid"
+    overdue = "overdue"
+    failed = "failed"
+    unknown = "unknown"
 
 
 class SlipResponse:
@@ -24,12 +25,12 @@ class SlipResponse:
 
     def status(self):
         if "02" in self.occurrences:
-            return SlipResponseStatus.Registered
+            return SlipResponseStatus.registered
         if "03" in self.occurrences:
-            return SlipResponseStatus.Failed
+            return SlipResponseStatus.failed
         if "06" in self.occurrences:
-            return SlipResponseStatus.Paid
-        return SlipResponseStatus.Unknown
+            return SlipResponseStatus.paid
+        return SlipResponseStatus.unknown
 
 
 class SlipParser:
