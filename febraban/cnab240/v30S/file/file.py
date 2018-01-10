@@ -1,0 +1,56 @@
+from datetime import datetime
+from ...libs import FileTools
+from .header import Header
+from .headerLot import HeaderLot
+from .trailer import Trailer
+from .trailerLot import TrailerLot
+
+
+class FileV30:
+
+    def __init__(self):
+        self.header = Header()
+        self.headerLot = HeaderLot()
+        self.registers = []
+        self.trailerLot = TrailerLot()
+        self.trailer = Trailer()
+        self.issueDate = datetime.now()
+        self.amount = 0
+
+    def add(self, register):
+        register.setIssueDate(datetime=self.issueDate)
+        register.setPositionInLot(index=len(self.registers)+1)
+        self.registers.append(register.toString())
+        self.amount += register.amountInCents()
+
+    def toString(self):
+        self.trailer.setNumberOfLotsAndRegisters(num=len(self.registers))
+        self.trailerLot.setNumberOfLotsAndRegisters(num=len(self.registers))
+        self.trailerLot.setSumOfValues(sum=self.amount)
+        lotsToString = "\r\n".join(self.registers)
+        return "%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n" % (
+            self.header.content,
+            self.headerLot.content,
+            lotsToString,
+            self.trailerLot.content,
+            self.trailer.content
+        )
+
+    def setUser(self, user):
+        self.header.setSender(user)
+        self.header.setSenderBank(user.bank)
+        self.headerLot.setSender(user)
+        self.headerLot.setSenderBank(user.bank)
+        self.trailer.setSenderBank(user.bank)
+        self.trailerLot.setSenderBank(user.bank)
+
+    def setIssueDate(self, datetime):
+        issueTime = datetime.strftime("%H%M%S")
+        issueDate = datetime.strftime("%d%m%Y")
+        self.header.setGeneratedFileDate(date=issueDate, time=issueTime)
+        self.headerLot.setGeneratedFileDate(date=issueDate)
+
+    def output(self, fileName, path="/../", content=None):
+        file = FileTools.create(name=fileName, path=path)
+        file.write(self.toString() if not content else content)
+        file.close()

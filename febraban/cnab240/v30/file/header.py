@@ -103,8 +103,7 @@ class Header(Row):
                 index=15,
                 description="NOME POR EXTENSO DO BANCO COBRADOR",
                 numberOfCharacters=30,
-                charactersType=alphaNumeric,
-                value="BANCO ITAU SA"
+                charactersType=alphaNumeric
             ),
             RowElement(
                 index=16,
@@ -142,7 +141,7 @@ class Header(Row):
                 description="N.o DA VERSÃO DO LAYOUT DO ARQUIVO",
                 numberOfCharacters=3,
                 charactersType=numeric,
-                value="030"
+                value="040"
             ),
             RowElement(
                 index=22,

@@ -1,5 +1,6 @@
 # coding: utf-8
 
+from datetime import datetime
 from febraban.cnab240.user import User, UserAddress, UserBank
 from febraban.cnab240.v30.file.file import FileV30
 from febraban.cnab240.v30.slip.slip import SlipV30
@@ -37,6 +38,7 @@ payer = User(
         zipcode="01310000"
     )
 )
+now = datetime.now()
 
 file = FileV30()
 file.setUser(myself)
@@ -45,8 +47,8 @@ slip = SlipV30()
 slip.setSender(myself)
 slip.setAmountInCents("2000")
 slip.setPayer(payer)
-slip.setIssueDate("12102017")
-slip.setExpirationDate("21112017")
+slip.setIssueDate(now)
+slip.setExpirationDate(now)
 slip.setBankIdentifier(
     identifier="1",
     branch=myself.bank.branchCode,

@@ -11,7 +11,7 @@ class PaymentV83:
         self.trailer = Trailer()
 
     def toString(self):
-        return self.header.content + "\r\n" + self.segmentA.content+ "\r\n" + self.trailer.content
+        return self.header.content + "\r\n" + self.segmentA.content + "\r\n" + self.trailer.content
 
     def setSender(self, user):
         self.header.setSender(user)
