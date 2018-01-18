@@ -16,12 +16,14 @@ class FileV30:
         self.trailer = Trailer()
         self.issueDate = datetime.now()
         self.amount = 0
+        self.index = 1
 
     def add(self, register):
         register.setIssueDate(datetime=self.issueDate)
-        register.setPositionInLot(index=len(self.registers)+1)
+        register.setPositionInLot(index=self.index)
         self.registers.append(register.toString())
         self.amount += register.amountInCents()
+        self.index += 2
 
     def toString(self):
         self.trailer.setNumberOfLotsAndRegisters(num=len(self.registers))

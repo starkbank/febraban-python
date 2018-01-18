@@ -13,8 +13,8 @@ class SegmentP:
 
     def defaultValues(self):
         structs = [
+            (  3,   7, 4,      numeric, "1"),
             (  7,   8, 1,      numeric, "3"),
-            (  8,  13, 5,      numeric, "1"),
             ( 13,  14, 1, alphaNumeric, "P"),
             ( 15,  17, 2,      numeric, "01"),
             ( 37,  40, 3,      numeric, "109"),               # Numero da Carteira de Cobranca
@@ -34,7 +34,7 @@ class SegmentP:
 
     def setPositionInLot(self, index):
         structs = [
-            (3, 7, 4, numeric, index)                        # Indica index do lote
+            (8, 13, 5, numeric, index)                        # Indica index do lote
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

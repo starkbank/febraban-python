@@ -17,7 +17,7 @@ class SlipV30:
 
     def setPositionInLot(self, index):
         self.segmentP.setPositionInLot(index)
-        self.segmentQ.setPositionInLot(index)
+        self.segmentQ.setPositionInLot(index+1)
 
     def setSender(self, user):
         self.segmentP.setSenderBank(user.bank)
