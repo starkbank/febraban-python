@@ -1,3 +1,5 @@
+
+
 class User:
 
     def __init__(self, name, identifier, bank=None, address=None):
@@ -19,7 +21,7 @@ class UserBank:
 
 class UserAddress:
 
-    def __init__(self, streetName, number, complement="", city, state, zipcode, district=""):
+    def __init__(self, streetName, number, city, state, zipcode, district="", complement=""):
         self.streetName = streetName
         self.number = number
         self.complement = complement

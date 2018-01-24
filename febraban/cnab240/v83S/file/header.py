@@ -20,7 +20,7 @@ class Header:
 
     def setSender(self, user):
         structs = [
-            (17, 18, 1, numeric, "1" if len(user.identifier) == 11 else "2"),
+            (17,  18,  1,      numeric, "1" if len(user.identifier) == 11 else "2"),
             (18,  32, 14,      numeric, user.identifier),
             (72, 102, 30, alphaNumeric, user.name)
         ]

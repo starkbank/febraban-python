@@ -1,4 +1,3 @@
-
 from .characterType import numeric, alphaNumeric
 from .libs.middlewares.row import validateInit, validateValue
 

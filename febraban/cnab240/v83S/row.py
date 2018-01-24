@@ -1,4 +1,3 @@
-
 from ..libs.middlewares.row import validateFormatter
 from ..characterType import numeric, alphaNumeric
 

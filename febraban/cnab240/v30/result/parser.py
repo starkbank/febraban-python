@@ -2,18 +2,20 @@ from .occurrences import occurrences
 
 
 class SlipResponseStatus:
-    Registered = "Registered"
-    Paid = "Paid"
-    Overdue = "Overdue"
-    Failed = "Failed"
-    Unknown = "Unknown"
+
+    registered = "registered"
+    paid = "paid"
+    overdue = "overdue"
+    failed = "failed"
+    unknown = "unknown"
 
 
 class SlipResponse:
 
-    def __init__(self, identifier, occurrences):
+    def __init__(self, identifier, occurrences, amount):
         self.identifier = identifier
         self.occurrences = occurrences
+        self.amountInCents = amount
 
     def occurrencesText(self):
         return [occurrences[occurrenceId] for occurrenceId in self.occurrences]
@@ -24,12 +26,12 @@ class SlipResponse:
 
     def status(self):
         if "02" in self.occurrences:
-            return SlipResponseStatus.Registered
+            return SlipResponseStatus.registered
         if "03" in self.occurrences:
-            return SlipResponseStatus.Failed
+            return SlipResponseStatus.failed
         if "06" in self.occurrences:
-            return SlipResponseStatus.Paid
-        return SlipResponseStatus.Unknown
+            return SlipResponseStatus.paid
+        return SlipResponseStatus.unknown
 
 
 class SlipParser:
@@ -40,8 +42,8 @@ class SlipParser:
         return cls.__parseLines(lines)
 
     @classmethod
-    def parseText(cls, text):
-        lines = text.split("\r\n")[:-1]
+    def parseText(cls, text, lineBreaker="\r\n"):
+        lines = text.split(lineBreaker)[:-1]
         return cls.__parseLines(lines)
 
     @classmethod
@@ -51,7 +53,8 @@ class SlipParser:
             if line[13] == "T":
                 result.append(SlipResponse(
                     identifier=cls.__getIdentifier(line),
-                    occurrences=cls.__getOccurrences(line)
+                    occurrences=cls.__getOccurrences(line),
+                    amount=cls.__getAmount(line)
                 ))
         return result
 
@@ -61,4 +64,8 @@ class SlipParser:
 
     @classmethod
     def __getIdentifier(self, line):
-        return int(line[40:48])
+        return line[58:68]
+
+    @classmethod
+    def __getAmount(cls, line):
+        return int(line[81:96])

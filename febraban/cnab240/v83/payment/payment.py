@@ -1,4 +1,3 @@
-
 from ...payment import Payment
 from .header import Header
 from .segmentA import SegmentA
