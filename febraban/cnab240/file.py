@@ -24,7 +24,7 @@ class File:
         centerString = "%s\r\n" % lotsToString if lotsToString else ""
         return "%s\r\n%s%s\r\n" % (self.header.toString(), centerString, self.trailer.toString())
 
-    def setUser(self, user):
+    def setSender(self, user):
         self.header.setUser(user)
         self.header.setUserBank(user.bank)
         self.trailer.setUserBank(user.bank)

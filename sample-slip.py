@@ -41,7 +41,7 @@ payer = User(
 now = datetime.now()
 
 file = FileV30()
-file.setUser(myself)
+file.setSender(myself)
 
 slip = SlipV30()
 slip.setSender(myself)
@@ -55,7 +55,7 @@ slip.setBankIdentifier(
     accountNumber=myself.bank.accountNumber,
     wallet="109"
 )
-
-file.add(lot=slip)
+slip.setIdentifier("ID456")
+file.add(register=slip)
 
 file.output(fileName="output.REM")

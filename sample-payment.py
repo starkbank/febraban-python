@@ -36,7 +36,7 @@ receiver = User(
 )
 
 file = FileV83()
-file.setUser(sender)
+file.setSender(sender)
 
 payment = PaymentV83()
 payment.setSender(sender)
@@ -49,7 +49,6 @@ payment.setInfo(
     reason="10"  #Crédito em Conta Corrente
 )
 payment.setIdentifier("ID1234567890")
-
 file.add(lot=payment)
 
 file.output(fileName="output.REM", path="/../../")
