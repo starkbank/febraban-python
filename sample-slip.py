@@ -42,6 +42,7 @@ now = datetime.now()
 
 file = FileV30()
 file.setSender(myself)
+file.setIssueDate(now)
 
 slip = SlipV30()
 slip.setSender(myself)
