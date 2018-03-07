@@ -17,7 +17,7 @@ def validateValue(func):
        if type(value) not in [str, int, type(None)]:
            raise ValueError("Type Value not allowed. Must be String, Integer or None. Used: %s " % str(type(value)))
        regex = {
-           alphaNumeric: r'^[A-Za-z0-9\s]+$',
+           alphaNumeric: r'^[A-Za-z0-9\s\-]+$',
            numeric:      r'^[0-9]+$'
        }[self.charactersType]
        if value and not re.match(regex, str(value)):
@@ -38,7 +38,7 @@ def validateFormatter(func):
            raise ValueError("Type Value not allowed. Must be String. Used: %s " % str(type(string)))
 
        regex = {
-           alphaNumeric: r'^[A-Za-z0-9\s]+$',
+           alphaNumeric: r'^[A-Za-z0-9\s\-]+$',
            numeric:      r'^[0-9]+$'
        }[charactersType]
        if string and not re.match(regex, string):
