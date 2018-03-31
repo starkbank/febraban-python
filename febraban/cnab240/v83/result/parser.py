@@ -86,4 +86,4 @@ class PaymentParser:
 
     @classmethod
     def _getIdentifier(self, line):
-        return line[73:93].replace(" ", "")
+        return line[73:93].strip()
