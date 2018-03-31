@@ -59,4 +59,4 @@ slip.setBankIdentifier(
 slip.setIdentifier("ID456")
 file.add(register=slip)
 
-file.output(fileName="output.REM")
+file.output(fileName="output.REM", path="/../../")
