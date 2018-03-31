@@ -1,7 +1,7 @@
 import os.path
 
 
-class FileTools:
+class FileUtils:
 
     @classmethod
     def create(cls, name, path):

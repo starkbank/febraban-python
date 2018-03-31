@@ -1,5 +1,5 @@
 from datetime import datetime
-from ...libs.fileTools import FileTools
+from ...libs.fileUtils import FileUtils
 from .header import Header
 from .headerLot import HeaderLot
 from .trailer import Trailer
@@ -53,6 +53,6 @@ class FileV30:
         self.headerLot.setGeneratedFileDate(date=issueDate)
 
     def output(self, fileName, path="/../", content=None):
-        file = FileTools.create(name=fileName, path=path)
+        file = FileUtils.create(name=fileName, path=path)
         file.write(self.toString() if not content else content)
         file.close()

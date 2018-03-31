@@ -1,4 +1,4 @@
-from .libs.fileTools import FileTools
+from .libs.fileUtils import FileUtils
 
 
 class File:
@@ -30,6 +30,6 @@ class File:
         self.trailer.setUserBank(user.bank)
 
     def output(self, fileName, path="/../"):
-        file = FileTools.create(name=fileName, path=path)
+        file = FileUtils.create(name=fileName, path=path)
         file.write(self.toString())
         file.close()

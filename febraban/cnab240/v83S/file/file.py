@@ -1,4 +1,4 @@
-from ...libs.fileTools import FileTools
+from ...libs.fileUtils import FileUtils
 from .header import Header
 from .trailer import Trailer
 
@@ -26,6 +26,6 @@ class FileV83:
         self.trailer.setSenderBank(user.bank)
 
     def output(self, fileName, path="/../", content=None):
-        file = FileTools.create(name=fileName, path=path)
+        file = FileUtils.create(name=fileName, path=path)
         file.write(self.toString() if not content else content)
         file.close()
