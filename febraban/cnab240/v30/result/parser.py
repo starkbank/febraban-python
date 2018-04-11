@@ -12,11 +12,11 @@ class SlipResponseStatus:
 
 class SlipResponse:
 
-    def __init__(self, identifier, occurrences, content, amount):
+    def __init__(self, identifier=None, occurrences=None, content=None, amountInCents=None):
         self.identifier = identifier
         self.occurrences = occurrences
-        self.amountInCents = amount
-        self.content = content
+        self.amountInCents = amountInCents
+        self.content = content or []
 
     def occurrencesText(self):
         return [occurrences[occurrenceId] for occurrenceId in self.occurrences]
@@ -43,43 +43,33 @@ class SlipParser:
     @classmethod
     def parseFile(cls, file):
         lines = file.readlines()
-        return cls.__parseLines(lines)
+        return cls._parseLines(lines)
 
     @classmethod
     def parseText(cls, text, lineBreaker="\r\n"):
         lines = text.split(lineBreaker)[:-1]
-        return cls.__parseLines(lines)
+        return cls._parseLines(lines)
 
     @classmethod
-    def __parseLines(cls, lines):
+    def _parseLines(cls, lines):
         result = []
-        content = []
-        identifier = None
-        occurrences = None
-        amount = None
         for line in lines:
-            if line[7] == "3":
-                content.append(line)
+            if line[7] == "1":
+                currentResponse = SlipResponse()
+            elif line[7] == "3":
+                currentResponse.content.append(line)
             if line[13] == "T":
-                amount = int(line[81:96])
-                occurrences = [line[15:17]]
-                identifier = line[58:68].strip()
+                currentResponse.amountInCents = int(line[81:96])
+                currentResponse.occurrences = [line[15:17]]
+                currentResponse.identifier = line[58:68].strip()
             elif line[13] == "U":
-                result.append(SlipResponse(
-                    identifier=identifier,
-                    occurrences=occurrences,
-                    amount=amount,
-                    content=content
-                ))
+                result.append(currentResponse)
+                currentResponse = SlipResponse()
             elif line[13] == "P":
-                amount = int(line[85:100])
-                occurrences = [line[15:17]]
-                identifier = line[62:72].strip()
+                currentResponse.amountInCents = int(line[85:100])
+                currentResponse.occurrences = [line[15:17]]
+                currentResponse.identifier = line[62:72].strip()
             elif line[13] == "Q":
-                result.append(SlipResponse(
-                    identifier=identifier,
-                    occurrences=occurrences,
-                    amount=amount,
-                    content=content
-                ))
+                result.append(currentResponse)
+                currentResponse = SlipResponse()
         return result

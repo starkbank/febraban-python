@@ -11,10 +11,10 @@ class PaymentResponseStatus:
 
 class PaymentResponse:
 
-    def __init__(self, identifier, occurrences, content):
+    def __init__(self, identifier=None, occurrences=None, content=None):
         self.identifier = identifier
         self.occurrences = occurrences
-        self.content = content
+        self.content = content or []
 
     def occurrencesText(self):
         return [occurrences[occurrenceId] for occurrenceId in self.occurrences]
@@ -41,38 +41,29 @@ class PaymentParser:
     @classmethod
     def parseFile(cls, file):
         lines = file.readlines()
-        return cls.__parseLines(lines)
+        return cls._parseLines(lines)
 
     @classmethod
     def parseText(cls, text, lineBreaker="\r\n"):
         lines = text.split(lineBreaker)[:-1]
-        return cls.__parseLines(lines)
+        return cls._parseLines(lines)
 
     @classmethod
-    def __parseLines(cls, lines):
+    def _parseLines(cls, lines):
         result = []
-        content = []
-        identifier = None
-        occurrences = None
         for line in lines:
             if line[7] in ["0","9"]:
                 continue
             elif line[7] == "1":
-                content = [line]
-                identifier = None
-                occurrences = None
+                currentResponse = PaymentResponse(content=[line])
             elif line[7] == "3":
-                content.append(line)
-                identifier = cls._getIdentifier(line)
-                occurrences = cls._getOccurrences(line)
+                currentResponse.content.append(line)
+                currentResponse.identifier = cls._getIdentifier(line)
+                currentResponse.occurrences = cls._getOccurrences(line)
             elif line[7] == "5":
-                content.append(line)
-                result.append(PaymentResponse(
-                    identifier=identifier,
-                    occurrences=occurrences,
-                    content=content
-                ))
-
+                currentResponse.content.append(line)
+                result.append(currentResponse)
+                currentResponse = PaymentResponse()
         return result
 
     @classmethod
