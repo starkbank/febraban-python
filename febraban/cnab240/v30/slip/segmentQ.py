@@ -1,5 +1,5 @@
+from febraban.cnab240.row import Row
 from ...characterType import numeric, alphaNumeric
-from ..row import Row
 
 
 class SegmentQ:

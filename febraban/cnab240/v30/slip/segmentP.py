@@ -1,7 +1,7 @@
 # coding: utf-8
 
 from ...characterType import numeric, alphaNumeric
-from ..row import Row
+from ...row import Row
 
 
 class SegmentP:
