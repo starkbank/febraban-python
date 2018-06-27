@@ -27,10 +27,10 @@ class PaymentResponse:
     def status(self):
         if "00" in self.occurrences:
             return PaymentResponseStatus.success
-        if "RJ" in self.occurrences:
-            return PaymentResponseStatus.failed
         if "BD" in self.occurrences:
             return PaymentResponseStatus.scheduled
+        if [code in self.occurrences for code in ["RJ", "DV"]].count(True) > 0:
+            return PaymentResponseStatus.failed
         return PaymentResponseStatus.unknown
 
     def contentText(self):
@@ -45,8 +45,8 @@ class PaymentParser:
         return cls._parseLines(lines)
 
     @classmethod
-    def parseText(cls, text, lineBreaker="\r\n"):
-        lines = text.split(lineBreaker)[:-1]
+    def parseText(cls, text):
+        lines = text.splitlines()[:-1]
         return cls._parseLines(lines)
 
     @classmethod
@@ -72,7 +72,7 @@ class PaymentParser:
 
     @classmethod
     def _getOccurrences(cls, line):
-        occurrencesString = line[230:240].replace(" ", "")
+        occurrencesString = line[230:240].strip()
         return cls._splitString(occurrencesString)
 
     @classmethod
