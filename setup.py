@@ -11,9 +11,9 @@ setup(
     description="A library to generate files in FEBRABAN formats",
     long_description=README,
     license="MIT License",
-    url='https://github.com/HummingbirdStudio/febraban.git',
-    author="Hummingbird Product Studio",
-    author_email="rafael.castro@hummingbird.com.br",
+    url='https://github.com/starkbank/febraban.git',
+    author="Stark Bank",
+    author_email="rafael@starkbank.com",
     keywords=["febraban", "cnab", "transfer", "billing", "bank", "cnab240", "febraban240"],
-    version = "0.1.14"
+    version = "0.1.15"
 )
