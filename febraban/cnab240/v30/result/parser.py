@@ -46,8 +46,8 @@ class SlipParser:
         return cls._parseLines(lines)
 
     @classmethod
-    def parseText(cls, text, lineBreaker="\r\n"):
-        lines = text.split(lineBreaker)[:-1]
+    def parseText(cls, text):
+        lines = text.splitlines()[:-1]
         return cls._parseLines(lines)
 
     @classmethod
@@ -61,7 +61,7 @@ class SlipParser:
             if line[13] == "T":
                 currentResponse.amountInCents = int(line[81:96])
                 currentResponse.occurrences = [line[15:17]]
-                currentResponse.identifier = line[58:68].strip()
+                currentResponse.identifier = line[105:130].strip()
             elif line[13] == "U":
                 result.append(currentResponse)
                 currentResponse = SlipResponse()

@@ -1,3 +1,5 @@
+# coding: utf-8
+
 from ...characterType import numeric, alphaNumeric
 from ..row import Row
 
@@ -38,12 +40,6 @@ class SegmentP:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
-    def setIdentifier(self, identifier):
-        structs = [
-            (62, 72, 10, alphaNumeric, identifier)           # Codigo interno da empresa. Ex: Num de nota fiscal
-        ]
-        self.content = Row.setStructs(structs=structs, content=self.content)
-
     def setBankIdentifier(self, identifier, dac):
         structs = [
             (40, 48, 8, numeric, identifier),                # Numero dado pelo Banco
@@ -66,5 +62,11 @@ class SegmentP:
     def setIssueDate(self, date):
         structs = [
             (109, 117, 8, numeric, date),                    # Data de emissao do boleto
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def setIdentifier(self, identifier):
+        structs = [
+            (195, 220, 25, alphaNumeric, identifier)           # Id da empresa na transação
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
