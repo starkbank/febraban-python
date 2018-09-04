@@ -14,6 +14,6 @@ setup(
     url='https://github.com/starkbank/febraban.git',
     author="Stark Bank",
     author_email="rafael@starkbank.com",
-    keywords=["febraban", "cnab", "transfer", "billing", "bank", "cnab240", "febraban240"],
-    version = "0.1.19"
+    keywords=["febraban", "cnab", "cnab 240", "cnab240", "febraban240", "transfer", "billing", "bank"],
+    version = "0.1.20"
 )
