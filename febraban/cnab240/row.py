@@ -1,48 +1,24 @@
+from .libs.middlewares.row import validateFormatter
 from .characterType import numeric, alphaNumeric
-from .libs.middlewares.row import validateInit, validateValue
 
 
 class Row:
 
-    def __init__(self):
-        self.elements = []
+    @classmethod
+    def setStructs(cls, structs, content):
+        for (start, end, len, type, value) in structs:
+            replacement = cls.__formatted(
+                string=str(value),
+                charactersType=type,
+                numberOfCharacters=len,
+                defaultCharacter= {numeric:"0", alphaNumeric:" "}[type]
+            )
+            content = content[:start] + replacement + content[start+len:]
+        return content
 
-    def toString(self):
-        return "".join(map(lambda elem: elem.toString(), self.elements))
-
-
-class RowElement:
-
-    @validateInit
-    def __init__(self, description, numberOfCharacters, charactersType, value, index):
-        self.index = index
-        self.description = description
-        self.numberOfCharacters = numberOfCharacters
-        self.charactersType = charactersType
-        self.setValue(value)
-
-    def value(self):
-        return self.__value
-
-    @validateValue
-    def setValue(self, value):
-        self.__value = value
-
-    def toString(self):
-        if self.value() is None:
-            return {
-                numeric:      "0" * self.numberOfCharacters,
-                alphaNumeric: " " * self.numberOfCharacters
-            }[self.charactersType]
-
-        return self.__formatted(
-            string=str(self.value()),
-            charactersType=self.charactersType,
-            numberOfCharacters=self.numberOfCharacters,
-            defaultCharacter= "0" if self.charactersType == numeric else " "
-        )
-
-    def __formatted(self, string, charactersType, numberOfCharacters, defaultCharacter = " "):
+    @classmethod
+    @validateFormatter
+    def __formatted(cls, string, charactersType, numberOfCharacters, defaultCharacter=" "):
         """
             This method fix the received String and a default complement according the alignment
             and cut the string if it' bigger than number of characters

@@ -1,126 +1,86 @@
 from unittest.case import TestCase
-from febraban.cnab240.row import numeric, alphaNumeric
+from febraban.cnab240.user import User, UserBank, UserAddress
 from febraban.cnab240.v83.payment.header import Header
 from febraban.cnab240.v83.payment.segmentA import SegmentA
 from febraban.cnab240.v83.payment.trailer import Trailer
 
 
+user = User(
+    name="JOHN SMITH",
+    identifier="12345678901",
+)
+
+bank = UserBank(
+    bankId="341",
+    branchCode="1234",
+    accountNumber="1234567",
+    accountVerifier="8"
+)
+
+address = UserAddress(
+    streetName="AV PAULISTA",
+    number="1000",
+    city="SAO PAULO",
+    state="SP",
+    zipcode="01310000"
+)
+
+
 class PaymentTest(TestCase):
 
     def testHeaderLengh(self):
-        string = Header().toString()
+        string = Header().content
         self.assertEqual(len(string), 240)
 
     def testSegmentALengh(self):
-        string = SegmentA().toString()
+        string = SegmentA().content
         self.assertEqual(len(string), 240)
 
     def testTrailerLengh(self):
-        string = Trailer().toString()
+        string = Trailer().content
         self.assertEqual(len(string), 240)
 
     def testHeaderDefaultValues(self):
-        elements = Header().elements
-        self.assertEqual(elements[2].value(), "1")
-        self.assertEqual(elements[3].value(), "C")
-        self.assertEqual(elements[6].value(), "040")
+        content = Header().content
+        self.assertEqual(content[7:8], "1")
+        self.assertEqual(content[8:9], "C")
+        self.assertEqual(content[13:16], "040")
 
     def testSegmentADefaultValues(self):
-        elements = SegmentA().elements
-        self.assertEqual(elements[2].value(), "3")
-        self.assertEqual(elements[4].value(), "A")
+        content = SegmentA().content
+        self.assertEqual(content[7:8], "3")
+        self.assertEqual(content[13:14], "A")
 
     def testTrailerDefaultValues(self):
-        elements = Trailer().elements
-        self.assertEqual(elements[2].value(), "5")
+        content = Trailer().content
+        self.assertEqual(content[7:8], "5")
 
-    def testHeaderPositions(self):
-        elements = Header().elements
-        currentPositions = [(e.numberOfCharacters, e.charactersType) for e in elements]
-        rightPositions = [
-            (3,  numeric),
-            (4,  numeric),
-            (1,  numeric),
-            (1,  alphaNumeric),
-            (2,  numeric),
-            (2,  numeric),
-            (3,  numeric),
-            (1,  alphaNumeric),
-            (1,  numeric),
-            (14, numeric),
-            (4,  alphaNumeric),
-            (16, alphaNumeric),
-            (5,  numeric),
-            (1,  alphaNumeric),
-            (12, numeric),
-            (1,  alphaNumeric),
-            (1,  numeric),
-            (30, alphaNumeric),
-            (30, alphaNumeric),
-            (10, alphaNumeric),
-            (30, alphaNumeric),
-            (5,  numeric),
-            (15, alphaNumeric),
-            (20, alphaNumeric),
-            (8,  numeric),
-            (2,  alphaNumeric),
-            (8,  alphaNumeric),
-            (10, alphaNumeric),
-        ]
-        self.assertEquals(rightPositions, currentPositions)
+    def testHeaderSets(self):
+        header = Header()
+        header.setSender(user)
+        header.setSenderBank(bank)
+        header.setSenderAddress(address)
+        header.setPositionInLot(2)
+        header.setInfo(kind="88", method="99")
+        response = "34100021C8899040 100012345678901                    01234 000001234567 8JOHN SMITH                                                            AV PAULISTA                   01000               SAO PAULO           01310000SP                  "
+        self.assertEquals(header.content, response)
 
-    def testSegmentAPositions(self):
-        elements = SegmentA().elements
-        currentPositions = [(e.numberOfCharacters, e.charactersType) for e in elements]
-        rightPositions = [
-            (3,  numeric),
-            (4,  numeric),
-            (1,  numeric),
-            (5,  numeric),
-            (1,  alphaNumeric),
-            (3,  numeric),
-            (3,  numeric),
-            (3,  numeric),
-            (5,  numeric),
-            (1,  alphaNumeric),
-            (12, numeric),
-            (1,  alphaNumeric),
-            (1,  numeric),
-            (30, alphaNumeric),
-            (20, alphaNumeric),
-            (8,  numeric),
-            (3,  alphaNumeric),
-            (8,  numeric),
-            (7,  numeric),
-            (15, numeric),
-            (15, alphaNumeric),
-            (5,  alphaNumeric),
-            (8,  numeric),
-            (15, numeric),
-            (18, alphaNumeric),
-            (2,  alphaNumeric),
-            (6,  numeric),
-            (14, numeric),
-            (2,  alphaNumeric),
-            (5,  alphaNumeric),
-            (5,  alphaNumeric),
-            (1,  alphaNumeric),
-            (10, alphaNumeric),
-        ]
-        self.assertEquals(rightPositions, currentPositions)
+    def testSegmentASets(self):
+        segment = SegmentA()
+        segment.setSenderBank(bank)
+        segment.setReceiver(user)
+        segment.setReceiverBank(bank)
+        segment.setAmountInCents(44400)
+        segment.setPositionInLot(3)
+        segment.setScheduleDate("10122017")
+        segment.setInfo("99")
+        response = "3410003300001A00000034101234 000001234567 8JOHN SMITH                                        10122017REA000000000000000000000000044400                    00000000000000000000000                    0000000001234567890199                     "
+        self.assertEquals(segment.content, response)
 
-    def testTrailerPositions(self):
-        elements = Trailer().elements
-        currentPositions = [(e.numberOfCharacters, e.charactersType) for e in elements]
-        rightPositions = [
-            (3,   numeric),
-            (4,   numeric),
-            (1,   numeric),
-            (9,   alphaNumeric),
-            (6,   numeric),
-            (18,  numeric),
-            (18,  numeric),
-            (171, alphaNumeric),
-            (10,  alphaNumeric)
-        ]
-        self.assertEquals(rightPositions, currentPositions)
+    def testTrailerSets(self):
+        trailer = Trailer()
+        trailer.setAmountInCents(44400)
+        trailer.setSenderBank(bank)
+        trailer.setPositionInLot(5)
+        response = "34100055         000003000000000000044400000000000000000000                                                                                                                                                                                     "
+        self.assertEquals(trailer.content, response)

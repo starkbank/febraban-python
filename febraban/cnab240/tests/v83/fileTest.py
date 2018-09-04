@@ -1,67 +1,53 @@
 from unittest.case import TestCase
-from febraban.cnab240.row import numeric, alphaNumeric
+from febraban.cnab240.user import User, UserBank
 from febraban.cnab240.v83.file.header import Header
 from febraban.cnab240.v83.file.trailer import Trailer
 
 
+user = User(
+    name="JOHN SMITH",
+    identifier="12345678901",
+)
+
+bank = UserBank(
+    bankId="341",
+    branchCode="1234",
+    accountNumber="1234567",
+    accountVerifier="8"
+)
+
 class FileTest(TestCase):
 
     def testHeaderLengh(self):
-        string = Header().toString()
+        string = Header().content
         self.assertEqual(len(string), 240)
 
     def testTrailorLengh(self):
-        string = Trailer().toString()
+        string = Trailer().content
         self.assertEqual(len(string), 240)
 
     def testHeaderDefaultValues(self):
-        elements = Header().elements
-        self.assertEqual(elements[4].value(), "081")
+        content = Header().content
+        self.assertEqual(content[3:7], "0000")
+        self.assertEqual(content[7:8], "0")
+        self.assertEqual(content[14:17], "081")
+        self.assertEqual(content[142:143], "1")
 
     def testTrailerDefaultValues(self):
-        elements = Trailer().elements
-        self.assertEqual(elements[1].value(), "9999")
-        self.assertEqual(elements[2].value(), "9")
+        content = Trailer().content
+        self.assertEqual(content[3:7], "9999")
+        self.assertEqual(content[7:8], "9")
 
-    def testHeaderPositions(self):
-        elements = Header().elements
-        currentPositions = [(e.numberOfCharacters, e.charactersType) for e in elements]
-        rightPositions = [
-            (3,  numeric),
-            (4,  numeric),
-            (1,  numeric),
-            (6,  alphaNumeric),
-            (3,  numeric),
-            (1,  numeric),
-            (14, numeric),
-            (20, alphaNumeric),
-            (5,  numeric),
-            (1,  alphaNumeric),
-            (12, numeric),
-            (1,  alphaNumeric),
-            (1,  numeric),
-            (30, alphaNumeric),
-            (30, alphaNumeric),
-            (10, alphaNumeric),
-            (1,  numeric),
-            (8,  numeric),
-            (6,  numeric),
-            (9,  numeric),
-            (5,  numeric),
-            (69, alphaNumeric)
-        ]
-        self.assertEquals(rightPositions, currentPositions)
+    def testHeaderSets(self):
+        header = Header()
+        header.setSender(user)
+        header.setSenderBank(bank)
+        response = "34100000      081100012345678901                    01234 000001234567 8JOHN SMITH                                                            10312201719400900000000000000                                                                     "
+        self.assertEquals(header.content, response)
 
-    def testTrailerPositions(self):
-        elements = Trailer().elements
-        currentPositions = [(e.numberOfCharacters, e.charactersType) for e in elements]
-        rightPositions = [
-            (3,   numeric),
-            (4,   numeric),
-            (1,   numeric),
-            (9,   alphaNumeric),
-            (6,   numeric),
-            (6,   numeric),
-            (211, alphaNumeric)
-        ]
-        self.assertEquals(rightPositions, currentPositions)
+    def testTrailerSets(self):
+        trailer = Trailer()
+        trailer.setSenderBank(bank)
+        trailer.setNumberOfLotsAndRegisters(num=len([1,2,3]))
+        response = "34199999         000003000011                                                                                                                                                                                                                   "
+        self.assertEquals(trailer.content, response)

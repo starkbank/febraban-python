@@ -1,248 +1,62 @@
-
 # coding: utf-8
 
 from ...characterType import numeric, alphaNumeric
-from ...row import RowElement, Row
+from ...row import Row
 
 
-class SegmentA(Row):
+class SegmentA:
 
     def __init__(self):
-        Row.__init__(self)
-        self.elements = [
-            RowElement(
-                index=0,
-                description="Controle - Banco - Código do Banco na Compensação",
-                numberOfCharacters=3,
-                charactersType=numeric,
-            ),
-            RowElement(
-                index=1,
-                description="Controle - Lote - Lote de Serviço",
-                numberOfCharacters=4,
-                charactersType=numeric,
-            ),
-            RowElement(
-                index=2,
-                description="Controle - Registro detalhe de Lote",
-                numberOfCharacters=1,
-                charactersType=numeric,
-                value="3"
-            ),
-            RowElement(
-                index=3,
-                description="Serviço - No Seqüencial do Registro no Lote",
-                numberOfCharacters=5,
-                charactersType=numeric,
-                value="1"
-            ),
-            RowElement(
-                index=4,
-                description="Serviço - Código de Segmento do Reg. Detalhe",
-                numberOfCharacters=1,
-                charactersType=alphaNumeric,
-                value="A"
-            ),
-            RowElement(
-                index=5,
-                description="Serviço - Tipo de Movimento",
-                numberOfCharacters=3,
-                charactersType=numeric,
-            ),
-            RowElement(
-                index=6,
-                description="Favorecido - Código da Câmara Centralizadora",
-                numberOfCharacters=3,
-                charactersType=numeric,
-            ),
-            RowElement(
-                index=7,
-                description="Favorecido - Código do Banco do Favorecido",
-                numberOfCharacters=3,
-                charactersType=numeric,
-            ),
-            #Note 11 - Start
-            RowElement(
-                index=8,
-                description="Número de Agência Conta Creditada",
-                numberOfCharacters=5,
-                charactersType=numeric,
-            ),
-            RowElement(
-                index=9,
-                description="Complemento de Registro",
-                numberOfCharacters=1,
-                charactersType=alphaNumeric,
-            ),
-            RowElement(
-                index=10,
-                description="Número de Conta Corrente Credita",
-                numberOfCharacters=12,
-                charactersType=numeric,
-            ),
-            RowElement(
-                index=11,
-                description="Complemento de Registro",
-                numberOfCharacters=1,
-                charactersType=alphaNumeric,
-            ),
-            RowElement(
-                index=12,
-                description="DAC - Agencia cretitada",
-                numberOfCharacters=1,
-                charactersType=numeric,
-            ),
-            #Note 11 - End
-            RowElement(
-                index=13,
-                description="Favorecido - Nome do Favorecido",
-                numberOfCharacters=30,
-                charactersType=alphaNumeric,
-            ),
-            RowElement(
-                index=14,
-                description="Crédito - No do Docum. Atribuído p/ Empresa",
-                numberOfCharacters=20,
-                charactersType=alphaNumeric,
-            ),
-            RowElement(
-                index=15,
-                description="Crédito - Data prevista para Pagamento",
-                numberOfCharacters=8,
-                charactersType=numeric,
-            ),
-            RowElement(
-                index=16,
-                description="Crédito - Tipo da Moeda",
-                numberOfCharacters=3,
-                charactersType=alphaNumeric,
-                value="REA" #REA ou 009
-            ),
-            RowElement(
-                index=17,
-                description="Crédito - Código ISPB - Identificação da Instituição para o SPB",
-                numberOfCharacters=8,
-                charactersType=numeric,
-            ),
-            RowElement(
-                index=18,
-                description="Crédito - Complemento de Registro",
-                numberOfCharacters=7,
-                charactersType=numeric,
-            ),
-            RowElement(
-                index=19,
-                description="Crédito - Valor do Pagamento",
-                numberOfCharacters=15,
-                charactersType=numeric,
-            ),
-            RowElement(
-                index=20,
-                description="Crédito - No do Docum. Atribuído pelo Banco",
-                numberOfCharacters=15,
-                charactersType=alphaNumeric
-            ),
-            RowElement(
-                index=21,
-                description="Crédito - Complemente de Registro",
-                numberOfCharacters=5,
-                charactersType=alphaNumeric
-            ),
-            RowElement(
-                index=22,
-                description="Crédito - Data Real da Efetivação Pagto",
-                numberOfCharacters=8,
-                charactersType=numeric,
-            ),
-            RowElement(
-                index=23,
-                description="Crédito - Valor Real da Efetivação do Pagto",
-                numberOfCharacters=15,
-                charactersType=numeric,
-            ),
-            RowElement(
-                index=24,
-                description="Finalidade Detalhe - Informação Complementar para Hist de C/C",
-                numberOfCharacters=18,
-                charactersType=alphaNumeric,
-            ),
-            RowElement(
-                index=25,
-                description="Complemento de Registro",
-                numberOfCharacters=2,
-                charactersType=alphaNumeric,
-            ),
-            RowElement(
-                index=26,
-                description="N0 do DOC/TED/OP no Retorno",
-                numberOfCharacters=6,
-                charactersType=numeric,
-            ),
-            RowElement(
-                index=27,
-                description="No de Inscrição do Favorecido (CPF)/CNPJ",
-                numberOfCharacters=14,
-                charactersType=numeric,
-            ),
-            RowElement(
-                index=28,
-                description="Finalidade do DOC e Status do funcionario na Empresa",
-                numberOfCharacters=2,
-                charactersType=alphaNumeric,
-            ),
-            RowElement(
-                index=29,
-                description="Finalidade da TED",
-                numberOfCharacters=5,
-                charactersType=alphaNumeric,
-            ),
-            RowElement(
-                index=30,
-                description="Complemento de Registro",
-                numberOfCharacters=5,
-                charactersType=alphaNumeric,
-            ),
-            RowElement(
-                index=31,
-                description="Aviso ao favorecido",
-                numberOfCharacters=1,
-                charactersType=alphaNumeric,
-            ),
-            RowElement(
-                index=32,
-                description="Ocorrências - Códigos das Ocorrências p/ Retorno",
-                numberOfCharacters=10,
-                charactersType=alphaNumeric,
-            )
-        ]
-
-    def amountInCents(self):
-        return self.elements[19].value()
+        self.content = "0000000300001A00000000000000 000000000000 0                                                  00000000REA000000000000000000000000000000                    00000000000000000000000                    00000000000000000000                       "
 
     def setSenderBank(self, bank):
-        self.elements[0].setValue(bank.bankId)       # Código do banco debitado
+        structs = [
+            (0,   3,  3, numeric, bank.bankId),              # Código do banco debitado
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
 
     def setReceiver(self, user):
-        self.elements[13].setValue(user.name)             # Nome FAvorecido
-        self.elements[27].setValue(user.identifier)       # CPF/CNPJ Favorecido
+        structs = [
+            ( 43,  73, 30,  alphaNumeric, user.name),        # Nome FAvorecido
+            (203, 217, 14,       numeric, user.identifier),  # CPF/CNPJ Favorecido
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
 
     def setReceiverBank(self, bank):
-        self.elements[7].setValue(bank.bankId)            # Código do banco do Favorecido
-        self.elements[8].setValue(bank.branchCode)        # Agencia Favorecido
-        self.elements[10].setValue(bank.accountNumber)    # Conta Favorecido
-        self.elements[12].setValue(bank.accountVerifier)  # DAC FAvorecido
+        structs = [
+            (20, 23,  3,  numeric, bank.bankId),             # Código do banco do Favorecido
+            (23, 28,  5,  numeric, bank.branchCode),         # Agencia Favorecido
+            (29, 41, 12,  numeric, bank.accountNumber),      # Conta Favorecido
+            (42, 43,  1,  numeric, bank.accountVerifier),    # DAC FAvorecido
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
 
     def setAmountInCents(self, amount):
-        self.elements[19].setValue(amount)                # Valor ao Favorecido
+        structs = [
+            (119, 134, 15, numeric, amount)                  # Valor ao Favorecido
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
 
     def setPositionInLot(self, index):
-        self.elements[1].setValue(index)                  # Indica index do lote
+        structs = [
+            (3, 7, 4, numeric, index)                        # Indica index do lote
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
 
     def setScheduleDate(self, date):
-        self.elements[15].setValue(date)                  # Data para transferencia
+        structs = [
+            (93, 101, 8, numeric, date)                      # Data para transferencia
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
 
     def setInfo(self, reason):
-        self.elements[28].setValue(reason)                # Motivo da transferencia
+        structs = [
+            (217, 219, 2, alphaNumeric, reason)              # Motivo da transferencia
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
 
     def setIdentifier(self, identifier):
-        self.elements[14].setValue(identifier)            # Identifier da empresa na transação
+        structs = [
+            (73, 93, 20, alphaNumeric, identifier)           # Id da empresa na transação
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)

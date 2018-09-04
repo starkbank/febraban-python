@@ -1,7 +1,7 @@
 # coding: utf-8
 
 from ...characterType import numeric, alphaNumeric
-from ..row import Row
+from ...row import Row
 
 
 class SegmentP:
@@ -22,6 +22,8 @@ class SegmentP:
             ( 37,  40, 3,      numeric, "109"),               # Numero da Carteira de Cobranca
             (106, 108, 2,      numeric, "99"),                # Especie do Titulo: 99 = Real
             (108, 109, 1, alphaNumeric, "A"),                 # Aceite: A = Sim, N = Nao
+            (223, 224, 1,      numeric, "1"),                 # 0 - Não baixe boletos, 1 - Baixe boletos após x dias do vencimento
+            (224, 226, 2,      numeric, "59"),                # Quantidade de dias após o vencimento para baixa automática
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
