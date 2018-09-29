@@ -28,11 +28,10 @@ class Header:
 
     def setSenderAddress(self, address):
         structs = [
-            (142, 172, 30, alphaNumeric, address.streetName),
-            (172, 177,  5,      numeric, address.number),
+            (142, 192, 50, alphaNumeric, "%s %s %s" % (address.streetLine1, address.streetLine2, address.district)),
             (192, 212, 20, alphaNumeric, address.city),
-            (212, 220,  8,      numeric, address.zipcode),
-            (220, 222,  2, alphaNumeric, address.state),
+            (212, 220,  8,      numeric, address.zipCode),
+            (220, 222,  2, alphaNumeric, address.stateCode),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

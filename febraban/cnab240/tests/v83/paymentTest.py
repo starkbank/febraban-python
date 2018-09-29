@@ -18,11 +18,10 @@ bank = UserBank(
 )
 
 address = UserAddress(
-    streetName="AV PAULISTA",
-    number="1000",
+    streetLine1="AV PAULISTA 1000",
     city="SAO PAULO",
-    state="SP",
-    zipcode="01310000"
+    stateCode="SP",
+    zipCode="01310000"
 )
 
 
@@ -62,7 +61,7 @@ class PaymentTest(TestCase):
         header.setSenderAddress(address)
         header.setPositionInLot(2)
         header.setInfo(kind="88", method="99")
-        response = "34100021C8899040 100012345678901                    01234 000001234567 8JOHN SMITH                                                            AV PAULISTA                   01000               SAO PAULO           01310000SP                  "
+        response = "34100021C8899040 100012345678901                    01234 000001234567 8JOHN SMITH                                                            AV PAULISTA 1000                                  SAO PAULO           01310000SP                  "
         self.assertEquals(header.content, response)
 
     def testSegmentASets(self):

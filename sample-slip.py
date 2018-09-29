@@ -17,12 +17,11 @@ myself = User(
         bankName="BANCO ITAU SA"
     ),
     address=UserAddress(
-        streetName="AV PAULISTA",
-        number="1000",
-        complement="CJ 601",
+        streetLine1="AV PAULISTA 1000",
+        streetLine2="CJ 601",
         city="SAO PAULO",
-        state="SP",
-        zipcode="01310000"
+        stateCode="SP",
+        zipCode="01310000"
     )
 )
 
@@ -30,12 +29,11 @@ payer = User(
     name="PAYER NAME",
     identifier="12345678901",
     address=UserAddress(
-        streetName="AV PAULISTA",
-        number="1000",
+        streetLine1="AV PAULISTA 1000",
         district="BELA VISTA",
         city="SAO PAULO",
-        state="SP",
-        zipcode="01310000"
+        stateCode="SP",
+        zipCode="01310000"
     )
 )
 now = datetime.now()

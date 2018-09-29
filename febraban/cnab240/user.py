@@ -21,11 +21,10 @@ class UserBank:
 
 class UserAddress:
 
-    def __init__(self, streetName, number, city, state, zipcode, district="", complement=""):
-        self.streetName = streetName
-        self.number = number
-        self.complement = complement
+    def __init__(self, streetLine1, city, stateCode, zipCode, district="", streetLine2=""):
+        self.streetLine1 = streetLine1
+        self.streetLine2 = streetLine2
         self.district = district
         self.city = city
-        self.state = state
-        self.zipcode = zipcode
+        self.stateCode = stateCode
+        self.zipCode = zipCode

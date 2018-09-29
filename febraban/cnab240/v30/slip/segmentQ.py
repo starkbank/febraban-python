@@ -39,10 +39,10 @@ class SegmentQ:
 
     def setPayerAddress(self, address):
         structs = [
-            ( 73, 113, 40, alphaNumeric, "%s %s %s" % (address.streetName, address.number, address.complement)),
+            ( 73, 113, 40, alphaNumeric, "%s %s" % (address.streetLine1, address.streetLine2)),
             (113, 128, 15, alphaNumeric, address.district),
-            (128, 136,  8,      numeric, address.zipcode),
+            (128, 136,  8,      numeric, address.zipCode),
             (136, 151, 15, alphaNumeric, address.city),
-            (151, 153,  2, alphaNumeric, address.state),
+            (151, 153,  2, alphaNumeric, address.stateCode),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)

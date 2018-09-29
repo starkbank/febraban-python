@@ -16,11 +16,10 @@ bank = UserBank(
 )
 
 address = UserAddress(
-    streetName="AV PAULISTA",
-    number="1000",
+    streetLine1="AV PAULISTA 1000",
     city="SAO PAULO",
-    state="SP",
-    zipcode="01310000"
+    stateCode="SP",
+    zipCode="01310000"
 )
 
 
@@ -49,5 +48,5 @@ class SegmentPTest(TestCase):
         segment.setIssueDate("01012018")
         segment.setBankIdentifier(identifier="99999", dac="7")
         segment.setIdentifier("DEROMIR")
-        response = "3410001300001P 0101234 000001234567 8109000999997        00000DEROMIR        0102201800000000004440000000099A01012018000000000000000000000000000000000000000000000000000000000000000000000000000000                         0000000000000000000 "
+        response = "3410001300001P 0101234 000001234567 8109000999997        00000               0102201800000000004440000000099A01012018000000000000000000000000000000000000000000000000000000000000000000000000000000DEROMIR                  0001590000000000000 "
         self.assertEquals(segment.content, response)

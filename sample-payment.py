@@ -16,11 +16,10 @@ sender = User(
         accountVerifier="9"
     ),
     address=UserAddress(
-        streetName="AV PAULISTA",
-        number="1000",
+        streetLine1="AV PAULISTA 1000",
         city="SAO PAULO",
-        state="SP",
-        zipcode="01310000"
+        stateCode="SP",
+        zipCode="01310000"
     )
 )
 
