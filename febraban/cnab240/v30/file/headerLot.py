@@ -18,10 +18,10 @@ class HeaderLot:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
-    def setGeneratedFileDate(self, date):
+    def setGeneratedFileDate(self, datetime):
         structs = [
-            (191, 199, 8, numeric, date),   # Data de gravacao
-            (199, 207, 8, numeric, date),   # Data de credito
+            (191, 199, 8, numeric, datetime.strftime("%d%m%Y")),   # Data de gravacao
+            (199, 207, 8, numeric, datetime.strftime("%d%m%Y")),   # Data de credito
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

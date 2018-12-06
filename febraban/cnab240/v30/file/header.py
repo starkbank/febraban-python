@@ -15,10 +15,10 @@ class Header:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
-    def setGeneratedFileDate(self, date, time):
+    def setGeneratedFileDate(self, datetime):
         structs = [
-            (143, 151, 8, numeric, date),   # Dia que o arquivo foi gerado
-            (151, 157, 6, numeric, time),   # Horario que o arquivo foi gerado
+            (143, 151, 8, numeric, datetime.strftime("%d%m%Y")),   # Dia que o arquivo foi gerado
+            (151, 157, 6, numeric, datetime.strftime("%H%M%S")),   # Horario que o arquivo foi gerado
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
