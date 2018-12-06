@@ -27,6 +27,9 @@ class SlipV30:
         self.segmentQ.setPayer(user)
         self.segmentQ.setPayerAddress(user.address)
 
+    def setGuarantor(self, user):
+        self.segmentQ.setGuarantor(user)
+
     def setAmountInCents(self, value):
         self.segmentP.setAmountInCents(value)
 

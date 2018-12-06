@@ -3,9 +3,14 @@ from febraban.cnab240.user import User, UserBank, UserAddress
 from febraban.cnab240.v30.slip.segmentQ import SegmentQ
 
 
-user = User(
+payer = User(
     name="JOHN SMITH",
     identifier="12345678901",
+)
+
+guarantor = User(
+    name="JON SNOW",
+    identifier="09876543210"
 )
 
 bank = UserBank(
@@ -40,7 +45,8 @@ class SegmentQTest(TestCase):
         segment = SegmentQ()
         segment.setPositionInLot(1)
         segment.setSenderBank(bank)
-        segment.setPayer(user)
+        segment.setPayer(payer)
         segment.setPayerAddress(address)
-        response = "3410001300001Q 011000012345678901JOHN SMITH                              AV PAULISTA 1000                                       01310000SAO PAULO      SP0000000000000000                                        000                            "
+        segment.setGuarantor(guarantor)
+        response = "3410001300001Q 011000012345678901JOHN SMITH                              AV PAULISTA 1000                                       01310000SAO PAULO      SP1000009876543210JON SNOW                                000                            "
         self.assertEquals(segment.content, response)

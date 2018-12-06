@@ -46,3 +46,11 @@ class SegmentQ:
             (151, 153,  2, alphaNumeric, address.stateCode),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def setGuarantor(self, user):
+        structs = [
+            (153, 154,  1,      numeric, "1" if len(user.identifier) == 11 else "2"), # 1 - CPF/ 2 - CNPJ
+            (154, 169, 15,      numeric, user.identifier),                            # CPF/CNPJ do Sacador Avalista
+            (169, 199, 30, alphaNumeric, user.name)                                   # Nome do Sacador Avalista
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
