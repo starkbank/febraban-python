@@ -1,7 +1,7 @@
 from unittest.case import TestCase
+from febraban.cnab240.itau.transferV83.file.trailer import Trailer
+from febraban.cnab240.itau.transferV83.file.header import Header
 from febraban.cnab240.user import User, UserBank
-from febraban.cnab240.v83.file.header import Header
-from febraban.cnab240.v83.file.trailer import Trailer
 
 
 user = User(

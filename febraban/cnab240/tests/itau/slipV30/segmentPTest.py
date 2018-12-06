@@ -1,6 +1,6 @@
 from unittest.case import TestCase
+from febraban.cnab240.itau.slipV30.slip.segmentP import SegmentP
 from febraban.cnab240.user import User, UserBank, UserAddress
-from febraban.cnab240.v30.slip.segmentP import SegmentP
 
 
 user = User(

@@ -1,9 +1,8 @@
 
 # coding: utf-8
 
+from febraban.cnab240.itau.transferV83 import PaymentV83, FileV83
 from febraban.cnab240.user import User, UserAddress, UserBank
-from febraban.cnab240.v83.file.file import FileV83
-from febraban.cnab240.v83.payment.payment import PaymentV83
 
 
 sender = User(

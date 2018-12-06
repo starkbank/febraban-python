@@ -1,9 +1,8 @@
 # coding: utf-8
 
 from datetime import datetime
+from febraban.cnab240.itau.slipV30 import SlipV30, FileV30
 from febraban.cnab240.user import User, UserAddress, UserBank
-from febraban.cnab240.v30.file.file import FileV30
-from febraban.cnab240.v30.slip.slip import SlipV30
 
 
 myself = User(

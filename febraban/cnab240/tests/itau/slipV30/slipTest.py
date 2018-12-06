@@ -1,5 +1,5 @@
 from unittest.case import TestCase
-from febraban.cnab240.v30.slip.slip import SlipV30
+from febraban.cnab240.itau.slipV30.slip.slip import SlipV30
 
 
 class SlipTest(TestCase):

@@ -1,4 +1,4 @@
-from ...libs.dac import DAC
+from ....libs.dac import DAC
 from .segmentP import SegmentP
 from .segmentQ import SegmentQ
 

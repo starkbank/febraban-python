@@ -1,5 +1,5 @@
-from ...row import Row
-from ...characterType import numeric, alphaNumeric
+from ....row import Row
+from ....characterType import numeric, alphaNumeric
 
 
 class Header:

@@ -1,4 +1,5 @@
-from febraban.cnab240.v83.result.parser import PaymentParser
+from febraban.cnab240.itau.transferV83 import PaymentParser
+
 
 file = open("SB25058A.RET", "r")
 

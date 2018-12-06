@@ -1,6 +1,6 @@
 from unittest.case import TestCase
+from febraban.cnab240.itau.slipV30.slip.segmentQ import SegmentQ
 from febraban.cnab240.user import User, UserBank, UserAddress
-from febraban.cnab240.v30.slip.segmentQ import SegmentQ
 
 
 payer = User(

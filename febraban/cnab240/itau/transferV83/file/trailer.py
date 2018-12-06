@@ -1,7 +1,7 @@
 # coding: utf-8
 
-from ...row import Row
-from ...characterType import numeric
+from ....row import Row
+from ....characterType import numeric
 
 
 class Trailer:

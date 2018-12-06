@@ -1,4 +1,4 @@
-from febraban.cnab240.v30.result.parser import SlipParser
+from febraban.cnab240.itau.slipV30 import SlipParser
 
 file = open("output.RET", "r")
 
