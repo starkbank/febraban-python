@@ -1,3 +1,4 @@
+from datetime import datetime
 from ...libs.fileUtils import FileUtils
 from .header import Header
 from .trailer import Trailer
@@ -14,8 +15,8 @@ class FileV83:
         lot.setPositionInLot(index=len(self.lots)+1)
         self.lots.append(lot.toString())
 
-    def toString(self):
-        self.header.setGeneratedFileDate()
+    def toString(self, currentDatetime=None):
+        self.header.setGeneratedFileDate(currentDatetime or datetime.now())
         self.trailer.setNumberOfLotsAndRegisters(num=len(self.lots))
         lotsToString = "\r\n".join(self.lots)
         return "%s\r\n%s\r\n%s\r\n" % (self.header.content, lotsToString, self.trailer.content)
@@ -25,7 +26,7 @@ class FileV83:
         self.header.setSenderBank(user.bank)
         self.trailer.setSenderBank(user.bank)
 
-    def output(self, fileName, path="/../", content=None):
+    def output(self, fileName, path="/../", content=None, currentDatetime=None):
         file = FileUtils.create(name=fileName, path=path)
-        file.write(self.toString() if not content else content)
+        file.write(self.toString(currentDatetime or datetime.now()) if not content else content)
         file.close()

@@ -9,12 +9,10 @@ class Header:
     def __init__(self):
         self.content = "00000000      081000000000000000                    00000 000000000000 0                                                                      10312201719400900000000000000                                                                     "
 
-    def setGeneratedFileDate(self):
-        import datetime
-        now = datetime.datetime.now()
+    def setGeneratedFileDate(self, datetime):
         structs = [
-            (143, 151, 8, numeric, now.strftime("%d%m%Y")),   # Dia que o arquivo foi gerado
-            (151, 157, 6, numeric, now.strftime("%H%M%S")),   # Horario que o arquivo foi gerado
+            (143, 151, 8, numeric, datetime.strftime("%d%m%Y")),   # Dia que o arquivo foi gerado
+            (151, 157, 6, numeric, datetime.strftime("%H%M%S")),   # Horario que o arquivo foi gerado
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

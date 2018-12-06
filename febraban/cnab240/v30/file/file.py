@@ -47,10 +47,9 @@ class FileV30:
         self.trailerLot.setSenderBank(sender.bank)
 
     def setIssueDate(self, datetime):
-        issueTime = datetime.strftime("%H%M%S")
-        issueDate = datetime.strftime("%d%m%Y")
-        self.header.setGeneratedFileDate(date=issueDate, time=issueTime)
-        self.headerLot.setGeneratedFileDate(date=issueDate)
+        self.issueDate = datetime
+        self.header.setGeneratedFileDate(datetime)
+        self.headerLot.setGeneratedFileDate(datetime)
 
     def output(self, fileName, path="/../", content=None):
         file = FileUtils.create(name=fileName, path=path)
