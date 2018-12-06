@@ -1,4 +1,4 @@
-from febraban.cnab240.row import Row
+from ...row import Row
 from ...characterType import numeric, alphaNumeric
 
 
