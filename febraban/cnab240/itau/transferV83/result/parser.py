@@ -33,8 +33,8 @@ class PaymentResponse:
             return PaymentResponseStatus.failed
         return PaymentResponseStatus.unknown
 
-    def contentText(self):
-        return "".join(self.content)
+    def contentText(self, breakLine="\n"):
+        return breakLine.join(self.content)
 
 
 class PaymentParser:

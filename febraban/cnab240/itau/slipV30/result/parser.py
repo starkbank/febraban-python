@@ -34,8 +34,8 @@ class SlipResponse:
             return SlipResponseStatus.paid
         return SlipResponseStatus.unknown
 
-    def contentText(self):
-        return "".join(self.content)
+    def contentText(self, breakLine="\n"):
+        return breakLine.join(self.content)
 
 
 class SlipParser:
