@@ -1,7 +1,7 @@
-import os
+from os import path
 from setuptools import setup, find_packages
 
-with open(os.path.join(os.path.dirname(__file__), "README.srt")) as readme:
+with open(path.join(path.dirname(__file__), "README.srt")) as readme:
     README = readme.read()
 
 setup(
@@ -15,5 +15,47 @@ setup(
     author="Stark Bank",
     author_email="developers@starkbank.com",
     keywords=["febraban", "cnab", "cnab 240", "cnab240", "febraban240", "transfer", "billing", "bank"],
-    version = "0.1.21"
+    version = "0.2"
 )
+
+"""
+Deployment instructions
+-----------------------
+
+Global
+~~~~~~
+
+Before deployment, change the project *version* on ``setup.py`` file and
+set the correct *download*\ url\_. Then make sure you have the file
+``~/.pypirc`` with the content below and the correct credentials instead
+of the provided placeholders:
+
+::
+
+    [distutils]
+    index-servers =
+        pypi
+        pypitest
+
+    [pypi]
+    repository:https://upload.pypi.org/legacy/
+    username:myusername
+    password:mypassword
+
+    [pypitest]
+    repository:https://test.pypi.org/legacy/
+    username:myusername
+    password:mypassword
+
+Test environment
+~~~~~~~~~~~~~~~~
+
+Run ``python setup.py sdist upload -r pypitest`` inside the project
+directory.
+
+Live environment
+~~~~~~~~~~~~~~~~
+
+Run ``python setup.py sdist upload -r pypi`` inside the project
+directory.
+"""
