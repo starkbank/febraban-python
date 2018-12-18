@@ -15,7 +15,7 @@ setup(
     author="Stark Bank",
     author_email="developers@starkbank.com",
     keywords=["febraban", "cnab", "cnab 240", "cnab240", "febraban240", "transfer", "billing", "bank"],
-    version = "0.2.1"
+    version = "0.2.2"
 )
 
 """
@@ -47,15 +47,20 @@ of the provided placeholders:
     username:myusername
     password:mypassword
 
-Test environment
-~~~~~~~~~~~~~~~~
-
-Run ``python setup.py sdist upload -r pypitest`` inside the project
-directory.
 
 Live environment
 ~~~~~~~~~~~~~~~~
 
-Run ``python setup.py sdist upload -r pypi`` inside the project
-directory.
+For unit test:
+
+```
+python -m unittest discover -s febraban/cnab240/tests -p '*Test.py'
+```
+
+For release a new version:
+
+```
+python setup.py sdist upload -r pypi`` inside the project
+```
+
 """
