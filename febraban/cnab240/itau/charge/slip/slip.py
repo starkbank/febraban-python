@@ -3,7 +3,7 @@ from .segmentP import SegmentP
 from .segmentQ import SegmentQ
 
 
-class SlipV30:
+class Slip:
 
     def __init__(self):
         self.segmentP=SegmentP()

@@ -6,7 +6,7 @@ from .trailer import Trailer
 from .trailerLot import TrailerLot
 
 
-class FileV30:
+class File:
 
     def __init__(self):
         self.header = Header()

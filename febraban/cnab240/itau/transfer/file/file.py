@@ -4,7 +4,7 @@ from .header import Header
 from .trailer import Trailer
 
 
-class FileV83:
+class File:
 
     def __init__(self):
         self.header = Header()

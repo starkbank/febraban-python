@@ -11,11 +11,12 @@ class PaymentResponseStatus:
 
 class PaymentResponse:
 
-    def __init__(self, identifier=None, occurrences=None, content=None, authentication=None):
+    def __init__(self, identifier=None, occurrences=None, content=None, authentication=None, amountInCents=None):
         self.identifier = identifier
         self.occurrences = occurrences
         self.content = content or []
         self.authentication = authentication
+        self.amountInCents = amountInCents
 
     def occurrencesText(self):
         return [occurrences[occurrenceId] for occurrenceId in self.occurrences]
@@ -61,6 +62,7 @@ class PaymentParser:
                 currentResponse.content.append(line)
                 currentResponse.identifier = cls._getIdentifier(line)
                 currentResponse.occurrences = cls._getOccurrences(line)
+                currentResponse.amountInCents = cls._getAmount(line)
             elif line[7] == "3" and line[13] == "Z":
                 currentResponse.content.append(line)
                 currentResponse.authentication = cls._getAuthentication(line)
@@ -78,6 +80,10 @@ class PaymentParser:
     @classmethod
     def _splitString(cls, string):
         return [string[i:i+2] for i in range(0, len(string), 2)]
+
+    @classmethod
+    def _getAmount(cls, line):
+        return int(line[119:134].strip())
 
     @classmethod
     def _getIdentifier(self, line):
