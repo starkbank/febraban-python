@@ -1,7 +1,7 @@
 # coding: utf-8
 
 from datetime import datetime
-from febraban.cnab240.itau.slipV30 import SlipV30, FileV30
+from febraban.cnab240.itau.charge import Slip, File
 from febraban.cnab240.user import User, UserAddress, UserBank
 
 
@@ -37,11 +37,11 @@ payer = User(
 )
 now = datetime.now()
 
-file = FileV30()
+file = File()
 file.setSender(myself)
 file.setIssueDate(now)
 
-slip = SlipV30()
+slip = Slip()
 slip.setSender(myself)
 slip.setAmountInCents("2000")
 slip.setPayer(payer)

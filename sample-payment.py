@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-from febraban.cnab240.itau.transferV83 import PaymentV83, FileV83
+from febraban.cnab240.itau.transfer import Payment, File
 from febraban.cnab240.user import User, UserAddress, UserBank
 
 
@@ -33,10 +33,10 @@ receiver = User(
     )
 )
 
-file = FileV83()
+file = File()
 file.setSender(sender)
 
-payment = PaymentV83()
+payment = Payment()
 payment.setSender(sender)
 payment.setReceiver(receiver)
 payment.setAmountInCents("12000")
