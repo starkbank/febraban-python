@@ -73,7 +73,7 @@ class SlipParser:
             elif line[13] == "P":
                 currentResponse.amountInCents = int(line[85:100])
                 currentResponse.occurrences = [line[15:17]]
-                currentResponse.identifier = line[62:72].strip()
+                currentResponse.identifier = line[195:220].strip()
             elif line[13] == "Q":
                 result.append(currentResponse)
                 currentResponse = SlipResponse()
