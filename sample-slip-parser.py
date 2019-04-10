@@ -8,5 +8,6 @@ for response in responses:
     print response.identifier
     print response.status()
     print response.amountInCents
+    print response.fine
     print response.content
     print response.contentText()
