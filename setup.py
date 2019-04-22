@@ -15,7 +15,7 @@ setup(
     author="Stark Bank",
     author_email="developers@starkbank.com",
     keywords=["febraban", "cnab", "cnab 240", "cnab240", "febraban240", "transfer", "billing", "bank"],
-    version = "0.2.2"
+    version = "0.2.3"
 )
 
 """
@@ -46,6 +46,18 @@ of the provided placeholders:
     repository:https://test.pypi.org/legacy/
     username:myusername
     password:mypassword
+
+### Create a source distribution:
+
+Run ```python setup.py sdist``` inside the project directory.
+
+### Install twine:
+
+```pip install twine```
+
+### Upload package to pypi:
+
+```twine upload dist/*```
 
 
 Live environment
