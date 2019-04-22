@@ -5,7 +5,7 @@ class SlipResponseStatus:
 
     registered = "registered"
     paid = "paid"
-    canceled="canceled"
+    canceled = "canceled"
     overdue = "overdue"
     failed = "failed"
     unknown = "unknown"
@@ -13,10 +13,11 @@ class SlipResponseStatus:
 
 class SlipResponse:
 
-    def __init__(self, identifier=None, occurrences=None, content=None, amountInCents=None):
+    def __init__(self, identifier=None, occurrences=None, content=None, amountInCents=None, fine=None):
         self.identifier = identifier
         self.occurrences = occurrences
         self.amountInCents = amountInCents
+        self.fine = fine
         self.content = content or []
 
     def occurrencesText(self):
@@ -68,6 +69,7 @@ class SlipParser:
                 currentResponse.occurrences = [line[15:17]]
                 currentResponse.identifier = line[105:130].strip()
             elif line[13] == "U":
+                currentResponse.fine = int(line[17:32])
                 result.append(currentResponse)
                 currentResponse = SlipResponse()
             elif line[13] == "P":

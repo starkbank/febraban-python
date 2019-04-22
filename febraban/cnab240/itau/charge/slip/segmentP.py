@@ -69,6 +69,13 @@ class SegmentP:
 
     def setIdentifier(self, identifier):
         structs = [
-            (195, 220, 25, alphaNumeric, identifier)           # Id da empresa na transação
+            (195, 220, 25, alphaNumeric, identifier)          # Id da empresa na transação
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def setInterest(self, date, interest):
+        structs = [
+            (118, 126,  8, numeric, date),               # Data do juros mora
+            (126, 141, 15, numeric, interest)            # Valor de mora por dia de atraso
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
