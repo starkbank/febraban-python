@@ -1,4 +1,5 @@
 from .occurrences import occurrences
+from .errors import errors03, errors17, errors15, errors16, errors18
 
 
 class SlipResponseStatus:
@@ -13,35 +14,47 @@ class SlipResponseStatus:
 
 class SlipResponse:
 
-    def __init__(self, identifier=None, occurrences=None, content=None, amountInCents=None, fine=None):
+    def __init__(self, identifier=None, occurrence=None, content=None, amountInCents=None, fine=None, errors=None):
         self.identifier = identifier
-        self.occurrences = occurrences
+        self.occurrence = occurrence
         self.amountInCents = amountInCents
         self.fine = fine
         self.content = content or []
+        self.errors = errors or []
 
-    def occurrencesText(self):
-        return [occurrences[occurrenceId] for occurrenceId in self.occurrences]
-
-    def occurrencesTextAtIndex(self, index):
-        occurrenceId = self.occurrences[index]
-        return occurrences[occurrenceId]
+    def occurrenceText(self):
+        return occurrences[self.occurrence]
 
     def status(self):
-        if "02" in self.occurrences:
+        if self.occurrence == "02":
             return SlipResponseStatus.registered
-        if "03" in self.occurrences:
+        if self.occurrence in ["03", "15", "16", "17", "18"]:
             return SlipResponseStatus.failed
-        if "06" in self.occurrences:
+        if self.occurrence == "06":
             return SlipResponseStatus.paid
-        if "08" in self.occurrences:
+        if self.occurrence == "08":
             return SlipResponseStatus.paid
-        if "09" in self.occurrences:
+        if self.occurrence == "09":
             return SlipResponseStatus.canceled
         return SlipResponseStatus.unknown
 
     def contentText(self, breakLine="\n"):
         return breakLine.join(self.content)
+
+    def failureErrors(self):
+        errors = self.errors
+
+        errorDict = {
+            "03": errors03,
+            "15": errors15,
+            "16": errors16,
+            "17": errors17,
+            "18": errors18,
+        }.get(self.occurrence)
+
+        errorMessages = [errorDict[errorCode] for errorCode in errors if errorCode != "00"]
+
+        return errorMessages
 
 
 class SlipParser:
@@ -66,8 +79,9 @@ class SlipParser:
                 currentResponse.content.append(line)
             if line[13] == "T":
                 currentResponse.amountInCents = int(line[81:96])
-                currentResponse.occurrences = [line[15:17]]
+                currentResponse.occurrence = line[15:17]
                 currentResponse.identifier = line[105:130].strip()
+                currentResponse.errors = [line[213 + i:215 + i] for i in range(0, 8, 2) if line[i:i + 2] != "  "]
             elif line[13] == "U":
                 currentResponse.fine = int(line[17:32])
                 result.append(currentResponse)
