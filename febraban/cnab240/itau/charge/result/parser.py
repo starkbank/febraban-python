@@ -42,8 +42,6 @@ class SlipResponse:
         return breakLine.join(self.content)
 
     def failureErrors(self):
-        errors = self.errors
-
         errorDict = {
             "03": errors03,
             "15": errors15,
@@ -52,7 +50,10 @@ class SlipResponse:
             "18": errors18,
         }.get(self.occurrence)
 
-        errorMessages = [errorDict[errorCode] for errorCode in errors if errorCode != "00"]
+        if errorDict is None:
+            return None
+
+        errorMessages = [errorDict[errorCode] for errorCode in self.errors if errorCode != "00"]
 
         return errorMessages
 

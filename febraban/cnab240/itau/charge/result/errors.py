@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: latin-1 -*-
+
 errors03 = {
     "03": "AG. COBRADORA: NÃO FOI POSSÍVEL ATRIBUIR A AGÊNCIA PELO CEP OU CEP INVÁLIDO",
     "04": "ESTADO: SIGLA DO ESTADO INVÁLIDA",
