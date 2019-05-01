@@ -51,11 +51,17 @@ class SlipResponse:
         }.get(self.occurrence)
 
         if errorDict is None:
-            return None
+            return []
 
         errorMessages = [errorDict[errorCode] for errorCode in self.errors if errorCode != "00"]
 
         return errorMessages
+
+    def amountPaid(self):
+        if self.status() != SlipResponseStatus.paid:
+            return 0
+
+        return self.amountInCents + self.fine
 
 
 class SlipParser:
