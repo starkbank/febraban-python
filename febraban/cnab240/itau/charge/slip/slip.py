@@ -58,3 +58,6 @@ class Slip:
     def setFineAndInterest(self, datetime, fine, interest):
         self.segmentP.setInterest(datetime.strftime("%d%m%Y"), interest)
         self.segmentR.setFine(datetime.strftime("%d%m%Y"), fine)
+
+    def setOverdueDays(self, overdueDays):
+        self.segmentP.setOverdueDays(overdueDays)
