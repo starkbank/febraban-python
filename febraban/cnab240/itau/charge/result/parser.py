@@ -30,9 +30,7 @@ class SlipResponse:
             return SlipResponseStatus.registered
         if self.occurrence in ["03", "15", "16", "17", "18"]:
             return SlipResponseStatus.failed
-        if self.occurrence == "06":
-            return SlipResponseStatus.paid
-        if self.occurrence == "08":
+        if self.occurrence in ["06", "08"]:
             return SlipResponseStatus.paid
         if self.occurrence == "09":
             return SlipResponseStatus.canceled
@@ -48,19 +46,11 @@ class SlipResponse:
             "16": errors16,
             "17": errors17,
             "18": errors18,
-        }.get(self.occurrence)
+        }.get(self.occurrence) or {}
 
-        if errorDict is None:
-            return []
-
-        errorMessages = [errorDict[errorCode] for errorCode in self.errors if errorCode != "00"]
-
-        return errorMessages
+        return [errorDict[errorCode] for errorCode in self.errors if errorCode in errorDict.keys()]
 
     def amountPaid(self):
-        if self.status() != SlipResponseStatus.paid:
-            return 0
-
         return self.amountInCents + self.fine
 
 
@@ -69,35 +59,35 @@ class SlipParser:
     @classmethod
     def parseFile(cls, file):
         lines = file.readlines()
-        return cls._parseLines(lines)
+        return cls.parseLines(lines)
 
     @classmethod
     def parseText(cls, text):
         lines = text.splitlines()[:-1]
-        return cls._parseLines(lines)
+        return cls.parseLines(lines)
 
     @classmethod
-    def _parseLines(cls, lines):
+    def parseLines(cls, lines):
         result = []
         for line in lines:
-            if line[7] == "1":
+            if line[7] == "3" and line[13] == "T":
                 currentResponse = SlipResponse()
-            elif line[7] == "3":
                 currentResponse.content.append(line)
-            if line[13] == "T":
                 currentResponse.amountInCents = int(line[81:96])
                 currentResponse.occurrence = line[15:17]
                 currentResponse.identifier = line[105:130].strip()
                 currentResponse.errors = [line[213 + i:215 + i] for i in range(0, 8, 2) if line[i:i + 2] != "  "]
-            elif line[13] == "U":
+            elif line[7] == "3" and line[13] == "U":
+                currentResponse.content.append(line)
                 currentResponse.fine = int(line[17:32])
                 result.append(currentResponse)
+            elif line[7] == "3" and line[13] == "P":
                 currentResponse = SlipResponse()
-            elif line[13] == "P":
+                currentResponse.content.append(line)
                 currentResponse.amountInCents = int(line[85:100])
                 currentResponse.occurrences = [line[15:17]]
                 currentResponse.identifier = line[195:220].strip()
-            elif line[13] == "Q":
+            elif line[7] == "3" and line[13] == "Q":
+                currentResponse.content.append(line)
                 result.append(currentResponse)
-                currentResponse = SlipResponse()
         return result
