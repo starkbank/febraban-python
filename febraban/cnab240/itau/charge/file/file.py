@@ -23,7 +23,7 @@ class File:
         register.setPositionInLot(index=self.index)
         self.registers.append(register.toString())
         self.amount += register.amountInCents()
-        self.index += 2
+        self.index += 3
 
     def toString(self):
         self.trailer.setNumberOfLotsAndRegisters(num=len(self.registers))

@@ -30,8 +30,11 @@ class SegmentR:
         self.content = Row.setStructs(structs=structs, content=self.content)
 
     def setFine(self, date, fine):
+        code = "2"
+        if int(fine) == 0:
+            code = "0"
         structs = [
-            (65,  66,  1, numeric, "2"),                                        # 1-Valor em reais/ 2-Porcentagem
+            (65,  66,  1, numeric, code),                                        # 0-Sem multa/ 1-Valor em reais/ 2-Porcentagem
             (66,  74,  8, numeric, date),
             (74,  89, 15, numeric, fine)
         ]
