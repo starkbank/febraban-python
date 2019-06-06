@@ -5,7 +5,7 @@ from ....characterType import numeric, alphaNumeric
 class SegmentR:
 
     def __init__(self):
-        self.content = "0000000000000  000000000000000000000000000000000000000000000000000                                                                                                                                    00000000000000000 000000000000  0         "
+        self.content = "0000000000000  000000000000000000000000000000000000000000000000000                                                                                                                                     0000000000000000 000000000000  0         "
         self.defaultValues()
 
     def defaultValues(self):
@@ -30,10 +30,11 @@ class SegmentR:
         self.content = Row.setStructs(structs=structs, content=self.content)
 
     def setFine(self, date, fine):
+        code = "0" if int(fine) == 0 else "2"
         structs = [
-            (65,  66,  1,      numeric, "2"),                                        # 1-Valor em reais/ 2-Porcentagem
-            (66,  74,  8, alphaNumeric, date),
-            (74,  89, 13, alphaNumeric, fine)
+            (65,  66,  1, numeric, code),                                        # 0-Sem multa/ 1-Valor em reais/ 2-Porcentagem
+            (66,  74,  8, numeric, date),
+            (74,  89, 15, numeric, fine)
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

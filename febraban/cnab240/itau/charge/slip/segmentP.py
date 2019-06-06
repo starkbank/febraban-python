@@ -23,7 +23,6 @@ class SegmentP:
             (106, 108, 2,      numeric, "99"),                # Especie do Titulo: 99 = Real
             (108, 109, 1, alphaNumeric, "A"),                 # Aceite: A = Sim, N = Nao
             (223, 224, 1,      numeric, "1"),                 # 0 - Não baixe boletos, 1 - Baixe boletos após x dias do vencimento
-            (224, 226, 2,      numeric, "59"),                # Quantidade de dias após o vencimento para baixa automática
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
@@ -77,5 +76,11 @@ class SegmentP:
         structs = [
             (118, 126,  8, numeric, date),               # Data do juros mora
             (126, 141, 15, numeric, interest)            # Valor de mora por dia de atraso
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def setOverdueLimit(self, overdueLimit):
+        structs = [
+            (224, 226, 2, numeric, overdueLimit),  # Quantidade de dias após o vencimento para baixa automática
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)

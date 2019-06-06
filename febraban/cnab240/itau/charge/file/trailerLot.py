@@ -17,7 +17,7 @@ class TrailerLot:
 
     def setNumberOfLotsAndRegisters(self, num):
         structs = [
-            (17, 23, 6, numeric, 2 + 2*num),
+            (17, 23, 6, numeric, 2 + 3*num),
             (23, 29, 6, numeric, num),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)

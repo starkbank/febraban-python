@@ -54,6 +54,9 @@ slip.setBankIdentifier(
     wallet="109"
 )
 slip.setIdentifier("ID456")
+slip.setFineAndInterest(datetime=now, fine="0", interest="0")
+slip.setOverdueLimit("3")
+
 file.add(register=slip)
 
 file.output(fileName="output.REM", path="/../../")

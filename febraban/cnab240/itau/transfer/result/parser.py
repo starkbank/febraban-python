@@ -43,15 +43,15 @@ class PaymentParser:
     @classmethod
     def parseFile(cls, file):
         lines = file.readlines()
-        return cls._parseLines(lines)
+        return cls.parseLines(lines)
 
     @classmethod
     def parseText(cls, text):
         lines = text.splitlines()[:-1]
-        return cls._parseLines(lines)
+        return cls.parseLines(lines)
 
     @classmethod
-    def _parseLines(cls, lines):
+    def parseLines(cls, lines):
         result = []
         for line in lines:
             if line[7] in ["0","9"]:
