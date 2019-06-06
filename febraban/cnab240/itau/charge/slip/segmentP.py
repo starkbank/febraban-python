@@ -79,8 +79,8 @@ class SegmentP:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
-    def setOverdueDays(self, overdueDays):
+    def setOverdueLimit(self, overdueLimit):
         structs = [
-            (224, 226, 2, numeric, overdueDays),  # Quantidade de dias após o vencimento para baixa automática
+            (224, 226, 2, numeric, overdueLimit),  # Quantidade de dias após o vencimento para baixa automática
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)

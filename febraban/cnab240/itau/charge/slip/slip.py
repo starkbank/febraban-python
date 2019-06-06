@@ -59,5 +59,5 @@ class Slip:
         self.segmentP.setInterest(datetime.strftime("%d%m%Y"), interest)
         self.segmentR.setFine(datetime.strftime("%d%m%Y"), fine)
 
-    def setOverdueDays(self, overdueDays):
-        self.segmentP.setOverdueDays(overdueDays)
+    def setOverdueLimit(self, overdueLimit):
+        self.segmentP.setOverdueLimit(overdueLimit)
