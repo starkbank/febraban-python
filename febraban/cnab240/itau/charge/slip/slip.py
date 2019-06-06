@@ -61,3 +61,8 @@ class Slip:
 
     def setOverdueLimit(self, overdueLimit):
         self.segmentP.setOverdueLimit(overdueLimit)
+
+    def setCancel(self):
+        self.segmentP.setCancel()
+        self.segmentQ.setCancel()
+        self.segmentR.setCancel()

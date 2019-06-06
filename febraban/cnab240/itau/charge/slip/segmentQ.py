@@ -17,6 +17,12 @@ class SegmentQ:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
+    def setCancel(self):
+        structs = [
+            (15, 17, 2, numeric, "02"),                                               # Indica Baixa do boleto
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
     def setSenderBank(self, bank):
         structs = [
             (0, 3, 3, numeric, bank.bankId),
@@ -31,9 +37,9 @@ class SegmentQ:
 
     def setPayer(self, user):
         structs = [
-            (17,  18,  1,      numeric, "1" if len(user.identifier) == 11 else "2"), # 1 - CPF/ 2 - CNPJ
-            (18,  33, 15,      numeric, user.identifier),                            # CPF/CNPJ do Pagador
-            (33,  63, 30, alphaNumeric, user.name)                                   # Nome do Pagador
+            (17,  18,  1,      numeric, "1" if len(user.identifier) == 11 else "2"),  # 1 - CPF/ 2 - CNPJ
+            (18,  33, 15,      numeric, user.identifier),                             # CPF/CNPJ do Pagador
+            (33,  63, 30, alphaNumeric, user.name)                                    # Nome do Pagador
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
