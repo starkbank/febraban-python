@@ -12,11 +12,11 @@ class SegmentJ52:
 
     def defaultValues(self):
         structs = [
-            ( 7,   8,  1,      numeric, "3"),     # TIPO DE REGISTRO
-            ( 8,  13,  5,      numeric, "1"),     # INDEX DO REGISTRO
-            (13,  14,  1, alphaNumeric, "J"),     # CÓDIGO DE SEGMENTO
-            (14,  17,  3,      numeric, "0"),     # TIPO DE MOVIMENTO
-            (17,  19,  2,      numeric, "52"),    # IDENTIFICAÇÃO DO REGISTRO OPCIONAL
+            ( 7,   8,  1,      numeric, "3"),     # Tipo de Registro
+            ( 8,  13,  5,      numeric, "1"),     # Index de Registro
+            (13,  14,  1, alphaNumeric, "J"),     # Código de Segmento
+            (14,  17,  3,      numeric, "0"),     # Tipo de Movimento
+            (17,  19,  2,      numeric, "52"),
             (75,  91,  16,     numeric, "0"),
             (131, 147, 16,     numeric, "0"),
         ]
