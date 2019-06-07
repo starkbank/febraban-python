@@ -12,8 +12,8 @@ class Header:
 
     def defaultValues(self):
         structs = [
-            ( 7,    8, 1,      numeric, "1"),
-            ( 8,    9, 1, alphaNumeric, "C"),
+            (  7,   8, 1,      numeric, "1"),
+            (  8,   9, 1, alphaNumeric, "C"),
             ( 13,  16, 3,      numeric, "040"),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
@@ -56,15 +56,3 @@ class Header:
             (11, 13, 2, numeric, method)
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
-
-    # def setPaymentMethod(self, method):
-    #     structure = [
-    #         (11, 13, 2, numeric, method),
-    #     ]
-    #     self.content = Row.setStructs(structs=structure, content=self.content)
-    #
-    # def setPaymentKind(self, kind):
-    #     structure = [
-    #         (9, 11, 2, numeric, kind),
-    #     ]
-    #     self.content = Row.setStructs(structs=structure, content=self.content)
