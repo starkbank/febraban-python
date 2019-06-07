@@ -7,7 +7,15 @@ from ....row import Row
 class Trailer:
 
     def __init__(self):
-        self.content = "00000005         000003000000000000000000000000000000000000                                                                                                                                                                                     "
+        self.content = " " * 240
+        self.defaultValues()
+
+    def defaultValues(self):
+        structs = [
+            ( 7,   8, 1,      numeric, "5"),
+            (17,  23, 6,      numeric, "3"),
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
 
     def setAmountInCents(self, amount):
         structs = [

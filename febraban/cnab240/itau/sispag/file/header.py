@@ -7,7 +7,15 @@ from ....characterType import numeric, alphaNumeric
 class Header:
 
     def __init__(self):
-        self.content = "00000000      081000000000000000                    00000 000000000000 0                                                                      10312201719400900000000000000                                                                     "
+        self.content = " " * 240
+        self.defaultValues()
+
+    def defaultValues(self):
+        structs = [
+            (  14,  17, 4, numeric, "81"),                         # Versão do Layout
+            ( 141, 142, 1, numeric, "1"),                          # 1 - Remessa / 2 - Retorno
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
 
     def setGeneratedFileDate(self, datetime):
         structs = [
