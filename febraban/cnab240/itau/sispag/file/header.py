@@ -12,8 +12,11 @@ class Header:
 
     def defaultValues(self):
         structs = [
-            (  14,  17, 4, numeric, "81"),                         # Versão do Layout
-            ( 141, 142, 1, numeric, "1"),                          # 1 - Remessa / 2 - Retorno
+            (   3,   8, 5, numeric, "0"),                          # Tipo de registro
+            (  14,  17, 3, numeric, "81"),                         # Versão do Layout
+            ( 142, 143, 1, numeric, "1"),                          # 1 - Remessa / 2 - Retorno
+            ( 157, 166, 9, numeric, "0"),
+            ( 166, 171, 5, numeric, "0"),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

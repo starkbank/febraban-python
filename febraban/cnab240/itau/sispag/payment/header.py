@@ -14,7 +14,7 @@ class Header:
         structs = [
             ( 7,    8, 1,      numeric, "1"),
             ( 8,    9, 1, alphaNumeric, "C"),
-            ( 13,  16, 4,      numeric, "040"),
+            ( 13,  16, 3,      numeric, "040"),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

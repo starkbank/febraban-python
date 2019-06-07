@@ -12,8 +12,9 @@ class Trailer:
 
     def defaultValues(self):
         structs = [
-            ( 7,   8, 1,      numeric, "5"),
-            (17,  23, 6,      numeric, "3"),
+            ( 7,   8,  1,      numeric, "5"),
+            (17,  23,  6,      numeric, "3"),
+            (41,  59, 18,      numeric, "0"),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
