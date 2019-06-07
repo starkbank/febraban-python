@@ -3,7 +3,7 @@ from .segmentA import SegmentA
 from .trailer import Trailer
 
 
-class Payment:
+class Transfer:
 
     def __init__(self):
         self.header = Header()

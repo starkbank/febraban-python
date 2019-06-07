@@ -7,7 +7,21 @@ from ....row import Row
 class SegmentA:
 
     def __init__(self):
-        self.content = "0000000300001A00000000000000 000000000000 0                                                  00000000REA000000000000000000000000000000                    00000000000000000000000                    00000000000000000000                       "
+        self.content = " " * 240
+        self.defaultValues()
+
+    def defaultValues(self):
+        structs = [
+            ( 7,    8,  1,      numeric, "3"),
+            ( 8,   13,  5,      numeric, "1"),
+            ( 13,  14,  1, alphaNumeric, "A"),
+            ( 14,  20,  6,      numeric, "0"),
+            (101, 104,  3, alphaNumeric, "REA"),
+            (104, 119, 15,      numeric, "0"),
+            (154, 177, 23,      numeric, "0"),
+            (197, 203,  6,      numeric, "0"),
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
 
     def setSenderBank(self, bank):
         structs = [
