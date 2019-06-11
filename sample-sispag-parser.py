@@ -11,4 +11,5 @@ for response in responses:
     print response.authentication
     print response.status()
     print response.amountInCents
+    print response.type
     print response.contentText()
