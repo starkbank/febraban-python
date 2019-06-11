@@ -18,7 +18,7 @@ class SegmentJ:
             ( 13,  14,  1, alphaNumeric,   "J"),         # Código de Segmento
             ( 14,  17,  3,      numeric,   "0"),         # Tipo de Movimento
             (144, 152,  8,      numeric, date.today().strftime("%d%m%Y")),
-            (114, 144, 23,      numeric,   "0"),
+            (114, 144, 30,      numeric,   "0"),
             (167, 182, 15,      numeric,   "0"),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
