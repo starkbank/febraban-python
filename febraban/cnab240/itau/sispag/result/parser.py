@@ -9,14 +9,21 @@ class PaymentResponseStatus:
     unknown = "unknown"
 
 
+class PaymentType:
+
+    transfer = "transfer"
+    chargePayment = "charge-payment"
+
+
 class PaymentResponse:
 
-    def __init__(self, identifier=None, occurrences=None, content=None, authentication=None, amountInCents=None):
+    def __init__(self, identifier=None, occurrences=None, content=None, authentication=None, amountInCents=None, paymentType=None):
         self.identifier = identifier
         self.occurrences = occurrences
         self.content = content or []
         self.authentication = authentication
         self.amountInCents = amountInCents
+        self.type = paymentType
 
     def occurrencesText(self):
         return [occurrences[occurrenceId] for occurrenceId in self.occurrences]
@@ -54,15 +61,22 @@ class PaymentParser:
     def parseLines(cls, lines):
         result = []
         for line in lines:
-            if line[7] in ["0","9"]:
+            if line[7] in ["0", "9"]:
                 continue
             elif line[7] == "1":
                 currentResponse = PaymentResponse(content=[line])
             elif line[7] == "3" and line[13] == "A":
                 currentResponse.content.append(line)
-                currentResponse.identifier = cls._getIdentifier(line)
+                currentResponse.identifier = cls._getIdentifierTransfer(line)
                 currentResponse.occurrences = cls._getOccurrences(line)
-                currentResponse.amountInCents = cls._getAmount(line)
+                currentResponse.amountInCents = cls._getAmountTransfer(line)
+                currentResponse.type = PaymentType.transfer
+            elif line[7] == "3" and line[13] == "J":
+                currentResponse.content.append(line)
+                currentResponse.identifier = cls._getIdentifierChargePayment(line)
+                currentResponse.occurrences = cls._getOccurrences(line)
+                currentResponse.amountInCents = cls._getAmountChargePayment(line)
+                currentResponse.type = PaymentType.chargePayment
             elif line[7] == "3" and line[13] == "Z":
                 currentResponse.content.append(line)
                 currentResponse.authentication = cls._getAuthentication(line)
@@ -82,12 +96,20 @@ class PaymentParser:
         return [string[i:i+2] for i in range(0, len(string), 2)]
 
     @classmethod
-    def _getAmount(cls, line):
+    def _getAmountTransfer(cls, line):
         return int(line[119:134].strip())
 
     @classmethod
-    def _getIdentifier(self, line):
+    def _getAmountChargePayment(cls, line):
+        return int(line[152:167].strip())
+
+    @classmethod
+    def _getIdentifierTransfer(self, line):
         return line[73:93].strip()
+
+    @classmethod
+    def _getIdentifierChargePayment(self, line):
+        return line[182:202].strip()
 
     @classmethod
     def _getAuthentication(cls, line):
