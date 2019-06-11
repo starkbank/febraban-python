@@ -16,10 +16,10 @@ class Trailer:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
-    def setNumberOfLotsAndRegisters(self, num):
+    def setNumberOfLotsAndRegisters(self, num, sum):
         structs = [
             (17, 23, 6, numeric, num),
-            (23, 29, 6, numeric, 2+3*num),
+            (23, 29, 6, numeric, sum),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
