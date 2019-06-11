@@ -1,4 +1,3 @@
-from ....libs.barCode import BarCode
 from .header import Header
 from .segmentJ import SegmentJ
 from .segmentJ52 import SegmentJ52
@@ -41,7 +40,6 @@ class ChargePayment:
         self.segmentJ.setScheduleDate(paymentDate)
 
     def setBarCode(self, barCode):
-        barCode = BarCode(barCode)
         self.segmentJ.setBarCode(barCode)
         self.trailer.setAmountInCents(barCode.amount)
 
@@ -50,8 +48,9 @@ class ChargePayment:
         self.segmentJ.setPositionInLot(index)
         self.segmentJ52.setPositionInLot(index)
         self.trailer.setPositionInLot(index)
+        self.trailer.setLotNumberOfRegisters(4)
 
-    def setInfo(self, kind="20", method="31"):
+    def setInfo(self, kind="98", method="31"):
         """
         This method set config information in the payment
 
