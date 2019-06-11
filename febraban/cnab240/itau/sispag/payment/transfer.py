@@ -32,6 +32,7 @@ class Transfer:
         self.header.setPositionInLot(index)
         self.segmentA.setPositionInLot(index)
         self.trailer.setPositionInLot(index)
+        self.trailer.setLotNumberOfRegisters(3)
 
     def setScheduleDate(self, date):
         self.segmentA.setScheduleDate(date)
