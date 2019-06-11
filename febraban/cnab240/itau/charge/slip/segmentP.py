@@ -26,6 +26,12 @@ class SegmentP:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
+    def setCancel(self):
+        structs = [
+            (15, 17, 2, numeric, "02"),                       # Indica Baixa do boleto
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
     def setSenderBank(self, bank):
         structs = [
             (  0,   3,  3,      numeric, bank.bankId),
