@@ -50,3 +50,4 @@ payment.setIdentifier("ID1234567890")
 file.add(lot=payment)
 
 file.output(fileName="output.REM", path="/../../")
+
