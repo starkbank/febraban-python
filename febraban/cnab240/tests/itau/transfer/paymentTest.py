@@ -1,7 +1,7 @@
 from unittest.case import TestCase
-from febraban.cnab240.itau.transfer.payment.header import Header
-from febraban.cnab240.itau.transfer.payment.segmentA import SegmentA
-from febraban.cnab240.itau.transfer.payment.trailer import Trailer
+from febraban.cnab240.itau.sispag.payment.header import Header
+from febraban.cnab240.itau.sispag.payment.segmentA import SegmentA
+from febraban.cnab240.itau.sispag.payment.trailer import Trailer
 from febraban.cnab240.user import User, UserBank, UserAddress
 
 

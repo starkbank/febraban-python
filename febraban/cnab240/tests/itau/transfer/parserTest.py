@@ -1,5 +1,5 @@
 from unittest.case import TestCase
-from febraban.cnab240.itau.transfer import PaymentParser
+from febraban.cnab240.itau.sispag import PaymentParser
 
 
 shippingFile = \
