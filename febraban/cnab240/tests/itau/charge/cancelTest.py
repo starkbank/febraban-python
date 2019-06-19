@@ -53,6 +53,7 @@ class CancelTest(TestCase):
         segment.setIssueDate("01012018")
         segment.setBankIdentifier(identifier="99999", dac="7")
         segment.setIdentifier("VITAO")
+        segment.setOverdueLimit(overdueLimit=59)
         segment.setCancel()
         response = "3410001300001P 0201234 000001234567 8109000999997        00000               0102201800000000002250000000099A01012018000000000000000000000000000000000000000000000000000000000000000000000000000000VITAO                    0001590000000000000 "
         self.assertEquals(segment.content, response)
@@ -73,5 +74,5 @@ class CancelTest(TestCase):
         segment.setPositionInLot(1)
         segment.setSenderBank(bank)
         segment.setCancel()
-        response = "3410001300001R 020000000000000000000000000000000000000000000000000                                                                                                                                    00000000000000000 000000000000  0         "
+        response = "3410001300001R 020000000000000000000000000000000000000000000000000                                                                                                                                     0000000000000000 000000000000  0         "
         self.assertEqual(segment.content, response)
