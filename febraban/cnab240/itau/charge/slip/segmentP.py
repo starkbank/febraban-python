@@ -90,3 +90,24 @@ class SegmentP:
             (224, 226, 2, numeric, overdueLimit),  # Quantidade de dias após o vencimento para baixa automática
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def chargeUpdateAmount(self, amount):
+        structs = [
+            (15, 17, 2, numeric, "31"),                 # Indica alteracao
+            (85, 100, 15, numeric, amount),             # Alteracao valor
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def chargeUpdateDueDate(self, dueDate):
+        structs = [
+            (15, 17, 2, numeric, "06"),                 # Indica alteracao
+            (77, 85, 8, numeric, dueDate),              # Alteracao vencimento
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def chargeUpdateFine(self):
+        structs = [
+            (15, 17, 2, numeric, "49"),                 # Indica alteracao de multa
+
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
