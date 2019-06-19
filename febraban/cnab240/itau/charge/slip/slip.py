@@ -66,3 +66,14 @@ class Slip:
         self.segmentP.setCancel()
         self.segmentQ.setCancel()
         self.segmentR.setCancel()
+
+    def chargeUpate(self, amount=None, fine=None, dueDate=None, fineDate=None):
+        if amount:
+            self.segmentP.chargeUpdateAmount(amount)
+        if fine:
+            self.segmentP.chargeUpdateFine()
+            self.segmentQ.chargeUpdateFine()
+            self.segmentR.setFine(date=fineDate.strftime("%d%m%Y"), fine=fine)
+        if dueDate:
+            self.segmentP.chargeUpdateDueDate(dueDate.strftime("%d%m%Y"))
+

@@ -60,3 +60,10 @@ class SegmentQ:
             (169, 199, 30, alphaNumeric, user.name)                                   # Nome do Sacador Avalista
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def chargeUpdateFine(self):
+        structs = [
+            (15, 17, 2, numeric, "49"),              # Indica alteracao de multa
+
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
