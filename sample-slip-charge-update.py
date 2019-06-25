@@ -49,8 +49,6 @@ file.setIssueDate(datetime=None)
 slip1 = Slip()
 slip1.setSender(myself)
 slip1.setAmountInCents("133")
-# slip1.setPayer(payer)
-#slip1.setIssueDate(now)
 #slip1.setExpirationDate(expiration)
 slip1.setBankIdentifier(
     identifier="2644",
@@ -59,7 +57,6 @@ slip1.setBankIdentifier(
     wallet="109"
 )
 slip1.setIdentifier("PRD-5917955804102656")
-#slip1.setOverdueLimit("3")
 slip1.chargeUpate(dueDate=expiration)
 
 
@@ -90,6 +87,7 @@ slip3.setBankIdentifier(
 )
 slip3.setIdentifier("PRD-5917955804102656")
 slip3.chargeUpate(interest=10, interestDate=interestDate)  # 10 cents/day
+
 
 # Update amount
 # slip4 = Slip()
