@@ -91,14 +91,24 @@ class SegmentP:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
-    def chargeUpdateAmount(self, amount):
+    def setNullValues(self):
         structs = [
-            (15, 17, 2, numeric, "31"),                 # Indica alteracao
-            (85, 100, 15, numeric, amount),             # Alteracao valor
+            (109, 117, 8, numeric, "0"),                # Data de emissao do boleto nula
+            (77, 85, 8, numeric, "0"),                  # Data de vencimento do boleto nula
+            (223, 224, 1, numeric, "0"),
+            (224, 226, 2, numeric, "0"),                # Quantidade de dias após o vencimento nulo
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def setOccurrence(self, occurence):
+        structs = [
+            (15, 17, 2, numeric, occurence)
+
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
     def chargeUpdateDueDate(self, dueDate):
+        self.setNullValues()
         structs = [
             (15, 17, 2, numeric, "06"),                 # Indica alteracao
             (77, 85, 8, numeric, dueDate),              # Alteracao vencimento
