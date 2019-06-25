@@ -41,8 +41,8 @@ expiration = datetime(day=22, month=07, year=2019)
 orignalDate = datetime(day=20, month=07, year=2019)
 file = File()
 file.setSender(myself)
-file.setIssueDate(now)
-
+file.setIssueDate(datetime=None)
+#
 # # Update dueDate
 # slip1 = Slip()
 # slip1.setSender(myself)
@@ -57,7 +57,6 @@ file.setIssueDate(now)
 #     wallet="109"
 # )
 # slip1.setIdentifier("PRD-5207112409939968")
-# #slip1.setFineAndInterest(datetime=expiration, fine="0", interest="0")
 # #slip1.setOverdueLimit("3")
 # slip1.chargeUpate(dueDate=expiration)
 
@@ -67,7 +66,7 @@ slip2 = Slip()
 slip2.setSender(myself)
 slip2.setAmountInCents("133")
 slip2.setPayer(payer)
-slip2.setExpirationDate(orignalDate)
+#slip2.setExpirationDate(orignalDate)
 slip2.setBankIdentifier(
     identifier="2644",
     branch=myself.bank.branchCode,
@@ -81,9 +80,9 @@ slip2.chargeUpate(fine=50, fineDate=expiration)
 # # Update amount
 # slip3 = Slip()
 # slip3.setSender(myself)
-# slip3.setPayer(payer)
+# #slip3.setPayer(payer)
 # # slip3.setIssueDate(now)
-# slip3.setExpirationDate(orignalDate)
+# #slip3.setExpirationDate(orignalDate)
 # slip3.setBankIdentifier(
 #     identifier="2613",
 #     branch=myself.bank.branchCode,
@@ -91,11 +90,13 @@ slip2.chargeUpate(fine=50, fineDate=expiration)
 #     wallet="109"
 # )
 # slip3.setIdentifier("PRD-5701383420379136")
-# slip3.chargeUpate(amount=125)
+# slip3.chargeUpate(amount=135)
 
 # Create slips
-# file.add(register=slip1)
+file.add(register=slip1)
 file.add(register=slip2)
 # file.add(register=slip3)
 
-file.output(fileName="update5.REM", path="/../../")
+print(file.toString())
+
+file.output(fileName="update9.REM", path="/../../")
