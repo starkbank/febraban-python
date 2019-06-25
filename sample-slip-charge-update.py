@@ -56,7 +56,7 @@ slip1.setBankIdentifier(
     accountNumber=myself.bank.accountNumber,
     wallet="109"
 )
-slip1.setIdentifier("PRD-5917955804102656")
+slip1.setIdentifier("1917955804102656")
 slip1.chargeUpate(dueDate=expiration)
 
 
@@ -71,7 +71,7 @@ slip2.setBankIdentifier(
     accountNumber=myself.bank.accountNumber,
     wallet="109"
 )
-slip2.setIdentifier("PRD-5917955804102656")
+slip2.setIdentifier("1917955804102656")
 slip2.chargeUpate(fine=300, fineDate=expiration)  # 3%
 
 # Update Interest
@@ -85,7 +85,7 @@ slip3.setBankIdentifier(
     accountNumber=myself.bank.accountNumber,
     wallet="109"
 )
-slip3.setIdentifier("PRD-5917955804102656")
+slip3.setIdentifier("1917955804102656")
 slip3.chargeUpate(interest=10, interestDate=interestDate)  # 10 cents/day
 
 
