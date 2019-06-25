@@ -76,21 +76,23 @@ class Slip:
             self.segmentP.setAmountInCents(amount=amount)
             self.segmentP.setNullValues()
             self.segmentQ.setNullValues()
+            self.segmentQ.setOccurrence(occurence="31")
         if fine:
             self.segmentP.setOccurrence(occurence="49")
             self.segmentP.setNullValues()
             self.segmentQ.setNullValues()
+            self.segmentQ.setOccurrence(occurence="49")
             self.segmentR.setFine(date=fineDate.strftime("%d%m%Y"), fine=fine)
             self.segmentR.setOccurrence(ocurrence="49")
+        if interest:
+            self.segmentP.setNullValues()
+            self.segmentP.setOccurrence(occurence="31")
+            self.segmentP.setInterest(date=fineDate.strftime("%d%m%Y"), interest=interest)
+            self.segmentQ.setOccurrence(occurence="31")
+            self.segmentQ.setNullValues()
         if dueDate:
             self.segmentP.setNullValues()
             self.segmentP.setOccurrence(occurence="06")
             self.segmentP.chargeUpdateDueDate(dueDate.strftime("%d%m%Y"))
-            self.segmentQ.setOccurrence(occurence="06")
-        if interest:
-            self.segmentP.setNullValues()
-            self.segmentP.setOccurrence(occurence="31")
-            self.segmentP.setInterest(date=fineDate, interest=interest)
-            self.segmentQ.setOccurrence(occurence="31")
             self.segmentQ.setNullValues()
-
+            self.segmentQ.setOccurrence(occurence="06")
