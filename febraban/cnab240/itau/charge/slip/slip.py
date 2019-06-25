@@ -41,7 +41,10 @@ class Slip:
         self.segmentP.setExpirationDate(datetime.strftime("%d%m%Y"))
 
     def setIssueDate(self, datetime):
-        self.segmentP.setIssueDate(datetime.strftime("%d%m%Y"))
+        date = "00000000"
+        if datetime is not None:
+            date = datetime.strftime("%d%m%Y")
+        self.segmentP.setIssueDate(date)
 
     def setBankIdentifier(self, identifier, branch, accountNumber, wallet):
         dac = DAC.calculate(
@@ -67,13 +70,27 @@ class Slip:
         self.segmentQ.setCancel()
         self.segmentR.setCancel()
 
-    def chargeUpate(self, amount=None, fine=None, dueDate=None, fineDate=None):
+    def chargeUpate(self, amount=None, fine=None, dueDate=None, fineDate=None, interest=None):
         if amount:
-            self.segmentP.chargeUpdateAmount(amount)
+            self.segmentP.setOccurrence(occurence="31")
+            self.segmentP.setAmountInCents(amount=amount)
+            self.segmentP.setNullValues()
+            self.segmentQ.setNullValues()
         if fine:
-            self.segmentP.chargeUpdateFine()
-            self.segmentQ.chargeUpdateFine()
+            self.segmentP.setOccurrence(occurence="49")
+            self.segmentP.setNullValues()
+            self.segmentQ.setNullValues()
             self.segmentR.setFine(date=fineDate.strftime("%d%m%Y"), fine=fine)
+            self.segmentR.setOccurrence(ocurrence="49")
         if dueDate:
+            self.segmentP.setNullValues()
+            self.segmentP.setOccurrence(occurence="06")
             self.segmentP.chargeUpdateDueDate(dueDate.strftime("%d%m%Y"))
+            self.segmentQ.setOccurrence(occurence="06")
+        if interest:
+            self.segmentP.setNullValues()
+            self.segmentP.setOccurrence(occurence="31")
+            self.segmentP.setInterest(date=fineDate, interest=interest)
+            self.segmentQ.setOccurrence(occurence="31")
+            self.segmentQ.setNullValues()
 
