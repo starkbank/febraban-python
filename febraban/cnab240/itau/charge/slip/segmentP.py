@@ -94,7 +94,7 @@ class SegmentP:
     def setNullValues(self):
         structs = [
             (109, 117, 8, numeric, "0"),                # Data de emissao do boleto nula
-            (77, 85, 8, numeric, "0"),                  # Data de vencimento do boleto nula
+            ( 77,  85, 8, numeric, "0"),                # Data de vencimento do boleto nula
             (223, 224, 1, numeric, "0"),
             (224, 226, 2, numeric, "0"),                # Quantidade de dias após o vencimento nulo
         ]

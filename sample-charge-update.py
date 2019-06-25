@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from datetime import datetime, timedelta
+from datetime import datetime
 from febraban.cnab240.itau.charge import Slip, File
 from febraban.cnab240.user import User, UserAddress, UserBank
 
@@ -35,8 +35,7 @@ payer = User(
         zipCode="01310000"
     )
 )
-now = datetime.now()
-#expiration = now + timedelta(days=1)
+
 expiration = datetime(day=25, month=07, year=2019)
 interestDate = datetime(day=26, month=07, year=2019)
 orignalDate = datetime(day=20, month=07, year=2019)
@@ -49,17 +48,13 @@ file.setIssueDate(datetime=None)
 slip1 = Slip()
 slip1.setSender(myself)
 slip1.setAmountInCents("133")
-# slip1.setPayer(payer)
-#slip1.setIssueDate(now)
-#slip1.setExpirationDate(expiration)
 slip1.setBankIdentifier(
     identifier="2644",
     branch=myself.bank.branchCode,
     accountNumber=myself.bank.accountNumber,
     wallet="109"
 )
-slip1.setIdentifier("PRD-5917955804102656")
-#slip1.setOverdueLimit("3")
+slip1.setIdentifier("ID-123456")
 slip1.chargeUpate(dueDate=expiration)
 
 
@@ -67,50 +62,45 @@ slip1.chargeUpate(dueDate=expiration)
 slip2 = Slip()
 slip2.setSender(myself)
 slip2.setAmountInCents("133")
-#slip2.setExpirationDate(orignalDate)
 slip2.setBankIdentifier(
     identifier="2644",
     branch=myself.bank.branchCode,
     accountNumber=myself.bank.accountNumber,
     wallet="109"
 )
-slip2.setIdentifier("PRD-5917955804102656")
-slip2.chargeUpate(fine=300, fineDate=expiration)  # 3%
+slip2.setIdentifier("ID-123456")
+slip2.chargeUpate(fine=300, fineDate=expiration)
 
 # Update Interest
 slip3 = Slip()
 slip3.setSender(myself)
 slip3.setAmountInCents("133")
-#slip2.setExpirationDate(orignalDate)
 slip3.setBankIdentifier(
     identifier="2644",
     branch=myself.bank.branchCode,
     accountNumber=myself.bank.accountNumber,
     wallet="109"
 )
-slip3.setIdentifier("PRD-5917955804102656")
+slip3.setIdentifier("ID-123456")
 slip3.chargeUpate(interest=10, interestDate=interestDate)  # 10 cents/day
 
 # Update amount
-# slip4 = Slip()
-# # slip4.setSender(myself)
-# # slip3.setIssueDate(now)
-# # slip3.setExpirationDate(orignalDate)
-# slip4.setBankIdentifier(
-#     identifier="2644",
-#     branch=myself.bank.branchCode,
-#     accountNumber=myself.bank.accountNumber,
-#     wallet="109"
-# )
-# slip4.setIdentifier("PRD-5917955804102656")
-# slip4.chargeUpate(amount=135)
+slip4 = Slip()
+slip4.setBankIdentifier(
+    identifier="2644",
+    branch=myself.bank.branchCode,
+    accountNumber=myself.bank.accountNumber,
+    wallet="109"
+)
+slip4.setIdentifier("ID-123456")
+slip4.chargeUpate(amount=135)
 
 # Create slips
 file.add(register=slip1)
 file.add(register=slip2)
 file.add(register=slip3)
-#file.add(register=slip4)
+file.add(register=slip4)
 
 print(file.toString())
 
-file.output(fileName="update10.REM", path="/../../")
+file.output(fileName="output.REM", path="/../../")
