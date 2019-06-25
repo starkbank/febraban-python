@@ -37,7 +37,8 @@ payer = User(
 )
 now = datetime.now()
 #expiration = now + timedelta(days=1)
-expiration = datetime(day=22, month=07, year=2019)
+expiration = datetime(day=25, month=07, year=2019)
+interestDate = datetime(day=26, month=07, year=2019)
 orignalDate = datetime(day=20, month=07, year=2019)
 file = File()
 file.setSender(myself)
@@ -47,17 +48,17 @@ file.setIssueDate(datetime=None)
 # Update dueDate
 slip1 = Slip()
 slip1.setSender(myself)
-slip1.setAmountInCents("113")
+slip1.setAmountInCents("133")
 # slip1.setPayer(payer)
 #slip1.setIssueDate(now)
 #slip1.setExpirationDate(expiration)
 slip1.setBankIdentifier(
-    identifier="2643",
+    identifier="2644",
     branch=myself.bank.branchCode,
     accountNumber=myself.bank.accountNumber,
     wallet="109"
 )
-slip1.setIdentifier("PRD-5207112409939968")
+slip1.setIdentifier("PRD-5917955804102656")
 #slip1.setOverdueLimit("3")
 slip1.chargeUpate(dueDate=expiration)
 
@@ -74,7 +75,7 @@ slip2.setBankIdentifier(
     wallet="109"
 )
 slip2.setIdentifier("PRD-5917955804102656")
-slip2.chargeUpate(fine=50, fineDate=expiration)
+slip2.chargeUpate(fine=300, fineDate=expiration)  # 3%
 
 # Update Interest
 slip3 = Slip()
@@ -88,27 +89,27 @@ slip3.setBankIdentifier(
     wallet="109"
 )
 slip3.setIdentifier("PRD-5917955804102656")
-slip3.chargeUpate(interest=2, fineDate=expiration)
+slip3.chargeUpate(interest=10, interestDate=interestDate)  # 10 cents/day
 
 # Update amount
-slip4 = Slip()
-slip4.setSender(myself)
-# slip3.setIssueDate(now)
-# slip3.setExpirationDate(orignalDate)
-slip4.setBankIdentifier(
-    identifier="2613",
-    branch=myself.bank.branchCode,
-    accountNumber=myself.bank.accountNumber,
-    wallet="109"
-)
-slip4.setIdentifier("PRD-5701383420379136")
-slip4.chargeUpate(amount=135)
+# slip4 = Slip()
+# # slip4.setSender(myself)
+# # slip3.setIssueDate(now)
+# # slip3.setExpirationDate(orignalDate)
+# slip4.setBankIdentifier(
+#     identifier="2644",
+#     branch=myself.bank.branchCode,
+#     accountNumber=myself.bank.accountNumber,
+#     wallet="109"
+# )
+# slip4.setIdentifier("PRD-5917955804102656")
+# slip4.chargeUpate(amount=135)
 
 # Create slips
 file.add(register=slip1)
 file.add(register=slip2)
 file.add(register=slip3)
-file.add(register=slip4)
+#file.add(register=slip4)
 
 print(file.toString())
 
