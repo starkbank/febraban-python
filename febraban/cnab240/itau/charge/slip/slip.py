@@ -73,20 +73,23 @@ class Slip:
     def chargeUpate(self, amount=None, fine=None, dueDate=None, fineDate=None, interest=None, interestDate=None):
         if amount:
             self.segmentP.setOccurrence(occurence="31")
-            self.segmentP.setAmountInCents(amount=amount)
             self.segmentP.setNullValues()
+            self.segmentP.setAmountInCents(amount=amount)
             self.segmentQ.setNullValues()
-            self.segmentQ.setOccurrence(occurence="31")
         if fine:
             self.segmentP.setOccurrence(occurence="49")
             self.segmentP.setNullValues()
+            self.segmentP.setAmountInCents(amount=0)
             self.segmentQ.setNullValues()
             self.segmentQ.setOccurrence(occurence="49")
             self.segmentR.setFine(date=fineDate.strftime("%d%m%Y"), fine=fine)
             self.segmentR.setOccurrence(ocurrence="49")
+            self.segmentP.setAmountInCents(amount=0)
+
         if interest:
             self.segmentP.setNullValues()
             self.segmentP.setOccurrence(occurence="31")
+            self.segmentP.setAmountInCents(amount=0)
             self.segmentP.setInterest(date=interestDate.strftime("%d%m%Y"), interest=interest)
             self.segmentQ.setNullValues()
         if dueDate:
