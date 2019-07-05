@@ -63,10 +63,10 @@ class SegmentQ:
 
     def setNullValues(self):
         structs = [
-            (17, 18, 1, numeric, "0"),  # 1 - CPF/ 2 - CNPJ nulo
-            (18, 33, 15, numeric, "0"),  # CPF/CNPJ do Pagador nulo
-            (33, 63, 30, alphaNumeric, " "),  # Nome do Pagador nulo
-            (73, 113, 40, alphaNumeric, " "),  # Endereco pagador nulo
+            (17, 18, 1, numeric, "0"),          # 1 - CPF/ 2 - CNPJ nulo
+            (18, 33, 15, numeric, "0"),         # CPF/CNPJ do Pagador nulo
+            (33, 63, 30, alphaNumeric, " "),    # Nome do Pagador nulo
+            (73, 113, 40, alphaNumeric, " "),   # Endereco pagador nulo
             (113, 128, 15, alphaNumeric, " "),
             (128, 136, 8, numeric, "0"),
             (136, 151, 15, alphaNumeric, " "),
@@ -87,5 +87,3 @@ class SegmentQ:
             (15, 17, 2, numeric, "49"),              # Indica alteracao de multa
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
-
-
