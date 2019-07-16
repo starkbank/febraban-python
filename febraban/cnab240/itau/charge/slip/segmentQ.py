@@ -80,10 +80,3 @@ class SegmentQ:
 
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
-
-    def chargeUpdateFine(self):
-        self.setNullValues()
-        structs = [
-            (15, 17, 2, numeric, "49"),              # Indica alteracao de multa
-        ]
-        self.content = Row.setStructs(structs=structs, content=self.content)

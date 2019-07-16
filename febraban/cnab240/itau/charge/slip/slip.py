@@ -70,27 +70,11 @@ class Slip:
         self.segmentQ.setCancel()
         self.segmentR.setCancel()
 
-    def chargeUpate(self, amount=None, fine=None, dueDate=None, fineDate=None, interest=None, interestDate=None):
+    def chargeUpate(self, amount=None, dueDate=None):
         if amount:
             self.segmentP.setOccurrence(occurence="31")
             self.segmentP.setNullValues()
             self.segmentP.setAmountInCents(amount=amount)
-            self.segmentQ.setNullValues()
-        if fine:
-            self.segmentP.setOccurrence(occurence="49")
-            self.segmentP.setNullValues()
-            self.segmentP.setAmountInCents(amount=0)
-            self.segmentQ.setNullValues()
-            self.segmentQ.setOccurrence(occurence="49")
-            self.segmentR.setFine(date=fineDate.strftime("%d%m%Y"), fine=fine)
-            self.segmentR.setOccurrence(ocurrence="49")
-            self.segmentP.setAmountInCents(amount=0)
-
-        if interest:
-            self.segmentP.setNullValues()
-            self.segmentP.setOccurrence(occurence="31")
-            self.segmentP.setAmountInCents(amount=0)
-            self.segmentP.setInterest(date=interestDate.strftime("%d%m%Y"), interest=interest)
             self.segmentQ.setNullValues()
         if dueDate:
             self.segmentP.setNullValues()
