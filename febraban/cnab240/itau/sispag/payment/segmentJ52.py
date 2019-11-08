@@ -36,6 +36,13 @@ class SegmentJ52:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
+    def setReceiverTaxId(self, receiverTaxId):
+        structs = [
+            (75, 76,  1,     numeric,  "1" if len(receiverTaxId) == 11 else "2"),
+            (76, 91, 15,     numeric,  receiverTaxId),
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
     def setPositionInLot(self, index):
         structs = [
             ( 3,  7,  4, numeric, index),

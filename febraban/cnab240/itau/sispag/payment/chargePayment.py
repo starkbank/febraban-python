@@ -31,6 +31,10 @@ class ChargePayment:
         self.segmentJ52.setSenderBank(user.bank)
         self.trailer.setSenderBank(user.bank)
 
+    def setReceiverTaxId(self, receiverTaxId):
+        """Sets the receiver for the payment. Only the receiver's taxId is necessary."""
+        self.segmentJ52.setReceiverTaxId(receiverTaxId)
+
     def setIdentifier(self, identifier):
         """Sets the charge identifier that will be returned from the bank. Used for matching results."""
         self.segmentJ.setIdentifier(identifier)
