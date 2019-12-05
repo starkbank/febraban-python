@@ -6,15 +6,15 @@ from ....characterType import numeric, alphaNumeric
 
 class Header:
 
-    def __init__(self):
+    def __init__(self, layoutNum="040"):
         self.content = " " * 240
-        self.defaultValues()
+        self.defaultValues(layoutNum=layoutNum)
 
-    def defaultValues(self):
+    def defaultValues(self, layoutNum):
         structs = [
-            (  7,   8, 1,      numeric, "1"),
-            (  8,   9, 1, alphaNumeric, "C"),
-            ( 13,  16, 3,      numeric, "040"),
+            ( 7,   8, 1,      numeric, "1"),
+            ( 8,   9, 1, alphaNumeric, "C"),
+            (13,  16, 3,      numeric, layoutNum),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
@@ -52,7 +52,7 @@ class Header:
 
     def setInfo(self, kind, method):
         structs = [
-            ( 9, 11, 2, numeric, kind),
-            (11, 13, 2, numeric, method)
+            ( 9,  11,  2,      numeric,      kind),                       # Tipo de pagamento
+            (11,  13,  2,      numeric,    method),                       # Forma de pagamento
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
