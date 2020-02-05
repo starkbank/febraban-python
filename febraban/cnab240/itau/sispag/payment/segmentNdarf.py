@@ -1,11 +1,11 @@
 # coding: utf-8
 # Pagamento de Tributos sem código de barras (DARF NORMAL) # Página 32
 from datetime import date
-from febraban.cnab240.row import Row
-from febraban.cnab240.characterType import numeric, alphaNumeric
+from ....row import Row
+from ....characterType import numeric, alphaNumeric
 
 
-class SegmentNdarf:
+class SegmentNDarf:
 
     def __init__(self):
         self.content = " " * 240
@@ -51,9 +51,9 @@ class SegmentNdarf:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
-    def setEvaluationDate(self, evalDate):                  # PERÍODO DE APURAÇÃO
+    def setEvaluationDate(self, evalDate):                  # PERÍODO DE APURAÇÃO (DDMMAAAA)
         structs = [
-            (38, 46,  8,   numeric, evalDate),
+            (38, 46,  8,   numeric, evalDate.strftime("%d%m%Y")),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
