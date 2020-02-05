@@ -1,5 +1,6 @@
 from datetime import datetime
-from ....itau.sispag import Transfer, ChargePayment
+from ....itau.sispag import Transfer, ChargePayment, DasPayment, \
+    IptuPayment, DarfPayment, GpsPayment, IcmsPayment, IssPayment, FgtsPayment
 from ....libs.fileUtils import FileUtils
 from .header import Header
 from .trailer import Trailer
@@ -20,7 +21,9 @@ class File:
         self.header.setGeneratedFileDate(currentDatetime or datetime.now())
         self.trailer.setNumberOfLotsAndRegisters(
             num=len(self.lots),
-            sum=2 + 3 * self._count(Transfer) + 4 * self._count(ChargePayment)
+            sum=2 + 3 * self._count(Transfer) + 4 * self._count(ChargePayment) + 3 * self._count(IcmsPayment)
+                + 3 * self._count(IptuPayment) + 3 * self._count(DarfPayment) + 3 * self._count(GpsPayment)
+                + 3 * self._count(IssPayment) + 3 * self._count(DasPayment) + 3 * self._count(FgtsPayment)
         )
         lotsToString = "\r\n".join([lot.toString() for lot in self.lots])
         return "%s\r\n%s\r\n%s\r\n" % (self.header.content, lotsToString, self.trailer.content)
