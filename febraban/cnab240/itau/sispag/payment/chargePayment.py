@@ -13,7 +13,6 @@ class ChargePayment:
         self.trailer = Trailer()
 
     def toString(self):
-        # self.validate()
         return "\r\n".join((
             self.header.content,
             self.segmentJ.content,
@@ -63,9 +62,3 @@ class ChargePayment:
             method: String - Payment method  - 30 Pagamento Boleto Itau, 31 Pagamento Boleto outros Bancos. read: NOTES 5
         """
         self.header.setInfo(kind, method)
-
-    # def validate(self):
-    #     self.header.validate()
-    #     self.segmentJ.validate()
-    #     self.segmentJ52.validate()
-    #     self.trailer.validate()
