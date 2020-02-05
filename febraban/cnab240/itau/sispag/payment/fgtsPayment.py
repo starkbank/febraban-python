@@ -1,14 +1,30 @@
-from febraban.cnab240.itau.sispag.payment.header import Header
-from febraban.cnab240.itau.sispag.payment.segmentNfgts import SegmentNFGTS
-from febraban.cnab240.itau.sispag.payment.taxesTrailer import TaxesTrailer
+from .header import Header
+from .segmentNFgts import SegmentNFgts
+from .taxesTrailer import TaxesTrailer
 
 
-class FgstsPayment:
+class FgtsPayment:
 
     def __init__(self):
         self.header = Header(layoutNum="030")
-        self.segmentN = SegmentNFGTS()
+        self.segmentN = SegmentNFgts()
         self.trailer = TaxesTrailer()
+
+    def setPayment(self, **kwargs):
+        self.setSender(kwargs.get("sender"))
+        self.setTypeTaxId()
+        self.setTaxType(id="1")
+        self.setPaymentId(id="115")
+        self.setBarcode(kwargs.get("barCode"))
+        self.setTaxId(kwargs.get("taxId"))
+        self.setPaymentDate()
+        self.setTaxPayer(kwargs.get("sender").name)
+        # self.setFgtsIdentifier(kwargs.get("taxCode")) # ToDo verify if is necessary
+        # self.setLacre("017980")  # ToDo verify if is necessary
+        # self.setDigLacre("9") # ToDo verify if is necessary
+        self.setInfo()
+        self.setAmount(kwargs.get("amount"))
+        self.setIdentifier(kwargs.get("identifier"))
 
     def toString(self):
         return "\r\n".join((
@@ -33,7 +49,7 @@ class FgstsPayment:
     def setTaxId(self, CNPJ):
         self.segmentN.setTaxId(CNPJ)
 
-    def setTaxType(self, id="2"):
+    def setTaxType(self, id="1"):
         self.segmentN.setTaxType(id)
 
     def setBarcode(self, barcode):
@@ -45,8 +61,7 @@ class FgstsPayment:
     def setAmount(self, amount):
         self.segmentN.setAmount(amount)
         self.trailer.setAmountInCents(amount)
-        # self.trailer.setSumOthersAmountInCents("0")
-        self.trailer.setActualAmountInCents("0")
+        self.trailer.setActualAmountInCents(amount)
         self.trailer.setSumAmountInCents(amount)
 
     def setLacre(self, lacre):
