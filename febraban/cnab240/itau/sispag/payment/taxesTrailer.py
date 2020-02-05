@@ -1,5 +1,5 @@
 # coding: utf-8
-#Pagamento de Tributos sem código de barras e FGTS-GRF/GRRF/GRDE com código de barras
+# Pagamento de Tributos sem código de barras e FGTS-GRF/GRRF/GRDE com código de barras
 from ....characterType import numeric
 from ....row import Row
 

@@ -1,8 +1,8 @@
 # coding: utf-8
 # Pagamento de Contas de Concessionárias e Tributos com código de barras # Página 28
 from datetime import date
-from febraban.cnab240.row import Row
-from febraban.cnab240.characterType import numeric, alphaNumeric
+from ....row import Row
+from ....characterType import numeric, alphaNumeric
 
 
 class SegmentO:
