@@ -1,6 +1,6 @@
-from febraban.cnab240.itau.sispag.payment.header import Header
-from febraban.cnab240.itau.sispag.payment.segmentNgps import SegmentNGPS
-from febraban.cnab240.itau.sispag.payment.taxesTrailer import TaxesTrailer
+from .header import Header
+from .segmentNGps import SegmentNGps
+from .taxesTrailer import TaxesTrailer
 
 # GPS Codigo de Pagamento: 2100 = Empresas em geral - CNPJ
 
@@ -9,8 +9,24 @@ class GpsPayment:
 
     def __init__(self):
         self.header = Header(layoutNum="030")
-        self.segmentN = SegmentNGPS()
+        self.segmentN = SegmentNGps()
         self.trailer = TaxesTrailer()
+
+    def setPayment(self, **kwargs):
+        self.setTypeTaxId()
+        self.setPaymentId()
+        self.setReferenceMonth(kwargs.get("referenceDate"))
+        self.setSender(kwargs.get("sender"))
+        self.setInfo()
+        self.setAmount(kwargs.get("amount"))
+        actualAmount =self.getActualAmount(kwargs.get("amount"), kwargs.get("interestAmount"), kwargs.get("fineAmount"))
+        self.setOtherAmount(otherAmount=actualAmount)
+        self.setActualAmount(actualAmount)
+        self.setCollectedAmount(kwargs.get("incomeAmount"))
+        self.setTaxId(kwargs.get("taxId"))
+        self.setIdentifier(kwargs.get("identifier"))
+        self.setTaxPayer(kwargs.get("sender").name)
+        self.setRaisedDate()
 
     def toString(self):
         return "\r\n".join((
@@ -46,9 +62,14 @@ class GpsPayment:
         self.segmentN.setCollectedAmount(collectedAmount)
         self.trailer.setSumAmountInCents(collectedAmount)
 
+    def getActualAmount(self, amount, interestAmount, fineAmount):
+        actualAmount = amount
+        if interestAmount and fineAmount:
+            actualAmount = int(interestAmount) + int(fineAmount) + int(amount)
+        return str(actualAmount)
+
     def setActualAmount(self, actualAmount):
-        self.segmentN.setActualAmount(actualAmount)
-        self.trailer.setActualAmountInCents(actualAmount)
+        self.trailer.setActualAmountInCents(str(actualAmount))
 
     def setOtherAmount(self, otherAmount):
         self.segmentN.setOtherAmount(otherAmount)
