@@ -2,11 +2,11 @@
 # Página 32
 # Pagamento de Tributos sem código de barras (GPS - Guia da Previdencia Social)
 from datetime import date
-from febraban.cnab240.row import Row
-from febraban.cnab240.characterType import numeric, alphaNumeric
+from ....row import Row
+from ....characterType import numeric, alphaNumeric
 
 
-class SegmentNICMS:
+class SegmentNIcms:
 
     def __init__(self):
         self.content = " " * 240
@@ -72,7 +72,7 @@ class SegmentNICMS:
 
     def setRefMonth(self, refMonth):
         structs = [
-            (63, 69, 6, numeric, refMonth),                # MÊS E ANO DA COMPETÊNCIA (MMAAAA)
+            (63, 69, 6, numeric, refMonth.strftime("%m%Y")),  # MÊS E ANO DA COMPETÊNCIA (MMAAAA)
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
