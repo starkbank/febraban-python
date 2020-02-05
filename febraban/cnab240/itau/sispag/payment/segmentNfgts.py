@@ -1,11 +1,11 @@
 # coding: utf-8
 # Pagamento de FGTS com código de barras # Página 32
 from datetime import date
-from febraban.cnab240.row import Row
-from febraban.cnab240.characterType import numeric, alphaNumeric
+from ....row import Row
+from ....characterType import numeric, alphaNumeric
 
 
-class SegmentNFGTS:
+class SegmentNFgts:
 
     def __init__(self):
         self.content = " " * 240
