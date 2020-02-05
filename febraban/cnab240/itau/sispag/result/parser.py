@@ -13,6 +13,7 @@ class PaymentType:
 
     transfer = "transfer"
     chargePayment = "charge-payment"
+    taxPayment = "tax-payment"
 
 
 class PaymentResponse:
@@ -73,10 +74,16 @@ class PaymentParser:
                 currentResponse.type = PaymentType.transfer
             elif line[7] == "3" and line[13] == "J":
                 currentResponse.content.append(line)
-                currentResponse.identifier = cls._getIdentifierChargePayment(line)
+                currentResponse.identifier = cls._getIdentifierPayment(line)
                 currentResponse.occurrences = cls._getOccurrences(line)
-                currentResponse.amountInCents = cls._getAmountChargePayment(line)
+                currentResponse.amountInCents = cls._getAmountPayment(line)
                 currentResponse.type = PaymentType.chargePayment
+            elif line[7] == "3" and line[13] in ["N", "O"]:
+                currentResponse.content.append(line)
+                currentResponse.identifier = cls._getIdentifierPayment(line)
+                currentResponse.occurrences = cls._getOccurrences(line)
+                currentResponse.amountInCents = cls._getAmountPayment(line)
+                currentResponse.type = PaymentType.taxPayment
             elif line[7] == "3" and line[13] == "Z":
                 currentResponse.content.append(line)
                 currentResponse.authentication = cls._getAuthentication(line)
@@ -100,7 +107,7 @@ class PaymentParser:
         return int(line[119:134].strip())
 
     @classmethod
-    def _getAmountChargePayment(cls, line):
+    def _getAmountPayment(cls, line):
         return int(line[152:167].strip())
 
     @classmethod
@@ -108,7 +115,7 @@ class PaymentParser:
         return line[73:93].strip()
 
     @classmethod
-    def _getIdentifierChargePayment(self, line):
+    def _getIdentifierPayment(self, line):
         return line[182:202].strip()
 
     @classmethod
