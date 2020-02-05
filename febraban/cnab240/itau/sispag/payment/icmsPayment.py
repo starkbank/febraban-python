@@ -1,14 +1,33 @@
-from febraban.cnab240.itau.sispag.payment.header import Header
-from febraban.cnab240.itau.sispag.payment.segmentNicms import SegmentNICMS
-from febraban.cnab240.itau.sispag.payment.taxesTrailer import TaxesTrailer
+from .header import Header
+from .segmentNIcms import SegmentNIcms
+from .taxesTrailer import TaxesTrailer
 
 
 class IcmsPayment:
 
     def __init__(self):
         self.header = Header(layoutNum="030")
-        self.segmentN = SegmentNICMS()
+        self.segmentN = SegmentNIcms()
         self.trailer = TaxesTrailer()
+        self.setTypeTaxId()
+
+    def setPayment(self, **kwargs):
+        self.setTypeTaxId()
+        self.setSender(kwargs.get("sender"))
+        self.setIdType("1")
+        self.setStateRegistration(kwargs.get("stateRegistration"))
+        self.setNotificationNumber(notificationNumber="0000000000001")  # ToDo check if is necessary
+        self.setDebNum(debtNum="0000000000001")  # ToDo check if is necessary
+        self.setTaxId(kwargs.get("taxId"))
+        self.setRefMonth(kwargs.get("referenceDate"))
+        self.setRecipe(kwargs.get("incomeAmount"))
+        self.setAmount(kwargs.get("amount"))
+        self.setFine(kwargs.get("fineAmount"))
+        self.setInterest(kwargs.get("interestAmount"))
+        self.setDueDate(kwargs.get("dueDate"))
+        self.setPaymentDate()
+        self.setInfo()
+        self.setIdentifier(kwargs.get("identifier"))
 
     def toString(self):
         return "\r\n".join((
@@ -54,8 +73,8 @@ class IcmsPayment:
     def setInterest(self, interest):
         self.segmentN.setInterest(interest)
 
-    def setRefMonth(self, refMonth):
-        self.segmentN.setRefMonth(refMonth)
+    def setRefMonth(self, referenceDate):
+        self.segmentN.setRefMonth(referenceDate)
 
     def setDueDate(self, dueDate):
         self.segmentN.setDueDate(dueDate)
@@ -63,8 +82,8 @@ class IcmsPayment:
     def setPaymentDate(self):
         self.segmentN.setPaymentDate()
 
-    def setRecipe(self, recipeAmount):
-        self.segmentN.setRecipe(recipeAmount)
+    def setRecipe(self, incomeAmount):
+        self.segmentN.setRecipe(incomeAmount)
 
     def setAmount(self, amount):
         self.segmentN.setAmount(amount)
