@@ -14,11 +14,12 @@ class SlipResponseStatus:
 
 class SlipResponse:
 
-    def __init__(self, identifier=None, occurrence=None, content=None, amountInCents=None, fine=None, errors=None):
+    def __init__(self, identifier=None, occurrence=None, content=None, amountInCents=None, fine=None, discount=None, errors=None):
         self.identifier = identifier
         self.occurrence = occurrence
         self.amountInCents = amountInCents
         self.fine = fine
+        self.discount = discount
         self.content = content or []
         self.errors = errors or []
 
@@ -51,7 +52,7 @@ class SlipResponse:
         return [errorDict[errorCode] for errorCode in self.errors if errorCode in errorDict.keys()]
 
     def amountPaid(self):
-        return self.amountInCents + self.fine
+        return self.amountInCents + self.fine - self.discount
 
 
 class SlipParser:
@@ -80,6 +81,7 @@ class SlipParser:
             elif line[7] == "3" and line[13] == "U":
                 currentResponse.content.append(line)
                 currentResponse.fine = int(line[17:32])
+                currentResponse.discount = int(line[32:47])
                 result.append(currentResponse)
             elif line[7] == "3" and line[13] == "P":
                 currentResponse = SlipResponse()
