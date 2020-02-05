@@ -1,7 +1,8 @@
-from febraban.cnab240.itau.sispag.payment.header import Header
-from febraban.cnab240.itau.sispag.payment.segmentO import SegmentO
-from febraban.cnab240.itau.sispag.payment.trailer import Trailer
-from febraban.cnab240.libs.dac import DAC
+from .header import Header
+from .segmentO import SegmentO
+from .trailer import Trailer
+from ....libs.dac import DAC
+from ....libs.barCode import IptuBarCode
 
 
 class IptuPayment:
@@ -10,6 +11,17 @@ class IptuPayment:
         self.header = Header(layoutNum="030")
         self.segmentO = SegmentO()
         self.trailer = Trailer()
+
+    def setPayment(self, **kwargs):
+        self.barCode = IptuBarCode(kwargs.get("barCode"))
+        self.setSender(kwargs.get("sender"))
+        self.setBarCode(self.barCode)
+        self.setDueDate(kwargs.get("dueDate"))
+        self.setInfo()
+        # self.setDealerName(dealerName="PREFEITURA MUNICIPAL DE TABOAO DA SERRA")  # ToDo check if is necessary
+        self.setCurrencyAmount(kwargs.get("amount"))
+        self.setAmount(kwargs.get("amount"))
+        self.setIdentifier(kwargs.get("identifier"))
 
     def toString(self):
         return "\r\n".join((
