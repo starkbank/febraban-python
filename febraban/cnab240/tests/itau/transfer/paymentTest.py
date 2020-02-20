@@ -1,7 +1,7 @@
 from unittest.case import TestCase
-from febraban.cnab240.itau.sispag.payment.header import Header
+from febraban.cnab240.itau.sispag.file.headerLot import HeaderLot
 from febraban.cnab240.itau.sispag.payment.segmentA import SegmentA
-from febraban.cnab240.itau.sispag.payment.trailer import Trailer
+from febraban.cnab240.itau.sispag.file.trailerLot import TrailerLot
 from febraban.cnab240.user import User, UserBank, UserAddress
 
 
@@ -28,7 +28,7 @@ address = UserAddress(
 class PaymentTest(TestCase):
 
     def testHeaderLengh(self):
-        string = Header().content
+        string = HeaderLot().content
         self.assertEqual(len(string), 240)
 
     def testSegmentALengh(self):
@@ -36,11 +36,11 @@ class PaymentTest(TestCase):
         self.assertEqual(len(string), 240)
 
     def testTrailerLengh(self):
-        string = Trailer().content
+        string = TrailerLot().content
         self.assertEqual(len(string), 240)
 
     def testHeaderDefaultValues(self):
-        content = Header().content
+        content = HeaderLot().content
         self.assertEqual(content[7:8], "1")
         self.assertEqual(content[8:9], "C")
         self.assertEqual(content[13:16], "040")
@@ -51,11 +51,11 @@ class PaymentTest(TestCase):
         self.assertEqual(content[13:14], "A")
 
     def testTrailerDefaultValues(self):
-        content = Trailer().content
+        content = TrailerLot().content
         self.assertEqual(content[7:8], "5")
 
     def testHeaderSets(self):
-        header = Header()
+        header = HeaderLot()
         header.setSender(user)
         header.setSenderBank(bank)
         header.setSenderAddress(address)
@@ -77,7 +77,7 @@ class PaymentTest(TestCase):
         self.assertEquals(segment.content, response)
 
     def testTrailerSets(self):
-        trailer = Trailer()
+        trailer = TrailerLot()
         trailer.setAmountInCents(44400)
         trailer.setSenderBank(bank)
         trailer.setPositionInLot(5)

@@ -4,7 +4,7 @@ from ....row import Row
 from ....characterType import numeric, alphaNumeric
 
 
-class Header:
+class HeaderLot:
 
     def __init__(self):
         self.content = " " * 240
@@ -12,6 +12,7 @@ class Header:
 
     def defaultValues(self):
         structs = [
+            (  3,   7, 4,      numeric, "1"),
             (  7,   8, 1,      numeric, "1"),
             (  8,   9, 1, alphaNumeric, "C"),
             ( 13,  16, 3,      numeric, "040"),

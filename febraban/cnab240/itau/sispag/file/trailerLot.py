@@ -1,10 +1,10 @@
 # coding: utf-8
 
-from ....characterType import numeric
 from ....row import Row
+from ....characterType import numeric
 
 
-class Trailer:
+class TrailerLot:
 
     def __init__(self):
         self.content = " " * 240
@@ -12,6 +12,7 @@ class Trailer:
 
     def defaultValues(self):
         structs = [
+            ( 3,   7,  4, numeric, "1"),
             ( 7,   8,  1, numeric, "5"),
             (41,  59, 18, numeric, "0"),
         ]
@@ -19,13 +20,13 @@ class Trailer:
 
     def setLotNumberOfRegisters(self, count):
         structs = [
-            (17,  23,  6, numeric, count),
+            (17,  23,  6, numeric, 2 + count),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
-    def setAmountInCents(self, amount):
+    def setSumOfValues(self, sum):
         structs = [
-            (23, 41, 18, numeric, amount),                     # Soma dos valores dos lotes
+            (23, 41, 18, numeric, sum),                     # Soma dos valores dos lotes
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
