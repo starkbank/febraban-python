@@ -10,10 +10,13 @@ class SegmentA:
         self.content = " " * 240
         self.defaultValues()
 
+    def amountInCents(self):
+        return int(self.content[119:134])
+
     def defaultValues(self):
         structs = [
-            ( 7,    8,  1,      numeric, "3"),
-            ( 8,   13,  5,      numeric, "1"),
+            (  3,   7,  4,      numeric, "1"),
+            (  7,   8,  1,      numeric, "3"),
             ( 13,  14,  1, alphaNumeric, "A"),
             ( 14,  20,  6,      numeric, "0"),
             (101, 104,  3, alphaNumeric, "REA"),
@@ -53,7 +56,7 @@ class SegmentA:
 
     def setPositionInLot(self, index):
         structs = [
-            (3, 7, 4, numeric, index)                        # Indica index do lote
+            (8, 13, 5, numeric, index)                        # Indica index do lote
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

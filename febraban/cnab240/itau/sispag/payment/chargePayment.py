@@ -1,16 +1,12 @@
-from .header import Header
 from .segmentJ import SegmentJ
 from .segmentJ52 import SegmentJ52
-from .trailer import Trailer
 
 
 class ChargePayment:
 
     def __init__(self):
-        self.header = Header()
         self.segmentJ = SegmentJ()
         self.segmentJ52 = SegmentJ52()
-        self.trailer = Trailer()
 
     def toString(self):
         # self.validate()
