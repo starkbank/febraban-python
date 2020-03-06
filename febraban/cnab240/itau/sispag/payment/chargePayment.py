@@ -41,5 +41,6 @@ class ChargePayment:
         self.amount = int(barCode.amount)
 
     def setPositionInLot(self, index):
+        index = 2 * index - 1
         self.segmentJ.setPositionInLot(index)
-        self.segmentJ52.setPositionInLot(index)
+        self.segmentJ52.setPositionInLot(index + 1)

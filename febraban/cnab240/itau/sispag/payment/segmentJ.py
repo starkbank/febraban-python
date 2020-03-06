@@ -13,8 +13,8 @@ class SegmentJ:
 
     def defaultValues(self):
         structs = [
+            (  3,   7,  4,      numeric,   "1"),         # Lote do Registro
             (  7,   8,  1,      numeric,   "3"),         # Tipo de Registro
-            (  8,  13,  5,      numeric,     1),         # Index de Registro
             ( 13,  14,  1, alphaNumeric,   "J"),         # Código de Segmento
             ( 14,  17,  3,      numeric,   "0"),         # Tipo de Movimento
             (144, 152,  8,      numeric, date.today().strftime("%d%m%Y")),
@@ -57,6 +57,6 @@ class SegmentJ:
 
     def setPositionInLot(self, index):
         structs = [
-            (3, 7, 4, numeric, index)
+            (8, 13, 5, numeric, index),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
