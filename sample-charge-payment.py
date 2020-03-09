@@ -24,8 +24,13 @@ sender = User(
 )
 
 barCode = BarCode("34196791700000000011090000250507307144464000")
+taxId = "12345678901234"
 
 file = File()
+file.setHeaderLotType(
+     kind="98",   # Tipo de pagamento - Diversos
+     method="30"  # Pagamento de Boleto mesmo banco = 30; Pagamento de Boleto outro banco = 31
+)
 file.setSender(sender)
 
 payment = ChargePayment()
@@ -33,12 +38,9 @@ payment.setSender(sender)
 payment.setScheduleDate("08062019")
 payment.setIdentifier("ID1234567890")
 payment.setBarCode(barCode)
-payment.setInfo(
-    kind="98",   # Tipo de pagamento - Diversos
-    method="30", # Pagamento de Boleto mesmo banco
-)
+payment.setReceiverTaxId(taxId)
 
-file.add(lot=payment)
+file.add(register=payment)
 
 file.output(fileName="output3.REM", path="/../../")
 

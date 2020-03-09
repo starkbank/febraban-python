@@ -34,6 +34,10 @@ receiver = User(
 )
 
 file = File()
+file.setHeaderLotType(
+    kind="20",  #Tipo de pagamento - Diversos
+    method="01" #TED - Outra titularidade
+)
 file.setSender(sender)
 
 payment = Transfer()
@@ -42,12 +46,10 @@ payment.setReceiver(receiver)
 payment.setAmountInCents("12000")
 payment.setScheduleDate("12102017")
 payment.setInfo(
-    kind="98",   #Tipo de pagamento - Diversos
-    method="41", #TED - Outra titularidade
     reason="10"  #Crédito em Conta Corrente
 )
 payment.setIdentifier("ID1234567890")
-file.add(lot=payment)
+file.add(register=payment)
 
 file.output(fileName="output.REM", path="/../../")
 
