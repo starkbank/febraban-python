@@ -33,6 +33,10 @@ class File:
         Charge-payments:
             kind:   String - Kind of payment - 98 Diversos, read: NOTES 4
             method: String - Payment method  - 30 Pagamento Boleto Itau, 31 Pagamento Boleto outros Bancos. read: NOTES 5
+
+        Utilities:
+            kind:   String - Kind of payment - 98 Diversos, read: NOTES 4
+            method: String - Payment method  - 13 Concessionarias. read: NOTES 5
         """
         self.headerLot.setInfo(kind, method)
 
