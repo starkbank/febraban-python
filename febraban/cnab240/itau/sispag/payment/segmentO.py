@@ -51,22 +51,10 @@ class SegmentO:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
-    def setBarCode(self, barCode, dac):                     # 17, 66 (Nota 18) Página 60
-        structs = [
-            (17,   18,  1, numeric, 8),
-            (18,   19,  1, numeric, barCode.segmentId),      # IPTU = 1
-            (19,   20,  1, numeric, 6),                      # 6 = Real
-            (20,   21,  1, numeric, dac),                    # DAC (DV)
-            (21,   32, 11, numeric, barCode.amount),         # IPTU amount
-            (32,   36,  4, numeric, barCode.companyId),      # Identificacao empresa / orgao
-            (36,   61, 25, numeric, barCode.freeField),      # Campo livre
-            (121, 136, 15, numeric, barCode.amount),         # Valor a pagar
-        ]
-        self.content = Row.setStructs(structs=structs, content=self.content)
-
     def setLineNumber(self, lineNumber):
         structs = [
-            (17,  65,  48, numeric, lineNumber),
+            (17,   65, 48, numeric, lineNumber.number),
+            (121, 136, 15, numeric, lineNumber.amount),  # Valor a pagar
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

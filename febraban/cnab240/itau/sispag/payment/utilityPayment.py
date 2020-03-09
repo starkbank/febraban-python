@@ -22,17 +22,9 @@ class UtilityPayment:
     def setIdentifier(self, identifier):
         self.segmentO.setIdentifier(identifier)
 
-    def setBarCode(self, barCode):
-        dac = DAC.sispag(
-            productId=barCode.productId,
-            segmentId=barCode.segmentId,
-            currency=barCode.currency,
-            amount=barCode.amount,
-            company=barCode.companyId,
-            freeField=barCode.freeField
-        )
-        self.segmentO.setBarCode(barCode, dac)
-        self.amount = int(barCode.amount)
+    def setLineNumber(self, lineNumber):
+        self.segmentO.setLineNumber(lineNumber)
+        self.amount = int(lineNumber.amount)
 
     def setScheduleDate(self, paymentDate):
         self.segmentO.setScheduleDate(paymentDate)
