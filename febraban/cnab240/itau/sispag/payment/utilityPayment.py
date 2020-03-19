@@ -1,5 +1,4 @@
 from .segmentO import SegmentO
-from ....libs.dac import DAC
 
 
 class UtilityPayment:
@@ -7,6 +6,13 @@ class UtilityPayment:
     def __init__(self):
         self.segmentO = SegmentO()
         self.amount = 0
+
+    def setPayment(self, **kwargs):
+        self.setSender(kwargs.get("sender"))
+        self.setScheduleDate(kwargs.get("scheduleDate"))
+        self.setIdentifier(kwargs.get("identifier"))
+        self.setLineNumber(kwargs.get("lineNumber"))
+        self.setDueDate(kwargs.get("scheduleDate"))
 
     def toString(self):
         return "\r\n".join((

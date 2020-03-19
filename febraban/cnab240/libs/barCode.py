@@ -19,14 +19,14 @@ class LineNumberO:
 
     def __init__(self, number):
         self.number = number
-        self.productId = self.number[0:1]
-        self.segmentId = self.number[1:2]
-        self.currency = self.number[2:3]
+        self.productId = self.number[0]
+        self.segmentId = self.number[1]
+        self.currency = self.number[2]
         self.dac = self.number[3]
         self.dv1 = self.number[11]
         self.amount = self.number[4:11] + self.number[12:16]
-        self.companyId = self.number[15:19]
+        self.companyId = self.number[16:20]
         self.dv2 = self.number[23]
-        self.dv3 = self.number[40]
-        self.freeField = self.number[19:44]
+        self.dv3 = self.number[35]
         self.dv4 = self.number[47]
+        self.freeField = self.number[20:23] + self.number[24:35] + self.number[36:47]
