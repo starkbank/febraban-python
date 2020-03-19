@@ -11,7 +11,7 @@ class Row:
                 string=str(value),
                 charactersType=type,
                 numberOfCharacters=len,
-                defaultCharacter= {numeric:"0", alphaNumeric:" "}[type]
+                defaultCharacter={numeric: "0", alphaNumeric: " "}[type]
             )
             content = content[:start] + replacement + content[start+len:]
         return content

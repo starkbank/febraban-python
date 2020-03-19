@@ -44,7 +44,7 @@ class Slip:
         self.segmentP.setIssueDate(datetime.strftime("%d%m%Y"))
 
     def setBankIdentifier(self, identifier, branch, accountNumber, wallet):
-        dac = DAC.charge(
+        dac = DAC.calculate(
             branch="{:0>4}".format(branch)[:4],
             accountNumber=accountNumber,
             wallet="{:0>3}".format(wallet)[:3],
