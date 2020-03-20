@@ -33,11 +33,12 @@ file.setHeaderLotType(
 file.setSender(sender)
 
 payment = UtilityPayment()
-payment.setSender(sender)
-payment.setScheduleDate("1502202020")
-payment.setIdentifier("ID1234567890")
-payment.setLineNumber(lineNumber)
-payment.setDueDate("20022020")
+payment.setPayment(
+    sender=sender,
+    scheduleDate="18032020",
+    identifier="ID1234567890",
+    lineNumber=lineNumber
+)
 
 file.add(register=payment)
 
