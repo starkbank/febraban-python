@@ -13,6 +13,8 @@ class PaymentType:
 
     transfer = "transfer"
     chargePayment = "charge-payment"
+    taxPayment = "tax-payment"
+    barCodePayment = "bar-code-payment"
 
 
 class PaymentResponse:
@@ -60,30 +62,40 @@ class PaymentParser:
     @classmethod
     def parseLines(cls, lines):
         result = []
+        currentResponse = None
         for line in lines:
-            if line[7] in ["0", "9"]:
+            if line[7] in ["0", "1", "5"]:
                 continue
-            elif line[7] == "1":
-                currentResponse = PaymentResponse(content=[line])
-            elif line[7] == "3" and line[13] == "A":
+
+            if line[7] == "3" and line[13] in ["A", "J", "O"]:
+                if currentResponse is not None:
+                    result.append(currentResponse)
+                currentResponse = PaymentResponse()
+
+            if line[7] == "3" and line[13] == "A":
                 currentResponse.content.append(line)
-                currentResponse.identifier = cls._getIdentifierTransfer(line)
+                currentResponse.identifier = cls._getIdentifierSegmentA(line)
                 currentResponse.occurrences = cls._getOccurrences(line)
-                currentResponse.amountInCents = cls._getAmountTransfer(line)
+                currentResponse.amountInCents = cls._getAmountSegmentA(line)
                 currentResponse.type = PaymentType.transfer
             elif line[7] == "3" and line[13] == "J":
                 currentResponse.content.append(line)
-                currentResponse.identifier = cls._getIdentifierChargePayment(line)
+                currentResponse.identifier = cls._getIdentifierSegmentJ(line)
                 currentResponse.occurrences = cls._getOccurrences(line)
-                currentResponse.amountInCents = cls._getAmountChargePayment(line)
+                currentResponse.amountInCents = cls._getAmountSegmentJ(line)
                 currentResponse.type = PaymentType.chargePayment
+            elif line[7] == "3" and line[13] == "O":
+                currentResponse.content.append(line)
+                currentResponse.identifier = cls._getIdentifierSegmentO(line)
+                currentResponse.occurrences = cls._getOccurrences(line)
+                currentResponse.amountInCents = cls._getAmountSegmentO(line)
+                currentResponse.type = PaymentType.barCodePayment
             elif line[7] == "3" and line[13] == "Z":
                 currentResponse.content.append(line)
                 currentResponse.authentication = cls._getAuthentication(line)
-            elif line[7] == "5":
-                currentResponse.content.append(line)
+
+            if line[7] == "9":
                 result.append(currentResponse)
-                currentResponse = PaymentResponse()
         return result
 
     @classmethod
@@ -96,20 +108,28 @@ class PaymentParser:
         return [string[i:i+2] for i in range(0, len(string), 2)]
 
     @classmethod
-    def _getAmountTransfer(cls, line):
+    def _getAmountSegmentA(cls, line):
         return int(line[119:134].strip())
 
     @classmethod
-    def _getAmountChargePayment(cls, line):
+    def _getAmountSegmentJ(cls, line):
         return int(line[152:167].strip())
 
     @classmethod
-    def _getIdentifierTransfer(self, line):
+    def _getAmountSegmentO(cls, line):
+        return int(line[144:159].strip())
+
+    @classmethod
+    def _getIdentifierSegmentA(self, line):
         return line[73:93].strip()
 
     @classmethod
-    def _getIdentifierChargePayment(self, line):
+    def _getIdentifierSegmentJ(self, line):
         return line[182:202].strip()
+
+    @classmethod
+    def _getIdentifierSegmentO(self, line):
+        return line[174:194].strip()
 
     @classmethod
     def _getAuthentication(cls, line):

@@ -33,7 +33,7 @@ class ChargePayment:
         self.segmentJ.setIdentifier(identifier)
 
     def setScheduleDate(self, paymentDate):
-        """Sets the payment date to be sent to the bank. Defaults to today."""
+        """Sets the payment date to be sent to the bank."""
         self.segmentJ.setScheduleDate(paymentDate)
 
     def setBarCode(self, barCode):

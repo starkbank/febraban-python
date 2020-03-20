@@ -1,6 +1,4 @@
 # coding: utf-8
-
-from datetime import date
 from ....row import Row
 from ....characterType import numeric, alphaNumeric
 
@@ -17,7 +15,6 @@ class SegmentJ:
             (  7,   8,  1,      numeric,   "3"),         # Tipo de Registro
             ( 13,  14,  1, alphaNumeric,   "J"),         # Código de Segmento
             ( 14,  17,  3,      numeric,   "0"),         # Tipo de Movimento
-            (144, 152,  8,      numeric, date.today().strftime("%d%m%Y")),
             (114, 144, 30,      numeric,   "0"),
             (167, 182, 15,      numeric,   "0"),
         ]

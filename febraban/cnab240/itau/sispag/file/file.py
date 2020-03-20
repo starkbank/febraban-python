@@ -1,5 +1,5 @@
 from datetime import datetime
-from ....itau.sispag import Transfer, ChargePayment
+from ....itau.sispag import Transfer, ChargePayment, UtilityPayment
 from ....libs.fileUtils import FileUtils
 from .header import Header
 from .headerLot import HeaderLot
@@ -33,16 +33,20 @@ class File:
         Charge-payments:
             kind:   String - Kind of payment - 98 Diversos, read: NOTES 4
             method: String - Payment method  - 30 Pagamento Boleto Itau, 31 Pagamento Boleto outros Bancos. read: NOTES 5
+
+        Utilities:
+            kind:   String - Kind of payment - 98 Diversos, read: NOTES 4
+            method: String - Payment method  - 13 Concessionarias. read: NOTES 5
         """
         self.headerLot.setInfo(kind, method)
 
     def toString(self, currentDatetime=None):
         self.header.setGeneratedFileDate(currentDatetime or datetime.now())
         self.trailer.setNumberOfLotsAndRegisters(
-            sum=4 + self._count(Transfer) + 2 * self._count(ChargePayment)
+            sum=4 + self._count(Transfer) + 2 * self._count(ChargePayment) + self._count(UtilityPayment)
         )
         self.trailerLot.setLotNumberOfRegisters(
-            sum=2 + self._count(Transfer) + 2 * self._count(ChargePayment)
+            sum=2 + self._count(Transfer) + 2 * self._count(ChargePayment) + self._count(UtilityPayment)
         )
         self.trailerLot.setSumOfValues(sum=self.amount)
         registersToString = "\r\n".join([register.toString() for register in self.registers])
