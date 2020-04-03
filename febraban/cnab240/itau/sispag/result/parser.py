@@ -64,7 +64,7 @@ class PaymentParser:
         result = []
         currentResponse = None
         for line in lines:
-            if line[7] in ["0", "1", "5"]:
+            if line[7] in ["0", "1", "9"]:
                 continue
 
             if line[7] == "3" and line[13] in ["A", "J", "O"]:
@@ -94,8 +94,10 @@ class PaymentParser:
                 currentResponse.content.append(line)
                 currentResponse.authentication = cls._getAuthentication(line)
 
-            if line[7] == "9":
+            if line[7] == "5":
                 result.append(currentResponse)
+                currentResponse = None
+
         return result
 
     @classmethod
