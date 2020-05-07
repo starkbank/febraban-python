@@ -2,6 +2,7 @@
 # coding: utf-8
 
 from febraban.cnab240.itau.sispag import UtilityPayment, File
+from febraban.cnab240.itau.sispag.file.lot import Lot
 from febraban.cnab240.libs.barCode import LineNumberO
 from febraban.cnab240.user import User, UserAddress, UserBank
 
@@ -23,24 +24,37 @@ sender = User(
     )
 )
 
-lineNumber = LineNumberO("846800000012349701090114004112370844901232603900")
+lineNumbers = [
+    "836000000015522801380034710717288116000212965610",
+    "836400000011079401380070610530261110080671594119",
+    "836100000022434201380079213410922115000104587191",
+]
 
 file = File()
-file.setHeaderLotType(
-     kind="98",   # Tipo de pagamento - Diversos
-     method="13"  # Concessionarias
-)
 file.setSender(sender)
 
-payment = UtilityPayment()
-payment.setPayment(
-    sender=sender,
-    scheduleDate="18032020",
-    identifier="ID1234567890",
-    lineNumber=lineNumber
+lot = Lot()
+lot.setSender(sender)
+lot.setHeaderLotType(
+    kind="98",
+    method="13"
 )
 
-file.add(register=payment)
+for lineNumber in lineNumbers:
+    print lineNumber
 
+    lineNumber = LineNumberO(lineNumber)
+
+    payment = UtilityPayment()
+    payment.setPayment(
+        sender=sender,
+        scheduleDate="20032020",
+        identifier="ID1234567890",
+        lineNumber=lineNumber
+    )
+
+    lot.add(register=payment)
+
+file.addLot(lot)
 file.output(fileName="output.REM", path="/../../")
 
