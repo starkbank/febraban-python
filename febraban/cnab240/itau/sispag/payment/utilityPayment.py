@@ -40,3 +40,6 @@ class UtilityPayment:
 
     def setPositionInLot(self, index):
         self.segmentO.setPositionInLot(index)
+
+    def setLot(self, lot):
+        self.segmentO.setLot(lot)

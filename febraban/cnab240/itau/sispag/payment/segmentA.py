@@ -56,7 +56,13 @@ class SegmentA:
 
     def setPositionInLot(self, index):
         structs = [
-            (8, 13, 5, numeric, index)                        # Indica index do lote
+            (8, 13, 5, numeric, index),                       # Indica index do lote
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def setLot(self, lot):
+        structs = [
+            (3,  7, 4, numeric, lot),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

@@ -25,6 +25,9 @@ class Transfer:
     def setPositionInLot(self, index):
         self.segmentA.setPositionInLot(index)
 
+    def setLot(self, lot):
+        self.segmentA.setLot(lot)
+
     def setScheduleDate(self, date):
         self.segmentA.setScheduleDate(date)
 

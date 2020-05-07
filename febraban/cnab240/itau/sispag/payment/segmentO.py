@@ -39,6 +39,12 @@ class SegmentO:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
+    def setLot(self, lot):
+        structs = [
+            (3,  7, 4, numeric, lot),
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
     def setDealerName(self, dealerName):                    # NOME DA CONCESSIONÁRIA / CONTRIBUINTE
         structs = [
             (65, 95, 30, alphaNumeric, dealerName),
