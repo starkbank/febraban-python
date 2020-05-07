@@ -57,3 +57,9 @@ class SegmentJ:
             (8, 13, 5, numeric, index),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def setLot(self, lot):
+        structs = [
+            (3,  7, 4, numeric, lot),
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)

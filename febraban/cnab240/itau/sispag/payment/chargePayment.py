@@ -44,3 +44,7 @@ class ChargePayment:
         index = 2 * index - 1
         self.segmentJ.setPositionInLot(index)
         self.segmentJ52.setPositionInLot(index + 1)
+
+    def setLot(self, lot):
+        self.segmentJ.setLot(lot)
+        self.segmentJ52.setLot(lot)

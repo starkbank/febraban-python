@@ -2,7 +2,8 @@
 # coding: utf-8
 
 from febraban.cnab240.itau.sispag import ChargePayment, File
-from febraban.cnab240.libs.barCode import BarCode
+from febraban.cnab240.itau.sispag.file.lot import Lot
+from febraban.cnab240.libs.barCode import BarCodeJ
 from febraban.cnab240.user import User, UserAddress, UserBank
 
 
@@ -23,24 +24,41 @@ sender = User(
     )
 )
 
-barCode = BarCode("34112345600000012311090000250501234123454000")
-taxId = "12345678901234"
+barCodes = [
+    "34112318100000000011090027345767456112367000",
+    "34112318100000000021090027345687456112367000",
+    "34112318100000000031090027345507456112367000",
+]
+
+taxIds = [
+    "12345678901234",
+    "12345678901234",
+    "12345678901234",
+]
 
 file = File()
-file.setHeaderLotType(
-     kind="98",   # Tipo de pagamento - Diversos
-     method="30"  # Pagamento de Boleto mesmo banco = 30; Pagamento de Boleto outro banco = 31
-)
 file.setSender(sender)
 
-payment = ChargePayment()
-payment.setSender(sender)
-payment.setScheduleDate("08062019")
-payment.setIdentifier("ID1234567890")
-payment.setBarCode(barCode)
-payment.setReceiverTaxId(taxId)
+lot = Lot()
+sender.name = "SENDER NAME"
+lot.setSender(sender)
+lot.setHeaderLotType(
+    kind="98",
+    method="30"
+)
 
-file.add(register=payment)
+for barCodeString, taxId in zip(barCodes, taxIds):
+    barCode = BarCodeJ(barCodeString)
 
-file.output(fileName="output3.REM", path="/../../")
+    payment = ChargePayment()
+    payment.setSender(sender)
+    payment.setScheduleDate("26022020")
+    payment.setIdentifier("ID1234567890")
+    payment.setBarCode(barCode)
+    payment.setReceiverTaxId(taxId)
+
+    lot.add(register=payment)
+
+file.addLot(lot)
+file.output(fileName="output.REM", path="/../../")
 

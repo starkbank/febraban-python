@@ -18,9 +18,9 @@ class TrailerLot:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
-    def setLotNumberOfRegisters(self, sum):
+    def setLotNumberOfRegisters(self, num):
         structs = [
-            (17,  23,  6, numeric, sum),
+            (17,  23,  6, numeric, num),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
