@@ -1,6 +1,6 @@
 from .headerLot import HeaderLot
 from .trailerLot import TrailerLot
-from ....itau.sispag import Transfer, ChargePayment, UtilityPayment
+from ....itau.sispag import Transfer, ChargePayment, UtilityPayment, DasPayment, IssPayment
 
 
 class Lot:
@@ -44,11 +44,17 @@ class Lot:
         Utilities:
             kind:   String - Kind of payment - 98 Diversos, read: NOTES 4
             method: String - Payment method  - 13 Concessionarias. read: NOTES 5
+
+        Tax-payments:
+            kind:   String - Kind of payment - 22 Tributos, read: NOTES 4
+            method: String - Payment method  - 91 GNRE e Tributos com Codigo de Barras,
+                                               19 IPTU/ISS/Outros Tributos Municipais. read: NOTES 5
         """
         self.headerLot.setInfo(kind, method)
 
     def toString(self):
-        self.count = 2 + self._count(Transfer) + 2 * self._count(ChargePayment) + self._count(UtilityPayment)
+        self.count = 2 + self._count(Transfer) + 2 * self._count(ChargePayment) + self._count(UtilityPayment) \
+                     + self._count(DasPayment) + self._count(IssPayment)
         self.trailerLot.setLotNumberOfRegisters(
             num=self.count
         )
