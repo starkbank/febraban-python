@@ -1,5 +1,5 @@
 from .barCodePayment import BarCodePayment
 
 
-class DarfPayment(BarCodePayment):
+class DarfBarCodePayment(BarCodePayment):
     pass
