@@ -94,7 +94,7 @@ class PaymentParser:
                 currentResponse.content.append(line)
                 currentResponse.authentication = cls._getAuthentication(line)
 
-            if line[7] == "5":
+            if line[7] == "5" and currentResponse is not None:
                 result.append(currentResponse)
                 currentResponse = None
 
