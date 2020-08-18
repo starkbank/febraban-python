@@ -15,7 +15,7 @@ setup(
     author="Stark Bank",
     author_email="developers@starkbank.com",
     keywords=["febraban", "cnab", "cnab 240", "cnab240", "febraban240", "transfer", "billing", "bank"],
-    version="0.3.0"
+    version="0.4.0"
 )
 
 """
