@@ -19,7 +19,7 @@ class DarfPayment(NonBarCodePayment):
         self.setInterestAmount(kwargs.get("interest"))
         self.setTotalAmount(kwargs.get("totalAmount"))
         self.setDueDate(kwargs.get("dueDate"))
-        self.setScheduleDate(kwargs.get("scheduleDate"))
+        self.setScheduleDate(kwargs.get("scheduled"))
         self.setPayerName(kwargs.get("payerName"))
         self.setIdentifier(kwargs.get("identifier"))
 
@@ -31,8 +31,8 @@ class DarfPayment(NonBarCodePayment):
 
     def setTaxIdInfo(self, taxId):
         taxId = "".join(c for c in taxId if c.isdigit())
-        taxType = "1" if len(taxId) == 11 else "2"
-        self.segmentN.setTaxIdInfo(taxType)
+        taxIdType = "1" if len(taxId) == 11 else "2"
+        self.segmentN.setTaxIdType(taxIdType)
         self.segmentN.setTaxId(taxId)
 
     def setReferenceDate(self, referenceDate):

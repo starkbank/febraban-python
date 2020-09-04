@@ -49,9 +49,9 @@ class SegmentN:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
-    def setTaxType(self, taxType):
+    def setTaxIdType(self, taxIdType):
         structs = [
-            (23, 24, 2, numeric, taxType),
+            (23, 24, 1, numeric, taxIdType),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

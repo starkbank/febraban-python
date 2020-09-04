@@ -48,7 +48,9 @@ class Lot:
         Tax-payments:
             kind:   String - Kind of payment - 22 Tributos, read: NOTES 4
             method: String - Payment method  - 91 GNRE e Tributos com Codigo de Barras,
-                                               19 IPTU/ISS/Outros Tributos Municipais. read: NOTES 5
+                                               19 IPTU/ISS/Outros Tributos Municipais. read: NOTES 5,
+                                               16 DARF (No barcode)
+
         """
         self.headerLot.setInfo(kind, method)
 
