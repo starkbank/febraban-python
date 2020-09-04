@@ -6,6 +6,14 @@ class NonBarCodePayment:
         self.segmentN = SegmentN()
         self.amount = 0
 
+    def toString(self):
+        return "\r\n".join((
+            self.segmentN.content,
+        ))
+
+    def amountInCents(self):
+        return self.amount
+
     def setIdentifier(self, identifier):
         self.segmentN.setIdentifier(identifier)
 
