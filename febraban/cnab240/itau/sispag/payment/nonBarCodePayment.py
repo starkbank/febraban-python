@@ -26,5 +26,3 @@ class NonBarCodePayment:
     def setLot(self, lot):
         self.segmentN.setLot(lot)
 
-    def setPayerName(self, payerName):
-        self.segmentN.setPayerName(payerName)

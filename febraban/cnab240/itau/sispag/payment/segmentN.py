@@ -109,26 +109,8 @@ class SegmentN:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
-    def setPayerName(self, name):
-        structs = [
-            (164, 195, 30, alphaNumeric, name),
-        ]
-        self.content = Row.setStructs(structs=structs, content=self.content)
-
     def setIdentifier(self, identifier):
         structs = [
             (195, 215, 20, alphaNumeric, identifier),
-        ]
-        self.content = Row.setStructs(structs=structs, content=self.content)
-
-    def ourNumber(self, ourNumber):                           # Nosso número: Nota 12
-        structs = [                                           # Somente para cancelamento ou alteração
-            (215, 230, 15, alphaNumeric, ourNumber),          # Retornado pelo Itau a cada pagamento
-        ]
-        self.content = Row.setStructs(structs=structs, content=self.content)
-
-    def setOccurences(self, occurrenceId):                    # Nota 8
-        structs = [
-            (230, 240, 10, alphaNumeric, occurrenceId)
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
