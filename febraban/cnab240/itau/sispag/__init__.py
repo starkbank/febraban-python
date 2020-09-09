@@ -2,6 +2,7 @@ from .file.file import File
 from .result.parser import PaymentParser
 from .payment.transfer import Transfer
 from .payment.barCodePayment import BarCodePayment
+from .payment.nonBarCodePayment import NonBarCodePayment
 from .payment.issPayment import IssPayment
 from .payment.dasPayment import DasPayment
 from .payment.darfPayment import DarfPayment, DarfBarCodePayment

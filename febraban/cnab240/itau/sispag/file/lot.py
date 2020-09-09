@@ -1,6 +1,6 @@
 from .headerLot import HeaderLot
 from .trailerLot import TrailerLot
-from ....itau.sispag import Transfer, ChargePayment, BarCodePayment
+from ....itau.sispag import Transfer, ChargePayment, BarCodePayment, NonBarCodePayment
 
 
 class Lot:
@@ -9,7 +9,12 @@ class Lot:
         self.headerLot = HeaderLot()
         self.registers = []
         self.trailerLot = TrailerLot()
+        self.kind = ""
+        self.method = ""
         self.amount = 0
+        self.otherAmount = 0
+        self.additionAmount = 0
+        self.totalAmount = 0
         self.index = 1
         self.count = 0
 
@@ -17,6 +22,10 @@ class Lot:
         register.setPositionInLot(index=self.index)
         self.registers.append(register)
         self.amount += register.amountInCents()
+        if self._isNonBarCodeTax():
+            self.otherAmount += register.otherAmountInCents()
+            self.additionAmount += register.additionAmountInCents()
+            self.totalAmount += register.totalAmountInCents()
         self.index += 1
 
     def setLotNumber(self, index):
@@ -52,14 +61,27 @@ class Lot:
                                                16 DARF (No barcode)
 
         """
+        self.kind = kind
+        self.method = method
         self.headerLot.setInfo(kind, method)
 
     def toString(self):
-        self.count = 2 + self._count(Transfer) + 2 * self._count(ChargePayment) + self._count(BarCodePayment)
+        self.count = 2 + self._count(Transfer) + 2 * self._count(ChargePayment) + self._count(BarCodePayment) + \
+                     self._count(NonBarCodePayment)
         self.trailerLot.setLotNumberOfRegisters(
             num=self.count
         )
-        self.trailerLot.setSumOfValues(sum=self.amount)
+
+        if self._isNonBarCodeTax():
+            self.trailerLot.setSumOfValuesNonBarCodeTax(
+                sum=self.amount,
+                otherSum=self.otherAmount,
+                additionSum=self.additionAmount,
+                totalSum=self.totalAmount,
+            )
+        else:
+            self.trailerLot.setSumOfValues(sum=self.amount)
+
         registersToString = "\r\n".join([register.toString() for register in self.registers])
         return "%s\r\n%s\r\n%s" % (
             self.headerLot.content,
@@ -69,5 +91,8 @@ class Lot:
 
     def _count(self, cls):
         return len([register for register in self.registers if isinstance(register, cls)])
+
+    def _isNonBarCodeTax(self):
+        return self.kind == "22" and self.method in ["16"]
 
 

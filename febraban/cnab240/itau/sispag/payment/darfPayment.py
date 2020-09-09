@@ -42,15 +42,19 @@ class DarfPayment(NonBarCodePayment):
 
     def setNominalAmount(self, amount):
         self.segmentN.setNominalAmount(amount)
+        self.amount = int(amount)
 
     def setInterestAmount(self, interestAmount):
         self.segmentN.setInterestAmount(interestAmount)
+        self.additionAmount += int(interestAmount)
 
     def setFineAmount(self, fineAmount):
         self.segmentN.setFineAmount(fineAmount)
+        self.additionAmount += int(fineAmount)
 
     def setTotalAmount(self, totalAmount):
         self.segmentN.setTotalAmount(totalAmount)
+        self.totalAmount = int(totalAmount)
 
     def setDueDate(self, dueDate):
         self.segmentN.setDueDate(dueDate)
