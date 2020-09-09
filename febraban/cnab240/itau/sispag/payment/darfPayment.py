@@ -19,7 +19,7 @@ class DarfPayment(NonBarCodePayment):
         self.setInterestAmount(kwargs.get("interest"))
         self.setTotalAmount(kwargs.get("totalAmount"))
         self.setDueDate(kwargs.get("dueDate"))
-        self.setScheduleDate(kwargs.get("scheduled"))
+        self.setScheduleDate(kwargs.get("scheduleDate"))
         self.setIdentifier(kwargs.get("identifier"))
 
     def setTaxPaymentIdentifier(self, id):
