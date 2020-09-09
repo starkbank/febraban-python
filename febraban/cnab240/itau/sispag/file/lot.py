@@ -1,6 +1,8 @@
 from .headerLot import HeaderLot
 from .trailerLot import TrailerLot
 from ....itau.sispag import Transfer, ChargePayment, BarCodePayment, NonBarCodePayment
+from ....libs.paymentKind import PaymentKind
+from ....libs.paymentMethod import PaymentMethod
 
 
 class Lot:
@@ -40,7 +42,7 @@ class Lot:
         self.headerLot.setSenderAddress(sender.address)
         self.trailerLot.setSenderBank(sender.bank)
 
-    def setHeaderLotType(self, kind="20", method="41"):
+    def setHeaderLotType(self, kind=PaymentKind.vendor, method=PaymentMethod.tedOther):
         """
         Trasfers:
             kind:   String - Kind of payment - 20 Fornecedores, read: NOTES 4
@@ -66,8 +68,8 @@ class Lot:
         self.headerLot.setInfo(kind, method)
 
     def toString(self):
-        self.count = 2 + self._count(Transfer) + 2 * self._count(ChargePayment) + self._count(BarCodePayment) + \
-                     self._count(NonBarCodePayment)
+        self.count = (2 + self._count(Transfer) + 2 * self._count(ChargePayment)
+                      + self._count(BarCodePayment) + self._count(NonBarCodePayment))
         self.trailerLot.setLotNumberOfRegisters(
             num=self.count
         )
@@ -93,6 +95,6 @@ class Lot:
         return len([register for register in self.registers if isinstance(register, cls)])
 
     def _isNonBarCodeTax(self):
-        return self.kind == "22" and self.method in ["16"]
+        return self.kind == PaymentKind.tribute and self.method in PaymentMethod.taxes()
 
 
