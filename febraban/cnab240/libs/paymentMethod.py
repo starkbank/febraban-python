@@ -25,4 +25,8 @@ class PaymentMethod(Enum):
     @classmethod
     def taxes(cls):
         return [cls.darf, cls.gps, cls.das, cls.municipal, cls.darj, cls.gare, cls.ipva, cls.dpvat, cls.fgts]
+    
+    @classmethod
+    def nonBarcodeTaxes(cls):
+        return [cls.darf, cls.gps, cls.das, cls.darj, cls.gare, cls.ipva, cls.dpvat, cls.fgts]
 
