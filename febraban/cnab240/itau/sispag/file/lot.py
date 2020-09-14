@@ -95,6 +95,6 @@ class Lot:
         return len([register for register in self.registers if isinstance(register, cls)])
 
     def _isNonBarCodeTax(self):
-        return self.kind == PaymentKind.tribute and self.method in PaymentMethod.taxes()
+        return self.kind == PaymentKind.tribute and self.method in PaymentMethod.nonBarcodeTaxes()
 
 
