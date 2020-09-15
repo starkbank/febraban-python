@@ -1,3 +1,4 @@
+from libs.febraban.cnab240.libs.paymentType import NonBarcodeTaxPayment
 from .occurrences import occurrences
 
 
@@ -13,19 +14,20 @@ class PaymentType:
 
     transfer = "transfer"
     chargePayment = "charge-payment"
-    taxPayment = "tax-payment"
-    barCodePayment = "bar-code-payment"
+    nonBarcodeTaxPayment = "tax-payment"
+    barcodePayment = "barcode-payment"
 
 
 class PaymentResponse:
 
-    def __init__(self, identifier=None, occurrences=None, content=None, authentication=None, amountInCents=None, paymentType=None):
+    def __init__(self, identifier=None, occurrences=None, content=None, authentication=None, amountInCents=None, paymentType=None, nonBarcodeTax=None):
         self.identifier = identifier
         self.occurrences = occurrences
         self.content = content or []
         self.authentication = authentication
         self.amountInCents = amountInCents
         self.type = paymentType
+        self.nonBarcodeTax = nonBarcodeTax
 
     def occurrencesText(self):
         return [occurrences[occurrenceId] for occurrenceId in self.occurrences]
@@ -67,7 +69,7 @@ class PaymentParser:
             if line[7] in ["0", "1", "9"]:
                 continue
 
-            if line[7] == "3" and line[13] in ["A", "J", "O"]:
+            if line[7] == "3" and line[13] in ["A", "J", "O", "N"]:
                 if currentResponse is not None:
                     result.append(currentResponse)
                 currentResponse = PaymentResponse()
@@ -89,7 +91,13 @@ class PaymentParser:
                 currentResponse.identifier = cls._getIdentifierSegmentO(line)
                 currentResponse.occurrences = cls._getOccurrences(line)
                 currentResponse.amountInCents = cls._getAmountSegmentO(line)
-                currentResponse.type = PaymentType.barCodePayment
+                currentResponse.type = PaymentType.barcodePayment
+            elif line[7] == "3" and line[13] == "N":
+                currentResponse.content.append(line)
+                currentResponse.identifier = cls._getIdentifierSegmentN(line)
+                currentResponse.occurrences = cls._getOccurrences(line)
+                currentResponse.nonBarcodeTax = cls._getNonBarcodeTaxSegmentN(line)
+                currentResponse.type = PaymentType.nonBarcodeTaxPayment
             elif line[7] == "3" and line[13] == "Z":
                 currentResponse.content.append(line)
                 currentResponse.authentication = cls._getAuthentication(line)
@@ -134,5 +142,18 @@ class PaymentParser:
         return line[174:194].strip()
 
     @classmethod
+    def _getIdentifierSegmentN(self, line):
+        return line[195:215].strip()
+
+    @classmethod
     def _getAuthentication(cls, line):
         return line[14:78].strip()
+
+    @classmethod
+    def _getNonBarcodeTaxSegmentN(self, line):
+        taxTypeId = line[17:19].strip()
+        return {
+            "01": NonBarcodeTaxPayment.gps,
+            "02": NonBarcodeTaxPayment.darf,
+            "11": NonBarcodeTaxPayment.fgts,
+        }[taxTypeId]
