@@ -56,7 +56,7 @@ class CancelTest(TestCase):
         segment.setOverdueLimit(overdueLimit=59)
         segment.setCancel()
         response = "3410001300001P 0201234 000001234567 8109000999997        00000               0102201800000000002250000000099A01012018000000000000000000000000000000000000000000000000000000000000000000000000000000VITAO                    0001590000000000000 "
-        self.assertEquals(segment.content, response)
+        self.assertEqual(segment.content, response)
 
     def testSegmentQsets(self):
         segment = SegmentQ()
@@ -67,7 +67,7 @@ class CancelTest(TestCase):
         segment.setGuarantor(guarantor)
         segment.setCancel()
         response = "3410001300001Q 021000012345678901ARYA STARK                              AV PAULISTA 1000                                       01310000SAO PAULO      SP1000009876543210SACADOR                                 000                            "
-        self.assertEquals(segment.content, response)
+        self.assertEqual(segment.content, response)
 
     def testSegmentRsets(self):
         segment = SegmentR()

@@ -62,7 +62,7 @@ class PaymentTest(TestCase):
         header.setPositionInLot(2)
         header.setInfo(kind="88", method="99")
         response = "34100021C8899040 100012345678901                    01234 000001234567 8JOHN SMITH                                                            AV PAULISTA 1000                                  SAO PAULO           01310000SP                  "
-        self.assertEquals(header.content, response)
+        self.assertEqual(header.content, response)
 
     def testSegmentASets(self):
         segment = SegmentA()
@@ -73,13 +73,13 @@ class PaymentTest(TestCase):
         segment.setPositionInLot(3)
         segment.setScheduleDate("10122017")
         segment.setInfo("99")
-        response = "3410003300001A00000034101234 000001234567 8JOHN SMITH                                        10122017REA000000000000000000000000044400                    00000000000000000000000                    0000000001234567890199                     "
-        self.assertEquals(segment.content, response)
+        response = "3410001300003A00000034101234 000001234567 8JOHN SMITH                                        10122017REA000000000000000000000000044400                    00000000000000000000000                    0000000001234567890199                     "
+        self.assertEqual(segment.content, response)
 
     def testTrailerSets(self):
         trailer = TrailerLot()
-        trailer.setAmountInCents(44400)
+        # trailer.setAmountInCents(44400)
         trailer.setSenderBank(bank)
         trailer.setPositionInLot(5)
-        response = "34100055         000003000000000000044400000000000000000000                                                                                                                                                                                     "
-        self.assertEquals(trailer.content, response)
+        response = "34100055                                 000000000000000000                                                                                                                                                                                     "
+        self.assertEqual(trailer.content, response)

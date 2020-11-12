@@ -1,4 +1,4 @@
-from libs.febraban.cnab240.libs.paymentType import NonBarcodeTaxPayment
+from febraban.cnab240.libs.paymentType import NonBarcodeTaxPayment
 from .occurrences import occurrences
 
 
