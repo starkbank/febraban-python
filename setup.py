@@ -14,6 +14,7 @@ setup(
     url='https://github.com/starkbank/febraban.git',
     author="Stark Bank",
     author_email="developers@starkbank.com",
+    tests_require=['pytest'],
     keywords=["febraban", "cnab", "cnab 240", "cnab240", "febraban240", "transfer", "billing", "bank"],
     version="0.6.0"
 )
