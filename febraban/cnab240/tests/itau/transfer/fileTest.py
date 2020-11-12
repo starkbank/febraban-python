@@ -42,12 +42,12 @@ class FileTest(TestCase):
         header = Header()
         header.setSender(user)
         header.setSenderBank(bank)
-        response = "34100000      081100012345678901                    01234 000001234567 8JOHN SMITH                                                            10312201719400900000000000000                                                                     "
-        self.assertEquals(header.content, response)
+        response = "34100000      081100012345678901                    01234 000001234567 8JOHN SMITH                                                            1              00000000000000                                                                     "
+        self.assertEqual(header.content, response)
 
     def testTrailerSets(self):
         trailer = Trailer()
         trailer.setSenderBank(bank)
-        trailer.setNumberOfLotsAndRegisters(num=len([1,2,3]))
+        trailer.setNumberOfLotsAndRegisters(sum='11', num=len([1,2,3]))
         response = "34199999         000003000011                                                                                                                                                                                                                   "
-        self.assertEquals(trailer.content, response)
+        self.assertEqual(trailer.content, response)

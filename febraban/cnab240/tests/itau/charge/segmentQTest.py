@@ -49,4 +49,4 @@ class SegmentQTest(TestCase):
         segment.setPayerAddress(address)
         segment.setGuarantor(guarantor)
         response = "3410001300001Q 011000012345678901JOHN SMITH                              AV PAULISTA 1000                                       01310000SAO PAULO      SP1000009876543210JON SNOW                                000                            "
-        self.assertEquals(segment.content, response)
+        self.assertEqual(segment.content, response)
