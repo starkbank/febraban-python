@@ -8,6 +8,9 @@ class ChargePayment:
         self.segmentJ = SegmentJ()
         self.segmentJ52 = SegmentJ52()
         self.amount = 0
+        self.discountAmount = 0
+        self.addedAmount = 0
+        self.totalAmount = 0
 
     def toString(self):
         return "\r\n".join((
@@ -39,6 +42,12 @@ class ChargePayment:
     def setBarCode(self, barCode):
         self.segmentJ.setBarCode(barCode)
         self.amount = int(barCode.amount)
+
+    def setAmounts(self, discountAmount, addedAmount, totalAmount):
+        self.segmentJ.setAmounts(discountAmount, addedAmount, totalAmount)
+        self.discountAmount = discountAmount
+        self.addedAmount = addedAmount
+        self.totalAmount = totalAmount
 
     def setPositionInLot(self, index):
         index = 2 * index - 1
