@@ -109,8 +109,34 @@ class SegmentN:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
+    def setFgtsScheduleDate(self, paymentDate):
+        structs = [
+            (143, 151, 8, numeric, paymentDate),
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
     def setIdentifier(self, identifier):
         structs = [
             (195, 215, 20, alphaNumeric, identifier),
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def setBarCode(self, barCode):
+        structs = [
+            (38, 86, 48, alphaNumeric, barCode),
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def setFgtsAmount(self, amount):
+        structs = [
+            (151, 165, 14, numeric, amount),
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def setFgtsNullValues(self):
+        structs = [
+            (86, 102, 16, numeric, 0),
+            (102, 111, 9, numeric, 0),
+            (111, 113, 2, numeric, 0),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)

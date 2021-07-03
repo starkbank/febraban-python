@@ -7,6 +7,7 @@ class DarfBarCodePayment(BarCodePayment):
 
 
 class DarfPayment(NonBarCodePayment):
+
     def setPayment(self, **kwargs):
         self.setSender(kwargs.get("sender"))
         self.setTaxPaymentIdentifier("02")
