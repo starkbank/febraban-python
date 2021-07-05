@@ -22,7 +22,7 @@ class FgtsPayment(NonBarCodePayment):
 
     def setTaxIdInfo(self, taxId):
         taxId = "".join(c for c in taxId if c.isdigit())
-        taxIdType = "1" if len(taxId) == 11 else "2"
+        taxIdType = "2" if len(taxId) == 14 else "1"
         self.segmentN.setTaxIdType(taxIdType)
         self.segmentN.setTaxId(taxId)
 
@@ -35,6 +35,7 @@ class FgtsPayment(NonBarCodePayment):
     def setFgtsAmount(self, amount):
         self.segmentN.setFgtsAmount(amount)
         self.amount = int(amount)
+        self.totalAmount = int(amount)
 
     def setDueDate(self, dueDate):
         self.segmentN.setDueDate(dueDate)
