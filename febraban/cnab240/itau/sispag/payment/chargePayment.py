@@ -9,8 +9,20 @@ class ChargePayment:
         self.segmentJ52 = SegmentJ52()
         self.amount = 0
         self.discountAmount = 0
-        self.addedAmount = 0
+        self.additionAmount = 0
         self.totalAmount = 0
+
+    def setPayment(self, **kwargs):
+        self.setSender(kwargs["sender"])
+        self.setReceiverTaxId(kwargs["receiverTaxId"])
+        self.setBarCode(kwargs["barCode"])
+        self.setIdentifier(kwargs["identifier"])
+        self.setScheduleDate(kwargs["scheduleDate"].strftime("%d%m%Y"))
+        self.setAmounts(
+            kwargs.get("discountAmount"),
+            kwargs.get("addedAmount"),
+            kwargs.get("totalAmount"),
+        )
 
     def toString(self):
         return "\r\n".join((
@@ -20,6 +32,9 @@ class ChargePayment:
 
     def amountInCents(self):
         return self.amount
+
+    def totalAmountInCents(self):
+        return self.totalAmount
 
     def setSender(self, user):
         """Sets the sender for the payment. The sender represents a user, its bank and its address."""
@@ -46,7 +61,7 @@ class ChargePayment:
     def setAmounts(self, discountAmount, addedAmount, totalAmount):
         self.segmentJ.setAmounts(discountAmount, addedAmount, totalAmount)
         self.discountAmount = discountAmount
-        self.addedAmount = addedAmount
+        self.additionAmount = addedAmount
         self.totalAmount = totalAmount
 
     def setPositionInLot(self, index):

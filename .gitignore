@@ -5,4 +5,5 @@
 *.RET
 *.egg-info/*
 dist
+temp
 env/*
