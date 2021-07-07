@@ -59,7 +59,11 @@ class ChargePayment:
         self.amount = int(barCode.amount)
 
     def setAmounts(self, discountAmount, addedAmount, totalAmount):
-        self.segmentJ.setAmounts(discountAmount, addedAmount, totalAmount)
+        self.segmentJ.setAmounts(
+            discountAmount=discountAmount,
+            addedAmount=addedAmount,
+            totalAmount=totalAmount
+        )
         self.discountAmount = discountAmount
         self.additionAmount = addedAmount
         self.totalAmount = totalAmount
