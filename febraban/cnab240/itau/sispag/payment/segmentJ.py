@@ -36,7 +36,14 @@ class SegmentJ:
             ( 36,  61, 25, numeric, barCode.freeField),
             ( 91,  99,  8, numeric, barCode.dueDate.strftime("%d%m%Y")),    # Data de Vencimento
             ( 99, 114, 15, numeric, barCode.amount),                        # Valor Nominal do Título
-            (152, 167, 15, numeric, barCode.amount),                        # Valor do Pagamento
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def setAmounts(self, discountAmount, addedAmount, totalAmount):
+        structs = [
+            (114, 129, 15, numeric, discountAmount),                        # Valor do Desconto
+            (129, 144, 15, numeric, addedAmount),                           # Valor do Acréscimo
+            (152, 167, 15, numeric, totalAmount),                           # Valor do Pagamento
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

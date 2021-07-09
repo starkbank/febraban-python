@@ -24,6 +24,8 @@ class Lot:
         register.setPositionInLot(index=self.index)
         self.registers.append(register)
         self.amount += register.amountInCents()
+        if self._isBoletoPayment():
+            self.totalAmount += register.totalAmountInCents()
         if self._isNonBarCodeTax():
             self.otherAmount += register.otherAmountInCents()
             self.additionAmount += register.additionAmountInCents()
@@ -81,6 +83,9 @@ class Lot:
                 additionSum=self.additionAmount,
                 totalSum=self.totalAmount,
             )
+        elif self._isBoletoPayment():
+            self.trailerLot.setSumOfValues(sum=self.totalAmount)
+
         else:
             self.trailerLot.setSumOfValues(sum=self.amount)
 
@@ -93,6 +98,9 @@ class Lot:
 
     def _count(self, cls):
         return len([register for register in self.registers if isinstance(register, cls)])
+
+    def _isBoletoPayment(self):
+        return self.kind == PaymentKind.diverse and self.method in [PaymentMethod.itau, PaymentMethod.other]
 
     def _isNonBarCodeTax(self):
         return self.kind == PaymentKind.tribute and self.method in PaymentMethod.nonBarcodeTaxes()
