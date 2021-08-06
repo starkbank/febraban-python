@@ -6,7 +6,7 @@ class FgtsPayment(NonBarCodePayment):
     def setPayment(self, **kwargs):
         self.setSender(kwargs.get("sender"))
         self.setTaxPaymentIdentifier("11")
-        self.setRevenueCode("115")
+        self.setRevenueCode("0000")
         self.setTaxIdInfo(kwargs.get("taxId"))
         self.setFgtsScheduleDate(kwargs.get("scheduleDate"))
         self.setIdentifier(kwargs.get("identifier"))
@@ -22,7 +22,7 @@ class FgtsPayment(NonBarCodePayment):
 
     def setTaxIdInfo(self, taxId):
         taxId = "".join(c for c in taxId if c.isdigit())
-        taxIdType = "2" if len(taxId) == 14 else "1"
+        taxIdType = "1" if len(taxId) == 14 else "2"
         self.segmentN.setTaxIdType(taxIdType)
         self.segmentN.setTaxId(taxId)
 
