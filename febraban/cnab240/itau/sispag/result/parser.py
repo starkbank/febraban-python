@@ -1,4 +1,4 @@
-from .....cnab240.libs.paymentType import NonBarcodeTaxPayment
+from .....cnab240.libs.paymentType import NonBarcodeTaxPayment, BarcodePayment
 from .occurrences import occurrences
 
 
@@ -97,7 +97,11 @@ class PaymentParser:
                 currentResponse.identifier = cls._getIdentifierSegmentN(line)
                 currentResponse.occurrences = cls._getOccurrences(line)
                 currentResponse.nonBarcodeTax = cls._getNonBarcodeTaxSegmentN(line)
-                currentResponse.type = PaymentType.nonBarcodeTaxPayment
+                currentResponse.type = (
+                    PaymentType.barcodePayment
+                    if currentResponse.nonBarcodeTax == BarcodePayment.fgts
+                    else PaymentType.nonBarcodeTaxPayment
+                )
             elif line[7] == "3" and line[13] == "Z":
                 currentResponse.content.append(line)
                 currentResponse.authentication = cls._getAuthentication(line)
@@ -155,5 +159,5 @@ class PaymentParser:
         return {
             "01": NonBarcodeTaxPayment.gps,
             "02": NonBarcodeTaxPayment.darf,
-            "11": NonBarcodeTaxPayment.fgts,
+            "11": BarcodePayment.fgts,
         }[taxTypeId]
