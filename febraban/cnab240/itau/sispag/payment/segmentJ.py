@@ -34,7 +34,6 @@ class SegmentJ:
             ( 22,  26,  4, numeric, barCode.dueFactor),
             ( 26,  36, 10, numeric, barCode.amount),
             ( 36,  61, 25, numeric, barCode.freeField),
-            ( 91,  99,  8, numeric, barCode.dueDate.strftime("%d%m%Y")),    # Data de Vencimento
             ( 99, 114, 15, numeric, barCode.amount),                        # Valor Nominal do Título
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
@@ -50,6 +49,12 @@ class SegmentJ:
     def setScheduleDate(self, date):
         structs = [
             (144, 152,  8, numeric, date)
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
+    def setDueDate(self, dueDate):
+        structs = [
+            ( 91,  99,  8, numeric, dueDate),    # Data de Vencimento
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

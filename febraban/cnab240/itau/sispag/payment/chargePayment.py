@@ -13,15 +13,18 @@ class ChargePayment:
         self.totalAmount = 0
 
     def setPayment(self, **kwargs):
+        barCode = kwargs["barCode"]
+        dueDate = kwargs.get("dueDate") or barCode.dueDate
         self.setSender(kwargs["sender"])
         self.setReceiverTaxId(kwargs["receiverTaxId"])
-        self.setBarCode(kwargs["barCode"])
+        self.setBarCode(barCode)
         self.setIdentifier(kwargs["identifier"])
         self.setScheduleDate(kwargs["scheduleDate"].strftime("%d%m%Y"))
+        self.setDueDate(dueDate.strftime("%d%m%Y"))
         self.setAmounts(
-            kwargs.get("discountAmount"),
-            kwargs.get("addedAmount"),
-            kwargs.get("totalAmount"),
+            discountAmount=kwargs["discountAmount"],
+            addedAmount=kwargs["addedAmount"],
+            totalAmount=kwargs["totalAmount"],
         )
 
     def toString(self):
@@ -53,6 +56,10 @@ class ChargePayment:
     def setScheduleDate(self, paymentDate):
         """Sets the payment date to be sent to the bank."""
         self.segmentJ.setScheduleDate(paymentDate)
+
+    def setDueDate(self, dueDate):
+        """Sets the payment due date extracted from either CIP or the barcode itself"""
+        self.segmentJ.setDueDate(dueDate)
 
     def setBarCode(self, barCode):
         self.segmentJ.setBarCode(barCode)
