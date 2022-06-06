@@ -1,4 +1,4 @@
-from febraban.cnab240.itau.sispag import NonBarCodePayment
+from .nonBarCodePayment import NonBarCodePayment
 
 
 class FgtsPayment(NonBarCodePayment):
