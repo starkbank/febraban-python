@@ -15,6 +15,19 @@ class BarCodeJ:
         self.dueDate = self.baseDate + timedelta(days=int(self.dueFactor))
 
 
+class BarCodeN:
+
+    def __init__(self, number):
+        self.number = number
+        self.productId = self.number[0]
+        self.segmentId = self.number[1]
+        self.currency = self.number[2]
+        self.dac = self.number[3]
+        self.amount = self.number[4:15]
+        self.companyId = self.number[15:19]
+        self.freeField = self.number[19:]
+
+
 class LineNumberO:
 
     def __init__(self, number):
