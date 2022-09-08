@@ -9,6 +9,7 @@ class BarcodePayment(Enum):
     gps = "gps"
     darf = "darf"
     fgts = "fgts"
+    gnre = "gnre"
 
 
 class NonBarcodeTaxPayment(Enum):
