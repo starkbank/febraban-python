@@ -46,6 +46,12 @@ class SegmentJ:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
+    def setNominalAmount(self, nominalAmount):
+        structs = [
+            (99, 114, 15, numeric, nominalAmount),                        # Valor Nominal do Título
+        ]
+        self.content = Row.setStructs(structs=structs, content=self.content)
+
     def setScheduleDate(self, date):
         structs = [
             (144, 152,  8, numeric, date)
