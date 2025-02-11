@@ -25,6 +25,7 @@ class ChargePayment:
             discountAmount=kwargs["discountAmount"],
             addedAmount=kwargs["addedAmount"],
             totalAmount=kwargs["totalAmount"],
+            nominalAmount=kwargs.get("nominalAmount")
         )
 
     def toString(self):
@@ -65,7 +66,7 @@ class ChargePayment:
         self.segmentJ.setBarCode(barCode)
         self.amount = int(barCode.amount)
 
-    def setAmounts(self, discountAmount, addedAmount, totalAmount):
+    def setAmounts(self, discountAmount, addedAmount, totalAmount, nominalAmount=None):
         self.segmentJ.setAmounts(
             discountAmount=discountAmount,
             addedAmount=addedAmount,
@@ -74,6 +75,10 @@ class ChargePayment:
         self.discountAmount = discountAmount
         self.additionAmount = addedAmount
         self.totalAmount = totalAmount
+
+        if not self.amount and nominalAmount:
+            self.segmentJ.setNominalAmount(nominalAmount=nominalAmount)
+            self.amount = nominalAmount
 
     def setPositionInLot(self, index):
         index = 2 * index - 1
