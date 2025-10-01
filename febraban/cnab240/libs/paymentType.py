@@ -8,6 +8,8 @@ class BarcodePayment(Enum):
     das = "das"
     gps = "gps"
     darf = "darf"
+    dare = "dare"
+    dae = "dae"
     fgts = "fgts"
     gnre = "gnre"
 
