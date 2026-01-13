@@ -11,12 +11,13 @@ class User:
 
 class UserBank:
 
-    def __init__(self, bankId, branchCode, accountNumber, accountVerifier, bankName=""):
+    def __init__(self, bankId, branchCode, accountNumber, accountVerifier, bankName="", bankAgreement=""):
         self.bankId = bankId
         self.bankName = bankName
         self.accountNumber = accountNumber
         self.branchCode = branchCode
         self.accountVerifier = accountVerifier
+        self.bankAgreement = bankAgreement
 
 
 class UserAddress:
