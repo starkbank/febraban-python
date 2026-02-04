@@ -80,7 +80,7 @@ class SegmentN:
 
     def setTaxId(self, taxId):
         structs = [
-            (118, 132, 14, alphaNumeric, taxId),
+            (118, 132, 14, numeric, taxId),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

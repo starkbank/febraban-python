@@ -1,6 +1,8 @@
 from datetime import datetime
 from febraban.cnab240.bradesco.multipag.file.lot import Lot
 from febraban.cnab240.bradesco.multipag.file.file import File
+from febraban.cnab240.libs.paymentKind import PaymentKind
+from febraban.cnab240.libs.paymentMethod import PaymentMethod
 from febraban.cnab240.user import User, UserAddress, UserBank
 from febraban.cnab240.bradesco.multipag.payment.darfPayment import DarfPayment
 
@@ -11,8 +13,8 @@ myself = User(
     bank=UserBank(
         bankId="237",
         branchCode="0156",
-        accountNumber="000000018807",
-        accountVerifier="7",
+        accountNumber="000000060279",
+        accountVerifier="5",
         bankName="BANCO BRADESCO SA",
         bankAgreement="610242"
     ),
@@ -33,18 +35,17 @@ file.setSender(myself)
 lot = Lot()
 lot.setSender(myself)
 lot.setHeaderLotType(
-    kind="22",
-    method="16"
+    kind=PaymentKind.tribute,
+    method=PaymentMethod.darf
 )
 for i in range(1, 10):
     darfPayment = DarfPayment()
     amount = 10000 * i
     fine = 2000
     interest = 3000
-    print(f"{amount + fine + interest}")
     darfPayment.setPayment(
         sender=myself,
-        taxId="18604973000103",
+        taxId="34169054822",
         revenueCode="2089",
         referenceDate="19012025",
         referenceNumber="1234567890",
