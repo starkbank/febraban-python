@@ -16,7 +16,7 @@ class DarfPayment(NonBarCodePayment):
         self.setTotalAmount(kwargs.get("totalAmount"))
         self.setDueDate(kwargs.get("dueDate"))
         self.setIdentifier(kwargs.get("identifier"))
-        self.setOurNumber(kwargs.get("ourNumber"))
+        self.setOurNumber(kwargs.get("ourNumber",""))
         self.setIdentifier(kwargs.get("identifier"))
         self.setRevenueCode(kwargs.get("revenueCode"))    
 
