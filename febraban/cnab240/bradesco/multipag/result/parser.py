@@ -1,4 +1,4 @@
-from febraban.cnab240.bradesco.multipag.result import occurrences
+from febraban.cnab240.bradesco.multipag.result.occurrences import occurrences
 from febraban.cnab240.libs.paymentType import NonBarcodeTaxPayment, BarcodePayment
 
 class PaymentResponseStatus:
@@ -154,7 +154,7 @@ class PaymentParser:
 
     @classmethod
     def _getNonBarcodeTaxSegmentN(self, line):
-        taxTypeId = line[17:19].strip()
+        taxTypeId = line[132:134].strip()
         return {
-            "02": NonBarcodeTaxPayment.darf,
+            "16": NonBarcodeTaxPayment.darf,
         }[taxTypeId]
