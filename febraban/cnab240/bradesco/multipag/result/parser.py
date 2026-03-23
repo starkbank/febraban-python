@@ -40,7 +40,7 @@ class PaymentResponse:
             return PaymentResponseStatus.success
         if "BD" in self.occurrences:
             return PaymentResponseStatus.scheduled
-        if [code in self.occurrences for code in ["RJ", "DV", "SS", "AP", "01"]].count(True) > 0:
+        if [code in self.occurrences for code in ["RJ", "DV", "SS", "AP", "AR", "01"]].count(True) > 0:
             return PaymentResponseStatus.failed
         return PaymentResponseStatus.unknown
 
