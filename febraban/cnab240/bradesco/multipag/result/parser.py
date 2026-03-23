@@ -67,7 +67,6 @@ class PaymentParser:
         for line in lines:
             if line[7] in ["0", "1", "9"]:
                 continue
-
             if line[7] == "3" and line[13] in ["A", "J", "O", "N"]:
                 if currentResponse is not None:
                     result.append(currentResponse)
@@ -146,7 +145,7 @@ class PaymentParser:
 
     @classmethod
     def _getIdentifierSegmentN(self, line):
-        return line[195:215].strip()
+        return line[17:37].strip()
 
     @classmethod
     def _getAuthentication(cls, line):
