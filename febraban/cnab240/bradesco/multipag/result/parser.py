@@ -1,6 +1,7 @@
 from febraban.cnab240.bradesco.multipag.result.occurrences import occurrences
 from febraban.cnab240.libs.paymentType import NonBarcodeTaxPayment, BarcodePayment
 
+
 class PaymentResponseStatus:
 
     success = "success"

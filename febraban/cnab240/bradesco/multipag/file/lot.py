@@ -56,10 +56,7 @@ class Lot:
             self.trailerLot.setSumOfValuesNonBarCodeTax(
                 sum=self.amount,
                 otherSum=self.otherAmount,
-                totalSum=self.totalAmount,
             )
-        elif self._isBoletoPayment():
-            self.trailerLot.setSumOfValues(sum=self.totalAmount)
         else:
             self.trailerLot.setSumOfValues(sum=self.amount)
 

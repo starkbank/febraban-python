@@ -29,11 +29,10 @@ class TrailerLot:
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
-    def setSumOfValuesNonBarCodeTax(self, sum, otherSum, totalSum):
+    def setSumOfValuesNonBarCodeTax(self, sum, otherSum):
         structs = [
             (23, 41, 18, numeric, sum),         # Sum of main values of lots
             (41, 59, 13, numeric, otherSum),    # Sum of other entities values of lots
-            (59, 65, 0, numeric, totalSum),     # Sum of total values of lots
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

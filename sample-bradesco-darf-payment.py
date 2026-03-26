@@ -38,24 +38,23 @@ lot.setHeaderLotType(
     kind=PaymentKind.tribute,
     method=PaymentMethod.darf
 )
-for i in range(1, 10):
+for i in range(1,11):
     darfPayment = DarfPayment()
-    amount = 10000 * i
-    fine = 2000
-    interest = 3000
+    amount = 100
+    fine = 0
+    interest = 0
     darfPayment.setPayment(
         sender=myself,
         taxId="34169054822",
-        revenueCode="2089",
-        referenceDate="19012025",
-        referenceNumber="1234567890",
+        revenueCode="6621",
+        referenceDate="24032026",
+        referenceNumber="",
         amount=f"{amount}",
         fine=f"{fine}",
         interest=f"{interest}",
         totalAmount=f"{amount + fine + interest}",
-        identifier="1234567890",
-        dueDate="31122025",
-        ourNumber=f"{i}",
+        identifier=f"DEV-6291233349566464-{i}",
+        dueDate="24032026",
     )
     darfPayment.setPaymentDate(datetime.now().strftime("%d%m%Y"))
     lot.add(register=darfPayment)
@@ -63,4 +62,4 @@ for i in range(1, 10):
 
 file.addLot(lot)
 # file.add(register=lot)
-file.output(fileName="output1.REM", path="/../../")
+file.output(fileName="TESTE.REM", path="/../../")
