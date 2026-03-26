@@ -17,7 +17,6 @@ class DarfPayment(NonBarCodePayment):
         self.setDueDate(kwargs.get("dueDate"))
         self.setIdentifier(kwargs.get("identifier"))
         self.setOurNumber(kwargs.get("ourNumber",""))
-        self.setIdentifier(kwargs.get("identifier"))
         self.setRevenueCode(kwargs.get("revenueCode"))    
 
     def setRevenueCode(self, code):
@@ -32,8 +31,6 @@ class DarfPayment(NonBarCodePayment):
     def setTaxPaymentIdentifier(self, id):
         self.segmentN.setTaxPaymentIdentifier(id)
 
-    def setRevenueCode(self, code):
-        self.segmentN.setRevenueCode(code)
 
     def setTaxIdInfo(self, taxId):
         taxId = "".join(c for c in taxId if c.isdigit())
@@ -72,8 +69,6 @@ class DarfPayment(NonBarCodePayment):
     def setContributorName(self, name):
         self.segmentN.setContributorName(name)
 
-    def setOurNumber(self, ourNumber):
-        self.segmentN.setOurNumber(ourNumber)
 
     def setRevenueCode(self, code):
         self.segmentN.setRevenueCode(code)
@@ -92,9 +87,6 @@ class DarfPayment(NonBarCodePayment):
 
     def additionAmountInCents(self):
         return self.additionAmount
-
-    def setIdentifier(self, identifier):
-        self.segmentN.setIdentifier(identifier)
 
     def setSender(self, user):
         self.segmentN.setSenderBank(user.bank)

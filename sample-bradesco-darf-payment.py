@@ -38,9 +38,9 @@ lot.setHeaderLotType(
     kind=PaymentKind.tribute,
     method=PaymentMethod.darf
 )
-for i in range(1,11):
+for i in range(0,1000):
     darfPayment = DarfPayment()
-    amount = 100
+    amount = 1000
     fine = 0
     interest = 0
     darfPayment.setPayment(
