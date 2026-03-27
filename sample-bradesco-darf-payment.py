@@ -38,11 +38,21 @@ lot.setHeaderLotType(
     kind=PaymentKind.tribute,
     method=PaymentMethod.darf
 )
-for i in range(0,1000):
+for i in range(0,10):
     darfPayment = DarfPayment()
     amount = 1000
-    fine = 0
-    interest = 0
+    if i == 0:
+        amount = 1000
+        fine = 100
+        interest = 100
+    elif i == 3:
+        amount = 1000
+        fine = 300
+        interest = 430
+    else:
+        amount = 1000
+        fine = 0
+        interest = 0
     darfPayment.setPayment(
         sender=myself,
         taxId="34169054822",
