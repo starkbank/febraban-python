@@ -20,6 +20,9 @@ class PaymentType:
 
 class PaymentResponse:
 
+    successCodes = {"00", "03"}
+    scheduledCodes = {"BD", "BE", "BF", "BN", "BO", "BP", "BQ"}
+
     def __init__(self, identifier=None, occurrences=None, content=None, authentication=None, amountInCents=None, paymentType=None, nonBarcodeTax=None):
         self.identifier = identifier
         self.occurrences = occurrences
@@ -37,11 +40,11 @@ class PaymentResponse:
         return occurrences[occurrenceId]
 
     def status(self):
-        if "00" in self.occurrences:
+        if any(code in self.successCodes for code in self.occurrences):
             return PaymentResponseStatus.success
-        if "BD" in self.occurrences:
+        if any(code in self.scheduledCodes for code in self.occurrences):
             return PaymentResponseStatus.scheduled
-        if [code in self.occurrences for code in ["RJ", "DV", "SS", "AP", "AR", "01"]].count(True) > 0:
+        if any(code in occurrences for code in self.occurrences):
             return PaymentResponseStatus.failed
         return PaymentResponseStatus.unknown
 
