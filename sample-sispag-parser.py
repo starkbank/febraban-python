@@ -1,15 +1,17 @@
+from febraban.cnab240.itau.charge.result.parser import SlipParser
 from febraban.cnab240.itau.sispag import PaymentParser
 
 
-file = open("SB06069A.RET.txt", "r")
+file = open("Teste.RET", "r")
 
-responses = PaymentParser.parseFile(file)
+responses = SlipParser.parseFile(file)
 
 for response in responses:
-    print "-------------------------------------------------------------------"
-    print response.identifier
-    print response.authentication
-    print response.status()
-    print response.amountInCents
-    print response.type
-    print response.contentText()
+    print("-------------------------------------------------------------------")
+    print(response.identifier)
+    print(response.authentication)
+    print(response.status())
+    print(response.amountInCents)
+    print(response.type)
+    print(response.contentText())
+    print("-------------------------------------------------------------------")
