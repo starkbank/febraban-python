@@ -1,6 +1,6 @@
 # coding: utf-8
 from febraban.cnab240.row import Row
-from febraban.cnab240.characterType import alphaNumeric, numeric
+from febraban.cnab240.characterType import alphaNumeric, alphaNumericRightAligned, numeric
 
 
 class SegmentN:
@@ -80,7 +80,7 @@ class SegmentN:
 
     def setTaxId(self, taxId):
         structs = [
-            (118, 132, 14, numeric, taxId),
+            (118, 132, 14, alphaNumericRightAligned, taxId),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

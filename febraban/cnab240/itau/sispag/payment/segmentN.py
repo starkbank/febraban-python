@@ -1,7 +1,7 @@
 # coding: utf-8
 # Pagamento de Contas de Concessionárias e Tributos sem código de barras # Página 31
 from ....row import Row
-from ....characterType import numeric, alphaNumeric
+from ....characterType import numeric, alphaNumeric, alphaNumericRightAligned
 
 
 class SegmentN:
@@ -57,7 +57,7 @@ class SegmentN:
 
     def setTaxId(self, taxId):
         structs = [
-            (24, 38, 14, alphaNumeric, taxId),
+            (24, 38, 14, alphaNumericRightAligned, taxId),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 

@@ -1,5 +1,5 @@
 from ....row import Row
-from ....characterType import numeric, alphaNumeric
+from ....characterType import numeric, alphaNumeric, alphaNumericRightAligned
 
 
 class HeaderLot:
@@ -28,7 +28,7 @@ class HeaderLot:
     def setSender(self, user):
         structs = [
             (17,  18,  1,      numeric, "1" if len(user.identifier) == 11 else "2"),
-            (18,  33, 15,      numeric, user.identifier),
+            (18,  33, 15,      alphaNumericRightAligned, user.identifier),
             (73, 103, 30, alphaNumeric, user.name)
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)

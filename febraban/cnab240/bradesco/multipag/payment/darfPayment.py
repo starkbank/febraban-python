@@ -33,7 +33,7 @@ class DarfPayment(NonBarCodePayment):
 
 
     def setTaxIdInfo(self, taxId):
-        taxId = "".join(c for c in taxId if c.isdigit())
+        taxId = "".join(c for c in taxId if c.isalnum()).upper()
         taxIdType = "2" if len(taxId) == 11 else "1"
         self.segmentN.setTaxIdType(taxIdType)
         self.segmentN.setTaxId(taxId)

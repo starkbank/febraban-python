@@ -1,7 +1,7 @@
 # coding: utf-8
 
 from ....row import Row
-from ....characterType import numeric, alphaNumeric
+from ....characterType import numeric, alphaNumeric, alphaNumericRightAligned
 
 
 class SegmentJ52:
@@ -31,7 +31,7 @@ class SegmentJ52:
     def setSender(self, user):
         structs = [
             (19, 20,  1,     numeric,  "1" if len(user.identifier) == 11 else "2"),
-            (20, 35, 15,     numeric,  user.identifier),
+            (20, 35, 15,     alphaNumericRightAligned,  user.identifier),
             (35, 75, 40, alphaNumeric, user.name)
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
@@ -39,7 +39,7 @@ class SegmentJ52:
     def setReceiverTaxId(self, receiverTaxId):
         structs = [
             (75, 76,  1,     numeric,  "1" if len(receiverTaxId) == 11 else "2"),
-            (76, 91, 15,     numeric,  receiverTaxId),
+            (76, 91, 15,     alphaNumericRightAligned,  receiverTaxId),
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
 
