@@ -1,5 +1,5 @@
 from ....row import Row
-from ....characterType import numeric, alphaNumeric
+from ....characterType import numeric, alphaNumeric, alphaNumericRightAligned
 
 
 class SegmentQ:
@@ -38,7 +38,7 @@ class SegmentQ:
     def setPayer(self, user):
         structs = [
             (17,  18,  1,      numeric, "1" if len(user.identifier) == 11 else "2"),  # 1 - CPF/ 2 - CNPJ
-            (18,  33, 15,      numeric, user.identifier),                             # CPF/CNPJ do Pagador
+            (18,  33, 15,      alphaNumericRightAligned, user.identifier),                             # CPF/CNPJ do Pagador
             (33,  63, 30, alphaNumeric, user.name)                                    # Nome do Pagador
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)
@@ -56,7 +56,7 @@ class SegmentQ:
     def setGuarantor(self, user):
         structs = [
             (153, 154,  1,      numeric, "1" if len(user.identifier) == 11 else "2"), # 1 - CPF/ 2 - CNPJ
-            (154, 169, 15,      numeric, user.identifier),                            # CPF/CNPJ do Sacador Avalista
+            (154, 169, 15,      alphaNumericRightAligned, user.identifier),                            # CPF/CNPJ do Sacador Avalista
             (169, 199, 30, alphaNumeric, user.name)                                   # Nome do Sacador Avalista
         ]
         self.content = Row.setStructs(structs=structs, content=self.content)

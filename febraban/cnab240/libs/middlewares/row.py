@@ -1,5 +1,5 @@
 from re import match
-from ...characterType import alphaNumeric, numeric
+from ...characterType import alphaNumeric, numeric, alphaNumericRightAligned
 
 
 def validateFormatter(func):
@@ -7,15 +7,16 @@ def validateFormatter(func):
        if type(numberOfCharacters) != int:
            raise ValueError("numberOfCharacters must be Integer")
 
-       if charactersType not in [alphaNumeric, numeric]:
-           raise ValueError("charactersType must be alphaNumeric or numeric")
+       if charactersType not in [alphaNumeric, numeric, alphaNumericRightAligned]:
+           raise ValueError("charactersType must be alphaNumeric, numeric or alphaNumericRightAligned")
 
        if not isinstance(string, str):
            raise ValueError("(%s,%s) is not an allowed value. It must be string" % (str(string), str(type(string))))
 
        regex = {
-           alphaNumeric: r'^[A-Za-z0-9\s\-]+$',
-           numeric:      r'^[0-9]+$'
+           alphaNumeric:             r'^[A-Za-z0-9\s\-]+$',
+           numeric:                  r'^[0-9]+$',
+           alphaNumericRightAligned: r'^[A-Z0-9]+$',
        }[charactersType]
        if string and not match(regex, string):
            raise ValueError("You add %s that is a non %s value" % (string, charactersType))

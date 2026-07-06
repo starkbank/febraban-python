@@ -1,5 +1,5 @@
 from .libs.middlewares.row import validateFormatter
-from .characterType import numeric, alphaNumeric
+from .characterType import numeric, alphaNumeric, alphaNumericRightAligned
 
 
 class Row:
@@ -11,7 +11,7 @@ class Row:
                 string=str(value),
                 charactersType=type,
                 numberOfCharacters=len,
-                defaultCharacter={numeric: "0", alphaNumeric: " "}[type]
+                defaultCharacter={numeric: "0", alphaNumeric: " ", alphaNumericRightAligned: "0"}[type]
             )
             content = content[:start] + replacement + content[start+len:]
         return content
@@ -25,14 +25,13 @@ class Row:
 
             Args:
                 string:             String to be completed
-                charactersType:     Can be .numeric or .alphaNumeric
+                charactersType:     Can be .numeric, .alphaNumeric or .alphaNumericRightAligned
                 numberOfCharacters: Integer that represents the max string len
                 defaultCharacter:   Single string with default character to be completed if string is short
             Returns:
                 String formatted
         """
-        if type(string) != str:              return defaultCharacter * numberOfCharacters
-        if len(string) > numberOfCharacters: return string[:numberOfCharacters]
-        if charactersType == numeric:        return defaultCharacter * (numberOfCharacters - len(string)) + string
-        if charactersType == alphaNumeric:   return string + defaultCharacter * (numberOfCharacters - len(string))
-        return string
+        if type(string) != str:                        return defaultCharacter * numberOfCharacters
+        if len(string) > numberOfCharacters:           return string[:numberOfCharacters]
+        if charactersType == alphaNumeric:             return string + defaultCharacter * (numberOfCharacters - len(string))
+        return defaultCharacter * (numberOfCharacters - len(string)) + string

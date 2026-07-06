@@ -4,7 +4,7 @@ class User:
 
     def __init__(self, name, identifier, bank=None, address=None):
         self.name = name
-        self.identifier = identifier
+        self.identifier = identifier.upper() if isinstance(identifier, str) else identifier
         self.bank = bank
         self.address = address
 
